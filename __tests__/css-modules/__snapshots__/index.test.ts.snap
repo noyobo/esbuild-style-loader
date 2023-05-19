@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`less-multiple index.test.ts: __tests__/css-modules/output/index.css 1`] = `
+"/* css-loader:./index.modules.css */
+.foo__oaQO_W {
+  color: red;
+}
+/*# sourceMappingURL=index.css.map */
+"
+`;
+
+exports[`less-multiple index.test.ts: __tests__/css-modules/output/index.css.map 1`] = `
+"{
+  "version": 3,
+  "sources": ["css-loader:./index.modules.css"],
+  "sourcesContent": [".foo__oaQO_W {\\n  color: red;\\n}\\n\\n/* #sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjpudWxsLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VzIjpbIlVzZXJzL25veW9iby9ob21lL2dpdGh1Yi9lc2J1aWxkLXN0eWxlLWxvYWRlci9fX3Rlc3RzX18vY3NzLW1vZHVsZXMvaW5kZXgubW9kdWxlcy5jc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLmZvbyB7XG4gIGNvbG9yOiByZWRcbn1cbiJdLCJuYW1lcyI6W119*/"],
+  "mappings": ";AAAA;AACE;AAAA;",
+  "names": []
+}
+"
+`;
+
+exports[`less-multiple index.test.ts: __tests__/css-modules/output/index.js 1`] = `
+"(() => {
+  // style-loader:./index.modules.css
+  var index_modules_default = { "foo": "foo__oaQO_W" };
+
+  // __tests__/css-modules/index.js
+  console.log(index_modules_default);
+})();
+//# sourceMappingURL=index.js.map
+"
+`;
+
+exports[`less-multiple index.test.ts: __tests__/css-modules/output/index.js.map 1`] = `
+"{
+  "version": 3,
+  "sources": ["style-loader:./index.modules.css", "../index.js"],
+  "sourcesContent": ["import './index.modules.css';\\nexport default {\\"foo\\":\\"foo__oaQO_W\\"};", "import styles from './index.modules.css';\\n\\nconsole.log(styles);\\n"],
+  "mappings": ";;AACA,MAAO,wBAAQ,EAAC,OAAM,cAAa;;;ACCnC,UAAQ,IAAI,qBAAM;",
+  "names": []
+}
+"
+`;
