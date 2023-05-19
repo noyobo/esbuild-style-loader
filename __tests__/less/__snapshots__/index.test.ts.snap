@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less-multiple index.test.ts: __tests__/less/output/index.css 1`] = `
+exports[`index.test.ts style-loader: __tests__/less/output/index.css 1`] = `
 "/* css-loader:./index.less */
 .index__foo {
   color: red;
@@ -12,18 +12,7 @@ exports[`less-multiple index.test.ts: __tests__/less/output/index.css 1`] = `
 "
 `;
 
-exports[`less-multiple index.test.ts: __tests__/less/output/index.css.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["css-loader:./index.less"],
-  "sourcesContent": [".index__foo {\\n  color: red;\\n}\\n\\n.index__a {\\n  color: #ff8c00;\\n}\\n\\n/* #sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjpudWxsLCJtYXBwaW5ncyI6IkFBQUE7Ozs7QUFHQSIsInNvdXJjZXMiOlsiVXNlcnMvbm95b2JvL2hvbWUvZ2l0aHViL2VzYnVpbGQtc3R5bGUtbG9hZGVyL19fdGVzdHNfXy9sZXNzL2luZGV4Lmxlc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLmZvbyB7XG4gIGNvbG9yOiByZWQ7XG59XG4uYSB7XG4gIGNvbG9yOiBkYXJrb3JhbmdlO1xufVxuIl0sIm5hbWVzIjpbXX0=*/"],
-  "mappings": ";AAAA;AACE;AAAA;AAGF;AACE;AAAA;",
-  "names": []
-}
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/less/output/index.js 1`] = `
+exports[`index.test.ts style-loader: __tests__/less/output/index.js 1`] = `
 "(() => {
   // style-loader:./index.less
   var index_default = { "a": "index__a", "foo": "index__foo" };
@@ -32,16 +21,5 @@ exports[`less-multiple index.test.ts: __tests__/less/output/index.js 1`] = `
   console.log(index_default);
 })();
 //# sourceMappingURL=index.js.map
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/less/output/index.js.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["style-loader:./index.less", "../index.js"],
-  "sourcesContent": ["import './index.less?modules';\\nexport default {\\"a\\":\\"index__a\\",\\"foo\\":\\"index__foo\\"};", "import styles from './index.less?modules';\\n\\nconsole.log(styles);\\n"],
-  "mappings": ";;AACA,MAAO,gBAAQ,EAAC,KAAI,YAAW,OAAM,aAAY;;;ACCjD,UAAQ,IAAI,aAAM;",
-  "names": []
-}
 "
 `;

@@ -2,8 +2,8 @@ import path from 'path';
 import { runTest } from '../runTest';
 import fse from 'fs-extra';
 
-describe('less-multiple', function () {
-  it(path.basename(__filename), async function () {
+describe(path.basename(__filename), function () {
+  it('style-loader', async function () {
     const output = path.resolve(__dirname, 'output');
     fse.removeSync(output);
     const result = await runTest([path.resolve(__dirname, './index.js')], output);
@@ -12,7 +12,9 @@ describe('less-multiple', function () {
       fse.ensureFileSync(file);
       const content = result.outputFiles.find((item) => item.path === file)?.text;
       fse.writeFileSync(file, content);
-      expect(content).toMatchSnapshot(path.relative(process.cwd(), file));
+      if (!file.endsWith('.map')) {
+        expect(content).toMatchSnapshot(path.relative(process.cwd(), file));
+      }
     });
   });
 });

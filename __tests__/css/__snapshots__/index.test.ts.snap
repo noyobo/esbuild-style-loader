@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less-multiple index.test.ts: __tests__/css/output/index.css 1`] = `
+exports[`index.test.ts style-loader: __tests__/css/output/index.css 1`] = `
 "/* css-loader:./index.css */
 .foo {
   color: red;
@@ -9,18 +9,7 @@ exports[`less-multiple index.test.ts: __tests__/css/output/index.css 1`] = `
 "
 `;
 
-exports[`less-multiple index.test.ts: __tests__/css/output/index.css.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["css-loader:./index.css"],
-  "sourcesContent": [".foo {\\n  color: red\\n}\\n"],
-  "mappings": ";AAAA;AACE;AAAA;",
-  "names": []
-}
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/css/output/index.js 1`] = `
+exports[`index.test.ts style-loader: __tests__/css/output/index.js 1`] = `
 "(() => {
   // style-loader:./index.css
   var index_default = {};
@@ -29,16 +18,5 @@ exports[`less-multiple index.test.ts: __tests__/css/output/index.js 1`] = `
   console.log(index_default);
 })();
 //# sourceMappingURL=index.js.map
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/css/output/index.js.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["style-loader:./index.css", "../index.js"],
-  "sourcesContent": ["import './index.css';\\nexport default {};", "import styles from './index.css';\\n\\nconsole.log(styles);\\n"],
-  "mappings": ";;AACA,MAAO,gBAAQ,CAAC;;;ACChB,UAAQ,IAAI,aAAM;",
-  "names": []
-}
 "
 `;

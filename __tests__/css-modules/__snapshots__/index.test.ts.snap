@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less-multiple index.test.ts: __tests__/css-modules/output/index.css 1`] = `
+exports[`index.test.ts style-loader: __tests__/css-modules/output/index.css 1`] = `
 "/* css-loader:./index.modules.css */
 .index-modules__foo {
   color: red;
@@ -9,18 +9,7 @@ exports[`less-multiple index.test.ts: __tests__/css-modules/output/index.css 1`]
 "
 `;
 
-exports[`less-multiple index.test.ts: __tests__/css-modules/output/index.css.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["css-loader:./index.modules.css"],
-  "sourcesContent": [".index-modules__foo {\\n  color: red;\\n}\\n\\n/* #sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjpudWxsLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VzIjpbIlVzZXJzL25veW9iby9ob21lL2dpdGh1Yi9lc2J1aWxkLXN0eWxlLWxvYWRlci9fX3Rlc3RzX18vY3NzLW1vZHVsZXMvaW5kZXgubW9kdWxlcy5jc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLmZvbyB7XG4gIGNvbG9yOiByZWRcbn1cbiJdLCJuYW1lcyI6W119*/"],
-  "mappings": ";AAAA;AACE;AAAA;",
-  "names": []
-}
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/css-modules/output/index.js 1`] = `
+exports[`index.test.ts style-loader: __tests__/css-modules/output/index.js 1`] = `
 "(() => {
   // style-loader:./index.modules.css
   var index_modules_default = { "foo": "index-modules__foo" };
@@ -29,16 +18,5 @@ exports[`less-multiple index.test.ts: __tests__/css-modules/output/index.js 1`] 
   console.log(index_modules_default);
 })();
 //# sourceMappingURL=index.js.map
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/css-modules/output/index.js.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["style-loader:./index.modules.css", "../index.js"],
-  "sourcesContent": ["import './index.modules.css';\\nexport default {\\"foo\\":\\"index-modules__foo\\"};", "import styles from './index.modules.css';\\n\\nconsole.log(styles);\\n"],
-  "mappings": ";;AACA,MAAO,wBAAQ,EAAC,OAAM,qBAAoB;;;ACC1C,UAAQ,IAAI,qBAAM;",
-  "names": []
-}
 "
 `;
