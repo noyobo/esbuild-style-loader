@@ -16,6 +16,7 @@ export const runTest = async (files: string[], outdir: string, options?: BuildOp
           write: false,
           sourcemap: true,
           external: !!OUTPUT_HTML ? undefined : ['react', 'react-dom'],
+          // target: ['es2015', 'chrome58', 'safari10', 'ios10'],
           plugins: [
             styleLoader({
               cssModules: {
