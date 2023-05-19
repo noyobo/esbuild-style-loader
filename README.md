@@ -39,3 +39,4 @@ import styles from './style.less';
 
 - [ ] Support for Stylus
 - [ ] Support for Sass
+- [ ] Support sourceMap
