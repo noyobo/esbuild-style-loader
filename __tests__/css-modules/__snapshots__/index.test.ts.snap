@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`index.test.ts style-loader: __tests__/css-modules/output/index.css 1`] = `
-"/* css-loader:./index.modules.css */
+"/* __tests__/css-modules/foo.css */
+/* css-loader:./index.modules.css */
 .index-modules__foo {
   color: red;
 }

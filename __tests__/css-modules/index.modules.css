@@ -1,3 +1,7 @@
+@import url('./foo.css');
+
 .foo {
   color: red
 }
+
+

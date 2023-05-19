@@ -130,6 +130,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         return {
           contents: cssContent,
           loader: 'css',
+          resolveDir: pluginData.resolveDir,
         };
       });
     },
