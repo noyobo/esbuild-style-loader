@@ -1,15 +1,16 @@
 import { Plugin } from 'esbuild';
 import PATH from 'path';
 import browserslist from 'browserslist';
-import { transform, browserslistToTargets } from 'lightningcss';
+import { transform, browserslistToTargets, CSSModulesConfig } from 'lightningcss';
 import { readFile } from 'fs/promises';
 import qs from 'query-string';
+import deepmerge from 'deepmerge';
 
 import { transformLess } from './transform-less';
 import { codeWithSourceMap, cssExportsToJs, parsePath, resolvePath } from './utils';
 import { convertLessError } from './less-utils';
 
-type StyleLoaderOptions = { filter?: RegExp; cssModules?: { pattern: string } };
+type StyleLoaderOptions = { filter?: RegExp; cssModules?: CSSModulesConfig };
 
 const defaultOptions: StyleLoaderOptions = {
   filter: /\.(css|scss|sass|less)(\?.*)?$/,
@@ -17,7 +18,7 @@ const defaultOptions: StyleLoaderOptions = {
 };
 
 export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
-  const opts = { ...defaultOptions, ...options };
+  const opts = deepmerge(defaultOptions, options);
 
   return {
     name: 'style-loader',
@@ -46,10 +47,17 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
 
         let entryContent: string = cssExportsToJs({}, pluginData.rawPath);
 
+        // enable css modules
+        // 1. if the file name contains `.modules.` or `.module.`
+        // 2. if the query contains `modules`
         const enableCssModules = /\.modules?\.(css|less|sass|scss)/.test(args.path) || 'modules' in pluginData.query;
 
-        if (extname === '.scss' || extname === '.sass') {
-          // TODO
+        if (extname === '.styl') {
+          // TODO: support stylus
+          throw new Error('stylus is not supported yet');
+        } else if (extname === '.scss' || extname === '.sass') {
+          // TODO: support sass
+          throw new Error('sass is not supported yet');
         } else if (extname === '.less') {
           const fileContent = await readFile(args.path, 'utf-8');
           try {
@@ -71,6 +79,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           cssModules: enableCssModules ? opts.cssModules : false,
           code: Buffer.from(cssContent),
         });
+        // TODO: throw error if css is invalid
 
         if (buildOptions.sourcemap && map) {
           cssContent = codeWithSourceMap(code.toString(), map.toString());
