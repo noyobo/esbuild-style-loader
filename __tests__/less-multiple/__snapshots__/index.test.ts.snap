@@ -1,71 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less-multiple index.test.ts: __tests__/less-multiple/output/index.css 1`] = `
+exports[`index.test.ts style-loader: __tests__/less-multiple/output/index.css 1`] = `
 "/* css-loader:./a.less */
-.a__dMwCzq {
+.a__app {
   color: red;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* css-loader:./b.less */
-.b__P4HbZG {
+.b__title {
   color: green;
 }
 /*# sourceMappingURL=index.css.map */
 "
 `;
 
-exports[`less-multiple index.test.ts: __tests__/less-multiple/output/index.css.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["css-loader:./a.less", "css-loader:./b.less"],
-  "sourcesContent": [".a__dMwCzq {\\n  color: red;\\n}\\n\\n/* #sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjpudWxsLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VzIjpbIlVzZXJzL25veW9iby9ob21lL2dpdGh1Yi9lc2J1aWxkLXN0eWxlLWxvYWRlci9fX3Rlc3RzX18vbGVzcy1tdWx0aXBsZS9hLmxlc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLmEge1xuICBjb2xvcjogcmVkO1xufVxuIl0sIm5hbWVzIjpbXX0=*/", ".b__P4HbZG {\\n  color: green;\\n}\\n\\n/* #sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjpudWxsLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VzIjpbIlVzZXJzL25veW9iby9ob21lL2dpdGh1Yi9lc2J1aWxkLXN0eWxlLWxvYWRlci9fX3Rlc3RzX18vbGVzcy1tdWx0aXBsZS9iLmxlc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLmIge1xuICBjb2xvcjogZ3JlZW47XG59XG4iXSwibmFtZXMiOltdfQ==*/"],
-  "mappings": ";AAAA;AACE;AAAA;;;ACDF;AACE;AAAA;",
-  "names": []
-}
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/less-multiple/output/index.js 1`] = `
+exports[`index.test.ts style-loader: __tests__/less-multiple/output/index.js 1`] = `
 "(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+  }) : x)(function(x) {
+    if (typeof require !== "undefined")
+      return require.apply(this, arguments);
+    throw new Error('Dynamic require of "' + x + '" is not supported');
+  });
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
+
+  // __tests__/less-multiple/index.jsx
+  var import_react = __toESM(__require("react"));
+  var import_client = __require("react-dom/client");
+
   // style-loader:./a.less
-  var a_default = { "a": "a__dMwCzq" };
+  var a_default = { "app": "a__app" };
 
   // style-loader:./b.less
-  var b_default = { "b": "b__P4HbZG" };
+  var b_default = { "title": "b__title" };
 
-  // __tests__/less-multiple/index.js
-  console.log(a_default, b_default);
+  // __tests__/less-multiple/index.jsx
+  var App = class extends import_react.default.Component {
+    render() {
+      return /* @__PURE__ */ import_react.default.createElement("div", { className: a_default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: b_default.title }, "Hello World"));
+    }
+  };
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
 })();
 //# sourceMappingURL=index.js.map
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/less-multiple/output/index.js.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["style-loader:./a.less", "style-loader:./b.less", "../index.js"],
-  "sourcesContent": ["import './a.less?modules';\\nexport default {\\"a\\":\\"a__dMwCzq\\"};", "import './b.less?modules';\\nexport default {\\"b\\":\\"b__P4HbZG\\"};", "import a from './a.less?modules';\\nimport b from './b.less?modules';\\n\\nconsole.log(a, b);\\n"],
-  "mappings": ";;AACA,MAAO,YAAQ,EAAC,KAAI,YAAW;;;ACA/B,MAAO,YAAQ,EAAC,KAAI,YAAW;;;ACE/B,UAAQ,IAAI,WAAG,SAAC;",
-  "names": []
-}
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/less-multiple/output-2/index.js 1`] = `
-"import a from "./a.less?modules";
-import b from "./b.less?modules";
-console.log(a, b);
-//# sourceMappingURL=index.js.map
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/less-multiple/output-2/index.js.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["../index.js"],
-  "sourcesContent": ["import a from './a.less?modules';\\nimport b from './b.less?modules';\\n\\nconsole.log(a, b);\\n"],
-  "mappings": "AAAA,OAAO,OAAO;AACd,OAAO,OAAO;AAEd,QAAQ,IAAI,GAAG,CAAC;",
-  "names": []
-}
 "
 `;

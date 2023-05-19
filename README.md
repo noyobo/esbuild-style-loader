@@ -2,14 +2,20 @@
 
 [![npm version](https://badge.fury.io/js/esbuild-style-loader.svg)](https://badge.fury.io/js/esbuild-style-loader)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js CI](https://github.com/noyobo/esbuild-style-loader/actions/workflows/node.js.yml/badge.svg)](https://github.com/noyobo/esbuild-style-loader/actions/workflows/node.js.yml)
+
+A style (`.css` `.less` `.scss` `.styl`) loader for esbuild.
 
 ## Features
 
 - Support for CSS, SCSS, Less, Stylus, PostCSS, and CSS Modules
 
 - [x] Support for CSS Modules
-- [x] Support for LESS
-- [x] Support for CSS
+- [x] Support for LESS `builtin` 
+- [x] Support for CSS 
+- [x] Autoprefixer for CSS `>= 0.25%, not dead`
+- [x] Support sourceMap
+- [x] Fast compiler engine by [lightningcss](https://lightningcss.dev/)
 
 ## Default behavior
 

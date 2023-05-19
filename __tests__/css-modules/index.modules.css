@@ -1,3 +1,13 @@
-.foo {
-  color: red
+@import url('./foo.css?modules');
+
+.title {
+  font-size: 30px;
+  color: red;
 }
+
+
+:global(.bar) {
+  font-size: 30px;
+  color: red;
+}
+

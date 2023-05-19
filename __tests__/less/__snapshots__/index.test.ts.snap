@@ -1,47 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less-multiple index.test.ts: __tests__/less/output/index.css 1`] = `
+exports[`index.test.ts style-loader: __tests__/less/output/index.css 1`] = `
 "/* css-loader:./index.less */
-.foo__NIFbrG {
+.index__app {
   color: red;
+  -webkit-user-select: none;
+  user-select: none;
 }
-.a__NIFbrG {
-  color: #ff8c00;
+.index__title {
+  font-size: 40px;
 }
 /*# sourceMappingURL=index.css.map */
 "
 `;
 
-exports[`less-multiple index.test.ts: __tests__/less/output/index.css.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["css-loader:./index.less"],
-  "sourcesContent": [".foo__NIFbrG {\\n  color: red;\\n}\\n\\n.a__NIFbrG {\\n  color: #ff8c00;\\n}\\n\\n/* #sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjpudWxsLCJtYXBwaW5ncyI6IkFBQUE7Ozs7QUFHQSIsInNvdXJjZXMiOlsiVXNlcnMvbm95b2JvL2hvbWUvZ2l0aHViL2VzYnVpbGQtc3R5bGUtbG9hZGVyL19fdGVzdHNfXy9sZXNzL2luZGV4Lmxlc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLmZvbyB7XG4gIGNvbG9yOiByZWQ7XG59XG4uYSB7XG4gIGNvbG9yOiBkYXJrb3JhbmdlO1xufVxuIl0sIm5hbWVzIjpbXX0=*/"],
-  "mappings": ";AAAA;AACE;AAAA;AAGF;AACE;AAAA;",
-  "names": []
-}
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/less/output/index.js 1`] = `
+exports[`index.test.ts style-loader: __tests__/less/output/index.js 1`] = `
 "(() => {
-  // style-loader:./index.less
-  var index_default = { "a": "a__NIFbrG", "foo": "foo__NIFbrG" };
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+  }) : x)(function(x) {
+    if (typeof require !== "undefined")
+      return require.apply(this, arguments);
+    throw new Error('Dynamic require of "' + x + '" is not supported');
+  });
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
 
-  // __tests__/less/index.js
-  console.log(index_default);
+  // style-loader:./index.less
+  var index_default = { "app": "index__app", "title": "index__title" };
+
+  // __tests__/less/index.jsx
+  var import_react = __toESM(__require("react"));
+  var import_client = __require("react-dom/client");
+  var App = class extends import_react.default.Component {
+    render() {
+      return /* @__PURE__ */ import_react.default.createElement("div", { className: index_default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: index_default.title }, "Hello World"));
+    }
+  };
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
 })();
 //# sourceMappingURL=index.js.map
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/less/output/index.js.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["style-loader:./index.less", "../index.js"],
-  "sourcesContent": ["import './index.less?modules';\\nexport default {\\"a\\":\\"a__NIFbrG\\",\\"foo\\":\\"foo__NIFbrG\\"};", "import styles from './index.less?modules';\\n\\nconsole.log(styles);\\n"],
-  "mappings": ";;AACA,MAAO,gBAAQ,EAAC,KAAI,aAAY,OAAM,cAAa;;;ACCnD,UAAQ,IAAI,aAAM;",
-  "names": []
-}
 "
 `;

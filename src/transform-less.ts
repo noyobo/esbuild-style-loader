@@ -6,6 +6,9 @@ export const transformLess = async (inputContext: string, filePath: string) => {
     filename: filePath,
     syncImport: true,
     plugins: [new NpmImportPlugin({ prefix: '~' })],
-    // TODO: sourcemap
+    sourceMap: {
+      sourceMapFileInline: false,
+      outputSourceFiles: true,
+    },
   });
 };

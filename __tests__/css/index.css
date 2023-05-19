@@ -1,3 +1,9 @@
-.foo {
-  color: red
+.app {
+  padding: 20px;
+  user-select: none;
+}
+
+.title {
+  font-size: 20px;
+  color: #000;
 }

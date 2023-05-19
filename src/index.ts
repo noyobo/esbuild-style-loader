@@ -1,40 +1,49 @@
-import { OnLoadArgs, OnResolveArgs, Plugin } from 'esbuild';
+import { Plugin } from 'esbuild';
 import PATH from 'path';
-import { transform } from 'lightningcss';
+import browserslist from 'browserslist';
+import { transform, browserslistToTargets, CSSModulesConfig } from 'lightningcss';
 import { readFile } from 'fs/promises';
 import qs from 'query-string';
+import deepmerge from 'deepmerge';
 
 import { transformLess } from './transform-less';
-import { codeWithSourceMap, cssExportsToJs, parsePath } from './utils';
+import { codeWithSourceMap, cssExportsToJs, parsePath, resolvePath } from './utils';
 import { convertLessError } from './less-utils';
 
-type StyleLoaderOptions = { filter?: RegExp; cssModules?: { pattern: string } };
+export { transformLess, convertLessError };
+
+type StyleLoaderOptions = {
+  filter?: RegExp;
+  cssModules?: CSSModulesConfig;
+  onTransform?: (code: string, path: string) => Promise<{ css: string; map: string }>;
+};
+
+const onTransform: StyleLoaderOptions['onTransform'] = async (code: string, path: string) => {
+  const extname = PATH.extname(path);
+  if (extname === '.less') {
+    const result = await transformLess(code, path).catch((error) => {
+      throw convertLessError(error);
+    });
+    return result;
+  } else if (extname === '.styl') {
+    // TODO: support stylus
+    throw new Error('stylus is not supported yet');
+  } else if (extname === '.scss' || extname === '.sass') {
+    // TODO: support sass
+    throw new Error('sass is not supported yet');
+  } else {
+    return { css: code, map: '' };
+  }
+};
 
 const defaultOptions: StyleLoaderOptions = {
   filter: /\.(css|scss|sass|less)(\?.*)?$/,
   cssModules: { pattern: '[local]__[hash]' },
+  onTransform,
 };
 
-function resolvePath(args: OnResolveArgs) {
-  const { path, query } = parsePath(args.path);
-  let absolutePath = path;
-  if (PATH.isAbsolute(absolutePath)) {
-    absolutePath = absolutePath;
-  } else {
-    absolutePath = PATH.join(args.resolveDir, absolutePath);
-  }
-
-  return { path: absolutePath, query };
-}
-
-function omit(obj: any, keys: string[]) {
-  const result = { ...obj };
-  keys.forEach((key) => delete result[key]);
-  return result;
-}
-
 export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
-  const opts = { ...defaultOptions, options };
+  const opts = deepmerge(defaultOptions, options);
 
   return {
     name: 'style-loader',
@@ -55,50 +64,48 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         };
       });
       build.onLoad({ filter: /.*/, namespace: 'style-loader' }, async (args) => {
-        const extname = PATH.extname(args.path);
         let cssContent: string;
+        let cssSourceMap: string;
         const pluginData = args.pluginData;
         args.path = pluginData.absolutePath;
 
         let entryContent: string = cssExportsToJs({}, pluginData.rawPath);
 
+        // enable css modules
+        // 1. if the file name contains `.modules.` or `.module.`
+        // 2. if the query contains `modules`
         const enableCssModules = /\.modules?\.(css|less|sass|scss)/.test(args.path) || 'modules' in pluginData.query;
 
-        if (extname === '.scss' || extname === '.sass') {
-          // TODO
-        } else if (extname === '.less') {
-          const fileContent = await readFile(args.path, 'utf-8');
-          try {
-            const result = await transformLess(fileContent, args.path);
-            cssContent = result.css;
-          } catch (error) {
-            return {
-              errors: [convertLessError(error)],
-              resolveDir: PATH.dirname(args.path),
-            };
-          }
-        } else if (extname === '.css') {
-          cssContent = await readFile(args.path, 'utf-8');
+        const fileContent = await readFile(args.path, 'utf-8');
+
+        try {
+          const result = await opts.onTransform(fileContent, args.path);
+          cssContent = result.css;
+          cssSourceMap = result.map;
+        } catch (error) {
+          return {
+            errors: [error],
+            resolveDir: PATH.dirname(args.path),
+          };
         }
 
-        if (enableCssModules) {
-          const {
-            code,
-            map,
-            exports = {},
-          } = transform({
-            sourceMap: true,
-            filename: args.path,
-            cssModules: opts.cssModules,
-            code: Buffer.from(cssContent),
-          });
+        const { code, map, exports } = transform({
+          targets: browserslistToTargets(browserslist('>= 0.25%, not dead')),
+          inputSourceMap: cssSourceMap,
+          sourceMap: true,
+          filename: args.path,
+          cssModules: enableCssModules ? opts.cssModules : false,
+          code: Buffer.from(cssContent),
+        });
+        // TODO: throw error if css is invalid
 
-          if (buildOptions.sourcemap && map) {
-            cssContent = codeWithSourceMap(code.toString(), map.toString());
-          } else {
-            cssContent = code.toString();
-          }
+        if (buildOptions.sourcemap && map) {
+          cssContent = codeWithSourceMap(code.toString(), map.toString());
+        } else {
+          cssContent = code.toString();
+        }
 
+        if (exports) {
           entryContent = cssExportsToJs(exports, pluginData.rawPath);
         }
 
@@ -130,6 +137,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         return {
           contents: cssContent,
           loader: 'css',
+          resolveDir: pluginData.resolveDir,
         };
       });
     },
