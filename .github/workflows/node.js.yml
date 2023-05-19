@@ -8,6 +8,7 @@ on:
     branches: [ "main" ]
     paths:
       - '*.js'
+      - '*.ts'
   pull_request:
     branches: [ "main" ]
 
