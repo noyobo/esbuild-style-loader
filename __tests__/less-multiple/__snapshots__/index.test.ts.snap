@@ -2,12 +2,12 @@
 
 exports[`less-multiple index.test.ts: __tests__/less-multiple/output/index.css 1`] = `
 "/* css-loader:./a.less */
-.a__dMwCzq {
+.a__a {
   color: red;
 }
 
 /* css-loader:./b.less */
-.b__P4HbZG {
+.b__b {
   color: green;
 }
 /*# sourceMappingURL=index.css.map */
@@ -18,7 +18,7 @@ exports[`less-multiple index.test.ts: __tests__/less-multiple/output/index.css.m
 "{
   "version": 3,
   "sources": ["css-loader:./a.less", "css-loader:./b.less"],
-  "sourcesContent": [".a__dMwCzq {\\n  color: red;\\n}\\n\\n/* #sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjpudWxsLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VzIjpbIlVzZXJzL25veW9iby9ob21lL2dpdGh1Yi9lc2J1aWxkLXN0eWxlLWxvYWRlci9fX3Rlc3RzX18vbGVzcy1tdWx0aXBsZS9hLmxlc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLmEge1xuICBjb2xvcjogcmVkO1xufVxuIl0sIm5hbWVzIjpbXX0=*/", ".b__P4HbZG {\\n  color: green;\\n}\\n\\n/* #sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjpudWxsLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VzIjpbIlVzZXJzL25veW9iby9ob21lL2dpdGh1Yi9lc2J1aWxkLXN0eWxlLWxvYWRlci9fX3Rlc3RzX18vbGVzcy1tdWx0aXBsZS9iLmxlc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLmIge1xuICBjb2xvcjogZ3JlZW47XG59XG4iXSwibmFtZXMiOltdfQ==*/"],
+  "sourcesContent": [".a__a {\\n  color: red;\\n}\\n\\n/* #sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjpudWxsLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VzIjpbIlVzZXJzL25veW9iby9ob21lL2dpdGh1Yi9lc2J1aWxkLXN0eWxlLWxvYWRlci9fX3Rlc3RzX18vbGVzcy1tdWx0aXBsZS9hLmxlc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLmEge1xuICBjb2xvcjogcmVkO1xufVxuIl0sIm5hbWVzIjpbXX0=*/", ".b__b {\\n  color: green;\\n}\\n\\n/* #sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjpudWxsLCJtYXBwaW5ncyI6IkFBQUEiLCJzb3VyY2VzIjpbIlVzZXJzL25veW9iby9ob21lL2dpdGh1Yi9lc2J1aWxkLXN0eWxlLWxvYWRlci9fX3Rlc3RzX18vbGVzcy1tdWx0aXBsZS9iLmxlc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLmIge1xuICBjb2xvcjogZ3JlZW47XG59XG4iXSwibmFtZXMiOltdfQ==*/"],
   "mappings": ";AAAA;AACE;AAAA;;;ACDF;AACE;AAAA;",
   "names": []
 }
@@ -28,10 +28,10 @@ exports[`less-multiple index.test.ts: __tests__/less-multiple/output/index.css.m
 exports[`less-multiple index.test.ts: __tests__/less-multiple/output/index.js 1`] = `
 "(() => {
   // style-loader:./a.less
-  var a_default = { "a": "a__dMwCzq" };
+  var a_default = { "a": "a__a" };
 
   // style-loader:./b.less
-  var b_default = { "b": "b__P4HbZG" };
+  var b_default = { "b": "b__b" };
 
   // __tests__/less-multiple/index.js
   console.log(a_default, b_default);
@@ -44,8 +44,8 @@ exports[`less-multiple index.test.ts: __tests__/less-multiple/output/index.js.ma
 "{
   "version": 3,
   "sources": ["style-loader:./a.less", "style-loader:./b.less", "../index.js"],
-  "sourcesContent": ["import './a.less?modules';\\nexport default {\\"a\\":\\"a__dMwCzq\\"};", "import './b.less?modules';\\nexport default {\\"b\\":\\"b__P4HbZG\\"};", "import a from './a.less?modules';\\nimport b from './b.less?modules';\\n\\nconsole.log(a, b);\\n"],
-  "mappings": ";;AACA,MAAO,YAAQ,EAAC,KAAI,YAAW;;;ACA/B,MAAO,YAAQ,EAAC,KAAI,YAAW;;;ACE/B,UAAQ,IAAI,WAAG,SAAC;",
+  "sourcesContent": ["import './a.less?modules';\\nexport default {\\"a\\":\\"a__a\\"};", "import './b.less?modules';\\nexport default {\\"b\\":\\"b__b\\"};", "import a from './a.less?modules';\\nimport b from './b.less?modules';\\n\\nconsole.log(a, b);\\n"],
+  "mappings": ";;AACA,MAAO,YAAQ,EAAC,KAAI,OAAM;;;ACA1B,MAAO,YAAQ,EAAC,KAAI,OAAM;;;ACE1B,UAAQ,IAAI,WAAG,SAAC;",
   "names": []
 }
 "

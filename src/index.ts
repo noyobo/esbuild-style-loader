@@ -34,7 +34,7 @@ function omit(obj: any, keys: string[]) {
 }
 
 export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
-  const opts = { ...defaultOptions, options };
+  const opts = { ...defaultOptions, ...options };
 
   return {
     name: 'style-loader',

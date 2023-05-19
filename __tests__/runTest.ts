@@ -12,7 +12,13 @@ export const runTest = async (files: string[], outdir: string, options?: BuildOp
         bundle: true,
         write: false,
         sourcemap: true,
-        plugins: [styleLoader()],
+        plugins: [
+          styleLoader({
+            cssModules: {
+              pattern: '[name]__[local]',
+            },
+          }),
+        ],
       },
       options,
     ),
