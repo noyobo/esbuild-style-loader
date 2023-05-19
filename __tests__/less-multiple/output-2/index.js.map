@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../index.js"],
+  "sourcesContent": ["import a from './a.less?modules';\nimport b from './b.less?modules';\n\nconsole.log(a, b);\n"],
+  "mappings": "AAAA,OAAO,OAAO;AACd,OAAO,OAAO;AAEd,QAAQ,IAAI,GAAG,CAAC;",
+  "names": []
+}
