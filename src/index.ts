@@ -10,11 +10,36 @@ import { transformLess } from './transform-less';
 import { codeWithSourceMap, cssExportsToJs, parsePath, resolvePath } from './utils';
 import { convertLessError } from './less-utils';
 
-type StyleLoaderOptions = { filter?: RegExp; cssModules?: CSSModulesConfig };
+export { transformLess, convertLessError };
+
+type StyleLoaderOptions = {
+  filter?: RegExp;
+  cssModules?: CSSModulesConfig;
+  onTransform?: (code: string, path: string) => Promise<{ css: string; map: string }>;
+};
+
+const onTransform: StyleLoaderOptions['onTransform'] = async (code: string, path: string) => {
+  const extname = PATH.extname(path);
+  if (extname === '.less') {
+    const result = await transformLess(code, path).catch((error) => {
+      throw convertLessError(error);
+    });
+    return result;
+  } else if (extname === '.styl') {
+    // TODO: support stylus
+    throw new Error('stylus is not supported yet');
+  } else if (extname === '.scss' || extname === '.sass') {
+    // TODO: support sass
+    throw new Error('sass is not supported yet');
+  } else {
+    return { css: code, map: '' };
+  }
+};
 
 const defaultOptions: StyleLoaderOptions = {
   filter: /\.(css|scss|sass|less)(\?.*)?$/,
   cssModules: { pattern: '[local]__[hash]' },
+  onTransform,
 };
 
 export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
@@ -39,7 +64,6 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         };
       });
       build.onLoad({ filter: /.*/, namespace: 'style-loader' }, async (args) => {
-        const extname = PATH.extname(args.path);
         let cssContent: string;
         let cssSourceMap: string;
         const pluginData = args.pluginData;
@@ -52,23 +76,17 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         // 2. if the query contains `modules`
         const enableCssModules = /\.modules?\.(css|less|sass|scss)/.test(args.path) || 'modules' in pluginData.query;
 
-        if (extname === '.styl') {
-          // TODO: support stylus
-          throw new Error('stylus is not supported yet');
-        } else if (extname === '.scss' || extname === '.sass') {
-          // TODO: support sass
-          throw new Error('sass is not supported yet');
-        } else if (extname === '.less') {
-          const fileContent = await readFile(args.path, 'utf-8');
-          try {
-            const result = await transformLess(fileContent, args.path);
-            cssContent = result.css;
-            cssSourceMap = result.map;
-          } catch (error) {
-            return { errors: [convertLessError(error)], resolveDir: PATH.dirname(args.path) };
-          }
-        } else if (extname === '.css') {
-          cssContent = await readFile(args.path, 'utf-8');
+        const fileContent = await readFile(args.path, 'utf-8');
+
+        try {
+          const result = await opts.onTransform(fileContent, args.path);
+          cssContent = result.css;
+          cssSourceMap = result.map;
+        } catch (error) {
+          return {
+            errors: [error],
+            resolveDir: PATH.dirname(args.path),
+          };
         }
 
         const { code, map, exports } = transform({
