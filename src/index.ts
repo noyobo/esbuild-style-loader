@@ -57,6 +57,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
       build.onLoad({ filter: /.*/, namespace: 'style-loader' }, async (args) => {
         const extname = PATH.extname(args.path);
         let cssContent: string;
+        let cssSourceMap: string;
         const pluginData = args.pluginData;
         args.path = pluginData.absolutePath;
 
@@ -71,11 +72,9 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           try {
             const result = await transformLess(fileContent, args.path);
             cssContent = result.css;
+            cssSourceMap = result.map;
           } catch (error) {
-            return {
-              errors: [convertLessError(error)],
-              resolveDir: PATH.dirname(args.path),
-            };
+            return { errors: [convertLessError(error)], resolveDir: PATH.dirname(args.path) };
           }
         } else if (extname === '.css') {
           cssContent = await readFile(args.path, 'utf-8');
@@ -87,6 +86,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
             map,
             exports = {},
           } = transform({
+            inputSourceMap: cssSourceMap,
             sourceMap: true,
             filename: args.path,
             cssModules: opts.cssModules,

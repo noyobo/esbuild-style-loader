@@ -1,7 +1,7 @@
 import { CSSModuleExports } from 'lightningcss';
 
 export const codeWithSourceMap = (code: string, map: string) => {
-  return code + '\n/* #sourceMappingURL=data:application/json;base64,' + Buffer.from(map).toString('base64') + '*/';
+  return code + '/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map).toString('base64') + ' */';
 };
 
 export const cssExportsToJs = (exports: CSSModuleExports, entryFile: string) => {

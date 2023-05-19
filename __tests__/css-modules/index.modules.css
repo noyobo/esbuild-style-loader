@@ -1,7 +1,6 @@
-@import url('./foo.css');
+@import url('./foo.css?modules');
 
-.foo {
-  color: red
+.title {
+  font-size: 30px;
+  color: red;
 }
-
-
