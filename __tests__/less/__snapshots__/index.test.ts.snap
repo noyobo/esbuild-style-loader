@@ -26,7 +26,7 @@ exports[`less-multiple index.test.ts: __tests__/less/output/index.css.map 1`] = 
 exports[`less-multiple index.test.ts: __tests__/less/output/index.js 1`] = `
 "(() => {
   // style-loader:./index.less
-  var index_default = { "a": "a__NIFbrG", "foo": "foo__NIFbrG" };
+  var index_default = { "foo": "foo__NIFbrG", "a": "a__NIFbrG" };
 
   // __tests__/less/index.js
   console.log(index_default);
@@ -39,8 +39,8 @@ exports[`less-multiple index.test.ts: __tests__/less/output/index.js.map 1`] = `
 "{
   "version": 3,
   "sources": ["style-loader:./index.less", "../index.js"],
-  "sourcesContent": ["import './index.less?modules';\\nexport default {\\"a\\":\\"a__NIFbrG\\",\\"foo\\":\\"foo__NIFbrG\\"};", "import styles from './index.less?modules';\\n\\nconsole.log(styles);\\n"],
-  "mappings": ";;AACA,MAAO,gBAAQ,EAAC,KAAI,aAAY,OAAM,cAAa;;;ACCnD,UAAQ,IAAI,aAAM;",
+  "sourcesContent": ["import './index.less?modules';\\nexport default {\\"foo\\":\\"foo__NIFbrG\\",\\"a\\":\\"a__NIFbrG\\"};", "import styles from './index.less?modules';\\n\\nconsole.log(styles);\\n"],
+  "mappings": ";;AACA,MAAO,gBAAQ,EAAC,OAAM,eAAc,KAAI,YAAW;;;ACCnD,UAAQ,IAAI,aAAM;",
   "names": []
 }
 "

@@ -50,22 +50,3 @@ exports[`less-multiple index.test.ts: __tests__/less-multiple/output/index.js.ma
 }
 "
 `;
-
-exports[`less-multiple index.test.ts: __tests__/less-multiple/output-2/index.js 1`] = `
-"import a from "./a.less?modules";
-import b from "./b.less?modules";
-console.log(a, b);
-//# sourceMappingURL=index.js.map
-"
-`;
-
-exports[`less-multiple index.test.ts: __tests__/less-multiple/output-2/index.js.map 1`] = `
-"{
-  "version": 3,
-  "sources": ["../index.js"],
-  "sourcesContent": ["import a from './a.less?modules';\\nimport b from './b.less?modules';\\n\\nconsole.log(a, b);\\n"],
-  "mappings": "AAAA,OAAO,OAAO;AACd,OAAO,OAAO;AAEd,QAAQ,IAAI,GAAG,CAAC;",
-  "names": []
-}
-"
-`;
