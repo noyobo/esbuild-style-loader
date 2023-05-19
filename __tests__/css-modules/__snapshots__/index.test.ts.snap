@@ -4,10 +4,15 @@ exports[`index.test.ts style-loader: __tests__/css-modules/output/index.css 1`] 
 "/* __tests__/css-modules/foo.css?modules */
 .app {
   padding: 20px;
+  user-select: none;
 }
 
 /* css-loader:./index.modules.css */
 .index-modules__title {
+  color: red;
+  font-size: 30px;
+}
+.bar {
   color: red;
   font-size: 30px;
 }

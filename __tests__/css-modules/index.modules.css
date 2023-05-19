@@ -4,3 +4,10 @@
   font-size: 30px;
   color: red;
 }
+
+
+:global(.bar) {
+  font-size: 30px;
+  color: red;
+}
+

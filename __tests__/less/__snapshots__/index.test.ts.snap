@@ -4,6 +4,8 @@ exports[`index.test.ts style-loader: __tests__/less/output/index.css 1`] = `
 "/* css-loader:./index.less */
 .index__app {
   color: red;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .index__title {
   font-size: 40px;

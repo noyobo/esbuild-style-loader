@@ -1,4 +1,6 @@
 import { CSSModuleExports } from 'lightningcss';
+import { OnResolveArgs } from 'esbuild';
+import PATH from 'path';
 
 export const codeWithSourceMap = (code: string, map: string) => {
   return code + '/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map).toString('base64') + ' */';
@@ -32,3 +34,15 @@ export const parsePath = (path: string) => {
     };
   }
 };
+
+export function resolvePath(args: OnResolveArgs) {
+  const { path, query } = parsePath(args.path);
+  let absolutePath = path;
+  if (PATH.isAbsolute(absolutePath)) {
+    absolutePath = absolutePath;
+  } else {
+    absolutePath = PATH.join(args.resolveDir, absolutePath);
+  }
+
+  return { path: absolutePath, query };
+}

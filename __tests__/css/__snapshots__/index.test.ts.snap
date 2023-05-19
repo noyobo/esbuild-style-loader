@@ -3,11 +3,13 @@
 exports[`index.test.ts style-loader: __tests__/css/output/index.css 1`] = `
 "/* css-loader:./index.css */
 .app {
+  -webkit-user-select: none;
+  user-select: none;
   padding: 20px;
 }
 .title {
-  font-size: 20px;
   color: #000;
+  font-size: 20px;
 }
 /*# sourceMappingURL=index.css.map */
 "

@@ -12,6 +12,7 @@ A style loader for esbuild
 - [x] Support for CSS Modules
 - [x] Support for LESS
 - [x] Support for CSS
+- [x] Autoprefixer for CSS `>= 0.25%, not dead`
 
 ## Default behavior
 

@@ -1,3 +1,4 @@
 .app {
   padding: 20px;
+  user-select: none;
 }

@@ -4,6 +4,8 @@ exports[`index.test.ts style-loader: __tests__/less-multiple/output/index.css 1`
 "/* css-loader:./a.less */
 .a__app {
   color: red;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* css-loader:./b.less */

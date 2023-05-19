@@ -1,11 +1,12 @@
-import { OnLoadArgs, OnResolveArgs, Plugin } from 'esbuild';
+import { Plugin } from 'esbuild';
 import PATH from 'path';
-import { transform } from 'lightningcss';
+import browserslist from 'browserslist';
+import { transform, browserslistToTargets } from 'lightningcss';
 import { readFile } from 'fs/promises';
 import qs from 'query-string';
 
 import { transformLess } from './transform-less';
-import { codeWithSourceMap, cssExportsToJs, parsePath } from './utils';
+import { codeWithSourceMap, cssExportsToJs, parsePath, resolvePath } from './utils';
 import { convertLessError } from './less-utils';
 
 type StyleLoaderOptions = { filter?: RegExp; cssModules?: { pattern: string } };
@@ -14,24 +15,6 @@ const defaultOptions: StyleLoaderOptions = {
   filter: /\.(css|scss|sass|less)(\?.*)?$/,
   cssModules: { pattern: '[local]__[hash]' },
 };
-
-function resolvePath(args: OnResolveArgs) {
-  const { path, query } = parsePath(args.path);
-  let absolutePath = path;
-  if (PATH.isAbsolute(absolutePath)) {
-    absolutePath = absolutePath;
-  } else {
-    absolutePath = PATH.join(args.resolveDir, absolutePath);
-  }
-
-  return { path: absolutePath, query };
-}
-
-function omit(obj: any, keys: string[]) {
-  const result = { ...obj };
-  keys.forEach((key) => delete result[key]);
-  return result;
-}
 
 export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
   const opts = { ...defaultOptions, ...options };
@@ -80,25 +63,22 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           cssContent = await readFile(args.path, 'utf-8');
         }
 
-        if (enableCssModules) {
-          const {
-            code,
-            map,
-            exports = {},
-          } = transform({
-            inputSourceMap: cssSourceMap,
-            sourceMap: true,
-            filename: args.path,
-            cssModules: opts.cssModules,
-            code: Buffer.from(cssContent),
-          });
+        const { code, map, exports } = transform({
+          targets: browserslistToTargets(browserslist('>= 0.25%, not dead')),
+          inputSourceMap: cssSourceMap,
+          sourceMap: true,
+          filename: args.path,
+          cssModules: enableCssModules ? opts.cssModules : false,
+          code: Buffer.from(cssContent),
+        });
 
-          if (buildOptions.sourcemap && map) {
-            cssContent = codeWithSourceMap(code.toString(), map.toString());
-          } else {
-            cssContent = code.toString();
-          }
+        if (buildOptions.sourcemap && map) {
+          cssContent = codeWithSourceMap(code.toString(), map.toString());
+        } else {
+          cssContent = code.toString();
+        }
 
+        if (exports) {
           entryContent = cssExportsToJs(exports, pluginData.rawPath);
         }
 
