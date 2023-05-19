@@ -4,11 +4,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js CI](https://github.com/noyobo/esbuild-style-loader/actions/workflows/node.js.yml/badge.svg)](https://github.com/noyobo/esbuild-style-loader/actions/workflows/node.js.yml)
 
-A style (`.css` `.less` `.scss` `.styl`) loader for esbuild.
+A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules.
 
 ## Features
-
-- Support for CSS, SCSS, Less, Stylus, PostCSS, and CSS Modules
 
 - [x] Support for CSS Modules
 - [x] Support for LESS `builtin` 

@@ -1,11 +1,15 @@
 {
   "name": "esbuild-style-loader",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
   "description": "A style (`.css` `.less` `.scss` `.styl`) loader for esbuild.",
-  "keywords": ["esbuild", "esbuild-loader", "esuild-css-modules"],
+  "keywords": [
+    "esbuild",
+    "esbuild-loader",
+    "esuild-css-modules"
+  ],
   "dependencies": {
     "browserslist": "^4.21.5",
     "deepmerge": "^4.3.1",
