@@ -4,7 +4,12 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
-  "description": "A style (`.css` `.less` `.scss` `.styl`) loader for esbuild.",
+  "description": "A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules.",
+  "homepage": "https://github.com/noyobo/esbuild-style-loader",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:noyobo/esbuild-style-loader.git"
+  },
   "keywords": [
     "esbuild",
     "esbuild-loader",
@@ -16,6 +21,7 @@
     "esbuild": "^0.17.18",
     "less": "^4.1.3",
     "less-plugin-npm-import": "^2.1.0",
+    "less-test-module": "^0.0.10",
     "lightningcss": "^1.20.0",
     "query-string": "^7"
   },

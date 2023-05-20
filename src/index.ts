@@ -1,13 +1,13 @@
 import { Plugin } from 'esbuild';
 import PATH from 'path';
 import browserslist from 'browserslist';
-import { transform, browserslistToTargets, CSSModulesConfig } from 'lightningcss';
+import { transform, CSSModulesConfig } from 'lightningcss';
 import { readFile } from 'fs/promises';
 import qs from 'query-string';
 import deepmerge from 'deepmerge';
 
 import { transformLess } from './transform-less';
-import { codeWithSourceMap, cssExportsToJs, parsePath, resolvePath } from './utils';
+import { codeWithSourceMap, cssExportsToJs, generateTargets, parsePath, resolvePath } from './utils';
 import { convertLessError } from './less-utils';
 
 export { transformLess, convertLessError };
@@ -16,6 +16,7 @@ type StyleLoaderOptions = {
   filter?: RegExp;
   cssModules?: CSSModulesConfig;
   onTransform?: (code: string, path: string) => Promise<{ css: string; map: string }>;
+  browserslist?: Parameters<typeof browserslist>;
 };
 
 const onTransform: StyleLoaderOptions['onTransform'] = async (code: string, path: string) => {
@@ -40,10 +41,13 @@ const defaultOptions: StyleLoaderOptions = {
   filter: /\.(css|scss|sass|less)(\?.*)?$/,
   cssModules: { pattern: '[local]__[hash]' },
   onTransform,
+  browserslist: ['> 0.25%, not dead'],
 };
 
 export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
   const opts = deepmerge(defaultOptions, options);
+
+  const targets = generateTargets(...opts.browserslist);
 
   return {
     name: 'style-loader',
@@ -90,7 +94,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         }
 
         const { code, map, exports } = transform({
-          targets: browserslistToTargets(browserslist('>= 0.25%, not dead')),
+          targets: targets,
           inputSourceMap: cssSourceMap,
           sourceMap: true,
           filename: args.path,

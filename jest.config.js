@@ -4,4 +4,5 @@ module.exports = {
   transform: {
     '^.+\\.ts$': '@swc/jest',
   },
+  collectCoverageFrom: ['<rootDir>/src/**/*.*'],
 };

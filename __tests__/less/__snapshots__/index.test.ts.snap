@@ -10,6 +10,11 @@ exports[`index.test.ts style-loader: __tests__/less/output/index.css 1`] = `
 .index__title {
   font-size: 40px;
 }
+.index__index {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  color: bisque;
+}
 /*# sourceMappingURL=index.css.map */
 "
 `;
@@ -47,7 +52,7 @@ exports[`index.test.ts style-loader: __tests__/less/output/index.js 1`] = `
   ));
 
   // style-loader:./index.less
-  var index_default = { "app": "index__app", "title": "index__title" };
+  var index_default = { "app": "index__app", "index": "index__index", "title": "index__title" };
 
   // __tests__/less/index.jsx
   var import_react = __toESM(__require("react"));
