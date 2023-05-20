@@ -19,7 +19,7 @@ describe(path.basename(__filename), function () {
         expect(1).toBe(1);
       } else {
         if (!file.endsWith('.map')) {
-          expect(content).toMatchSnapshot(path.relative(process.cwd(), file));
+          expect(content).toMatchSnapshot();
         }
       }
     });
