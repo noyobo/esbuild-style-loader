@@ -2,6 +2,10 @@
 
 [![npm version](https://badge.fury.io/js/esbuild-style-loader.svg)](https://badge.fury.io/js/esbuild-style-loader)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![issues](https://img.shields.io/github/issues/noyobo/esbuild-style-loader.svg)](https://github.com/noyobo/esbuild-style-loader/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
+[![downloads](https://img.shields.io/npm/dm/esbuild-style-loader.svg)](https://www.npmjs.com/package/esbuild-style-loader)
+[![Code Coverage](https://codecov.io/gh/noyobo/esbuild-style-loader/branch/main/graph/badge.svg)](https://codecov.io/gh/noyobo/esbuild-style-loader)
 [![Node.js CI](https://github.com/noyobo/esbuild-style-loader/actions/workflows/node.js.yml/badge.svg)](https://github.com/noyobo/esbuild-style-loader/actions/workflows/node.js.yml)
 
 A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules.

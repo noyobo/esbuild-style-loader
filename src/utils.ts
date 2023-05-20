@@ -1,6 +1,7 @@
-import { CSSModuleExports } from 'lightningcss';
+import { browserslistToTargets, CSSModuleExports } from 'lightningcss';
 import { OnResolveArgs } from 'esbuild';
 import PATH from 'path';
+import browserslist from 'browserslist';
 
 export const codeWithSourceMap = (code: string, map: string) => {
   return code + '/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map).toString('base64') + ' */';
@@ -46,3 +47,7 @@ export function resolvePath(args: OnResolveArgs) {
 
   return { path: absolutePath, query };
 }
+
+export const generateTargets = (...args: Parameters<typeof browserslist>) => {
+  return browserslistToTargets(browserslist(...args));
+};

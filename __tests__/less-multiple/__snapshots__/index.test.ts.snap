@@ -12,6 +12,10 @@ exports[`index.test.ts style-loader: __tests__/less-multiple/output/index.css 1`
 .b__title {
   color: green;
 }
+.b__index {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
 /*# sourceMappingURL=index.css.map */
 "
 `;
@@ -56,7 +60,7 @@ exports[`index.test.ts style-loader: __tests__/less-multiple/output/index.js 1`]
   var a_default = { "app": "a__app" };
 
   // style-loader:./b.less
-  var b_default = { "title": "b__title" };
+  var b_default = { "index": "b__index", "title": "b__title" };
 
   // __tests__/less-multiple/index.jsx
   var App = class extends import_react.default.Component {
