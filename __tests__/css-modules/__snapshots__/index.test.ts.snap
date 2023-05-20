@@ -1,26 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index.test.ts style-loader: __tests__/css-modules/output/index.css 1`] = `
-"/* __tests__/css-modules/foo.css?modules */
-.app {
-  padding: 20px;
-  user-select: none;
-}
-
-/* css-loader:./index.modules.css */
-.index-modules__title {
-  color: red;
-  font-size: 30px;
-}
-.bar {
-  color: red;
-  font-size: 30px;
-}
-/*# sourceMappingURL=index.css.map */
-"
-`;
-
-exports[`index.test.ts style-loader: __tests__/css-modules/output/index.js 1`] = `
+exports[`index.test.ts style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -62,5 +42,25 @@ exports[`index.test.ts style-loader: __tests__/css-modules/output/index.js 1`] =
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
 })();
 //# sourceMappingURL=index.js.map
+"
+`;
+
+exports[`index.test.ts style-loader 2`] = `
+"/* __tests__/css-modules/foo.css?modules */
+.app {
+  padding: 20px;
+  user-select: none;
+}
+
+/* css-loader:./index.modules.css */
+.index-modules__title {
+  color: red;
+  font-size: 30px;
+}
+.bar {
+  color: red;
+  font-size: 30px;
+}
+/*# sourceMappingURL=index.css.map */
 "
 `;

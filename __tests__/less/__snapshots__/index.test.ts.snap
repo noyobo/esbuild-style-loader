@@ -1,25 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index.test.ts style-loader: __tests__/less/output/index.css 1`] = `
-"/* css-loader:./index.less */
-.index__app {
-  color: red;
-  -webkit-user-select: none;
-  user-select: none;
-}
-.index__title {
-  font-size: 40px;
-}
-.index__index {
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-  color: bisque;
-}
-/*# sourceMappingURL=index.css.map */
-"
-`;
-
-exports[`index.test.ts style-loader: __tests__/less/output/index.js 1`] = `
+exports[`index.test.ts style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -65,5 +46,24 @@ exports[`index.test.ts style-loader: __tests__/less/output/index.js 1`] = `
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
 })();
 //# sourceMappingURL=index.js.map
+"
+`;
+
+exports[`index.test.ts style-loader 2`] = `
+"/* css-loader:./index.less */
+.index__app {
+  color: red;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.index__title {
+  font-size: 40px;
+}
+.index__index {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  color: bisque;
+}
+/*# sourceMappingURL=index.css.map */
 "
 `;
