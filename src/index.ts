@@ -1,4 +1,4 @@
-import { Plugin } from 'esbuild';
+import { OnResolveArgs, Plugin } from 'esbuild';
 import PATH from 'path';
 import browserslist from 'browserslist';
 import { CSSModulesConfig, transform } from 'lightningcss';
@@ -14,6 +14,7 @@ export { transformLess, convertLessError };
 
 type StyleLoaderOptions = {
   filter?: RegExp;
+  namespace?: string[];
   cssModules?: CSSModulesConfig;
   onTransform?: (code: string, path: string) => Promise<{ css: string; map: string }>;
   browserslist?: Parameters<typeof browserslist>;
@@ -48,12 +49,14 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
 
   const targets = generateTargets(...opts.browserslist);
 
+  const allNamespaces = Array.from(new Set(['file'].concat(opts.namespace || [])));
+
   return {
     name: 'style-loader',
     setup(build) {
       const buildOptions = build.initialOptions;
 
-      build.onResolve({ filter: opts.filter, namespace: 'file' }, async (args) => {
+      const handleResolve = async (args: OnResolveArgs) => {
         const { path: fullPath, query } = await resolvePath(args, build);
         return {
           path: fullPath,
@@ -64,7 +67,16 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
             resolveDir: args.resolveDir,
           },
         };
+      };
+
+      /**
+       * you can use `namespace` to control the order of the plugins
+       */
+
+      allNamespaces.forEach((namespace) => {
+        build.onResolve({ filter: opts.filter, namespace }, handleResolve);
       });
+
       build.onLoad({ filter: /.*/, namespace: 'style-loader' }, async (args) => {
         let cssContent: string;
         let cssSourceMap: string;
