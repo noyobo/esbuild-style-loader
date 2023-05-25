@@ -36,10 +36,10 @@ exports[`index.test.ts style-loader 1`] = `
   var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
 
-  // style-loader:./a.less
+  
   var a_default = { "app": "a__app" };
 
-  // style-loader:./b.less
+  
   var b_default = { "index": "b__index", "title": "b__title" };
 
   // __tests__/less-multiple/index.jsx

@@ -1,5 +1,5 @@
 import path from 'path';
-import { runTest } from '../runTest';
+import { removeComments, runTest } from '../runTest';
 import fse from 'fs-extra';
 
 const OUTPUT_HTML = !!process.env.OUTPUT_HTML;
@@ -19,7 +19,7 @@ describe(path.basename(__filename), function () {
         expect(1).toBe(1);
       } else {
         if (!file.endsWith('.map')) {
-          expect(content).toMatchSnapshot();
+          expect(removeComments(content)).toMatchSnapshot();
         }
       }
     });
