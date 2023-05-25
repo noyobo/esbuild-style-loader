@@ -1,7 +1,7 @@
 import { Plugin } from 'esbuild';
 import PATH from 'path';
 import browserslist from 'browserslist';
-import { transform, CSSModulesConfig } from 'lightningcss';
+import { CSSModulesConfig, transform } from 'lightningcss';
 import { readFile } from 'fs/promises';
 import qs from 'query-string';
 import deepmerge from 'deepmerge';
@@ -22,10 +22,9 @@ type StyleLoaderOptions = {
 const onTransform: StyleLoaderOptions['onTransform'] = async (code: string, path: string) => {
   const extname = PATH.extname(path);
   if (extname === '.less') {
-    const result = await transformLess(code, path).catch((error) => {
+    return await transformLess(code, path).catch((error) => {
       throw convertLessError(error);
     });
-    return result;
   } else if (extname === '.styl') {
     // TODO: support stylus
     throw new Error('stylus is not supported yet');
@@ -54,16 +53,15 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
     setup(build) {
       const buildOptions = build.initialOptions;
 
-      build.onResolve({ filter: opts.filter, namespace: 'file' }, (args) => {
-        const parsedPath = parsePath(args.path);
+      build.onResolve({ filter: opts.filter, namespace: 'file' }, async (args) => {
+        const { path: fullPath, query } = await resolvePath(args, build);
         return {
-          path: parsedPath.path,
+          path: fullPath,
           namespace: 'style-loader',
           pluginData: {
             rawPath: args.path,
-            query: qs.parse(parsedPath.query),
+            query: qs.parse(query),
             resolveDir: args.resolveDir,
-            absolutePath: resolvePath(args).path,
           },
         };
       });
@@ -71,7 +69,6 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         let cssContent: string;
         let cssSourceMap: string;
         const pluginData = args.pluginData;
-        args.path = pluginData.absolutePath;
 
         let entryContent: string = cssExportsToJs({}, pluginData.rawPath);
 

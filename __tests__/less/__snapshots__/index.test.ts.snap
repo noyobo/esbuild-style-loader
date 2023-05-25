@@ -32,15 +32,15 @@ exports[`index.test.ts style-loader 1`] = `
     mod
   ));
 
-  // style-loader:./index.less
-  var index_default = { "app": "index__app", "index": "index__index", "title": "index__title" };
+  
+  var less_default = { "app": "index__app", "index": "index__index", "title": "index__title" };
 
   // __tests__/less/index.jsx
   var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
   var App = class extends import_react.default.Component {
     render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", { className: index_default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: index_default.title }, "Hello World"));
+      return /* @__PURE__ */ import_react.default.createElement("div", { className: less_default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: less_default.title }, "Hello World"));
     }
   };
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));

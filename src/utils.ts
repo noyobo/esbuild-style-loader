@@ -1,5 +1,5 @@
 import { browserslistToTargets, CSSModuleExports } from 'lightningcss';
-import { OnResolveArgs } from 'esbuild';
+import { OnResolveArgs, PluginBuild } from 'esbuild';
 import PATH from 'path';
 import browserslist from 'browserslist';
 
@@ -36,13 +36,16 @@ export const parsePath = (path: string) => {
   }
 };
 
-export function resolvePath(args: OnResolveArgs) {
+export async function resolvePath(args: OnResolveArgs, build: PluginBuild) {
   const { path, query } = parsePath(args.path);
   let absolutePath = path;
-  if (PATH.isAbsolute(absolutePath)) {
-    absolutePath = absolutePath;
-  } else {
-    absolutePath = PATH.join(args.resolveDir, absolutePath);
+  if (!PATH.isAbsolute(absolutePath)) {
+    const result = await build.resolve(absolutePath, {
+      resolveDir: args.resolveDir,
+      importer: args.importer,
+      kind: args.kind,
+    });
+    absolutePath = result.path;
   }
 
   return { path: absolutePath, query };

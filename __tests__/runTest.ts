@@ -5,6 +5,10 @@ import * as fse from 'fs-extra';
 
 const OUTPUT_HTML = !!process.env.OUTPUT_HTML;
 
+export const removeComments = (content: string) => {
+  return content.replace(/\/\/ style-loader(.+)/g, '');
+};
+
 export const runTest = async (files: string[], outdir: string, options?: BuildOptions) => {
   const result = await esbuild
     .build(
