@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/noyobo/esbuild-style-loader/compare/v0.1.3...v0.1.4) (2023-05-25)
+
+
+### Features
+
+* support addition namespace ([#5](https://github.com/noyobo/esbuild-style-loader/issues/5)) ([e731aee](https://github.com/noyobo/esbuild-style-loader/commit/e731aee7cf69ab4848c91f5d970106b3ff3d57f2))
+
 ### [0.1.3](https://github.com/noyobo/esbuild-style-loader/compare/v0.1.2...v0.1.3) (2023-05-25)
 
 
