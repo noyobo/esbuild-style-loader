@@ -45,6 +45,7 @@ exports[`index.test.ts style-loader 1`] = `
   // __tests__/less-alias/index.jsx
   var App = class extends import_react.default.Component {
     render() {
+      console.warn(a_default, b_default);
       return /* @__PURE__ */ import_react.default.createElement("div", { className: a_default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: b_default.title }, "Hello World"));
     }
   };
