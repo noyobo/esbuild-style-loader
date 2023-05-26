@@ -134,10 +134,24 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         };
       });
 
-      build.onResolve({ filter: opts.filter, namespace: 'style-loader' }, (args) => {
+      build.onResolve({ filter: opts.filter, namespace: 'style-loader' }, async (args) => {
         const parsedPath = parsePath(args.path);
+
+        const result = await build.resolve(parsedPath.path, {
+          kind: args.kind,
+          resolveDir: args.resolveDir,
+          importer: args.importer,
+        });
+
+        if (result.errors.length) {
+          return {
+            errors: result.errors,
+            resolveDir: PATH.dirname(args.path),
+          };
+        }
+
         return {
-          path: parsedPath.path,
+          path: result.path,
           namespace: 'css-loader',
           pluginData: args.pluginData,
         };

@@ -65,14 +65,14 @@ exports[`react-components style-loader 1`] = `
 `;
 
 exports[`react-components style-loader 2`] = `
-"/* css-loader:@/a.less */
+"
 .a__app {
   color: red;
   -webkit-user-select: none;
   user-select: none;
 }
 
-/* css-loader:@/b.less */
+
 .b__title {
   color: green;
 }
@@ -81,7 +81,7 @@ exports[`react-components style-loader 2`] = `
   backdrop-filter: blur(2px);
 }
 
-/* css-loader:./index.module.less */
+
 .index-module__foo {
   color: red;
 }
@@ -151,14 +151,14 @@ exports[`react-components style-loader 3`] = `
 `;
 
 exports[`react-components style-loader 4`] = `
-"/* css-loader:@/a.less */
+"
 .a__app {
   color: red;
   -webkit-user-select: none;
   user-select: none;
 }
 
-/* css-loader:./index.module.less */
+
 .index-module__foo {
   color: red;
 }

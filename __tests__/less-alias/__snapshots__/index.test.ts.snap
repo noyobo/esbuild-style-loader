@@ -56,14 +56,14 @@ exports[`less-alias style-loader 1`] = `
 `;
 
 exports[`less-alias style-loader 2`] = `
-"/* css-loader:@/a.less */
+"
 .a__app {
   color: red;
   -webkit-user-select: none;
   user-select: none;
 }
 
-/* css-loader:@/b.less */
+
 .b__title {
   color: green;
 }

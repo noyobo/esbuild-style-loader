@@ -12,11 +12,13 @@ describe(path.basename(path.dirname(__filename)), function () {
       [path.resolve(__dirname, './index.jsx'), path.resolve(__dirname, './index2.jsx')],
       output,
       {
+        metafile: true,
         alias: {
           '@': path.resolve(__dirname, '.'),
         },
       },
     );
+
     const allFile = result.outputFiles.map((item) => item.path);
     allFile.forEach((file) => {
       fse.ensureFileSync(file);
