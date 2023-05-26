@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index.test.ts style-loader 1`] = `
+exports[`less-multiple style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -54,15 +54,15 @@ exports[`index.test.ts style-loader 1`] = `
 "
 `;
 
-exports[`index.test.ts style-loader 2`] = `
-"/* css-loader:./a.less */
+exports[`less-multiple style-loader 2`] = `
+"
 .a__app {
   color: red;
   -webkit-user-select: none;
   user-select: none;
 }
 
-/* css-loader:./b.less */
+
 .b__title {
   color: green;
 }
