@@ -8,7 +8,15 @@ describe(path.basename(path.dirname(__filename)), function () {
   it('style-loader', async function () {
     const output = path.resolve(__dirname, 'output');
     fse.removeSync(output);
-    const result = await runTest([path.resolve(__dirname, './index.jsx')], output);
+    const result = await runTest(
+      [path.resolve(__dirname, './index.jsx'), path.resolve(__dirname, './index2.jsx')],
+      output,
+      {
+        alias: {
+          '@': path.resolve(__dirname, '.'),
+        },
+      },
+    );
     const allFile = result.outputFiles.map((item) => item.path);
     allFile.forEach((file) => {
       fse.ensureFileSync(file);

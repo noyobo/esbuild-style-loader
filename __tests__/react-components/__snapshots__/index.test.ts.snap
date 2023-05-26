@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`react-components style-loader 1`] = `
+"(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+  }) : x)(function(x) {
+    if (typeof require !== "undefined")
+      return require.apply(this, arguments);
+    throw new Error('Dynamic require of "' + x + '" is not supported');
+  });
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
+
+  // __tests__/react-components/index.jsx
+  var import_react2 = __toESM(__require("react"));
+  var import_client = __require("react-dom/client");
+
+  
+  var a_default = { "app": "a__app" };
+
+  
+  var b_default = { "index": "b__index", "title": "b__title" };
+
+  
+  var index_module_default = { "foo": "index-module__foo" };
+
+  // __tests__/react-components/foo/index.tsx
+  var import_react = __toESM(__require("react"));
+  var Foo = () => {
+    return /* @__PURE__ */ import_react.default.createElement("div", { className: index_module_default.foo }, "foo");
+  };
+
+  // __tests__/react-components/index.jsx
+  var App = class extends import_react2.default.Component {
+    render() {
+      console.warn(a_default, b_default);
+      return /* @__PURE__ */ import_react2.default.createElement("div", { className: a_default.app }, /* @__PURE__ */ import_react2.default.createElement("h1", { className: b_default.title }, "Hello World"), /* @__PURE__ */ import_react2.default.createElement(Foo, null));
+    }
+  };
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react2.default.createElement(App, null));
+})();
+//# sourceMappingURL=index.js.map
+"
+`;
+
+exports[`react-components style-loader 2`] = `
+"/* css-loader:@/a.less */
+.a__app {
+  color: red;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* css-loader:@/b.less */
+.b__title {
+  color: green;
+}
+.b__index {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+/* css-loader:./index.module.less */
+.index-module__foo {
+  color: red;
+}
+/*# sourceMappingURL=index.css.map */
+"
+`;
+
+exports[`react-components style-loader 3`] = `
+"(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+    get: (a, b2) => (typeof require !== "undefined" ? require : a)[b2]
+  }) : x)(function(x) {
+    if (typeof require !== "undefined")
+      return require.apply(this, arguments);
+    throw new Error('Dynamic require of "' + x + '" is not supported');
+  });
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
+
+  // __tests__/react-components/index2.jsx
+  var import_react2 = __toESM(__require("react"));
+  var import_client = __require("react-dom/client");
+
+  
+  var a_default = { "app": "a__app" };
+
+  
+  var index_module_default = { "foo": "index-module__foo" };
+
+  // __tests__/react-components/foo/index.tsx
+  var import_react = __toESM(__require("react"));
+  var Foo = () => {
+    return /* @__PURE__ */ import_react.default.createElement("div", { className: index_module_default.foo }, "foo");
+  };
+
+  // __tests__/react-components/index2.jsx
+  var App = class extends import_react2.default.Component {
+    render() {
+      console.warn(a_default, b);
+      return /* @__PURE__ */ import_react2.default.createElement("div", { className: a_default.app }, /* @__PURE__ */ import_react2.default.createElement(Foo, null));
+    }
+  };
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react2.default.createElement(App, null));
+})();
+//# sourceMappingURL=index2.js.map
+"
+`;
+
+exports[`react-components style-loader 4`] = `
+"/* css-loader:@/a.less */
+.a__app {
+  color: red;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* css-loader:./index.module.less */
+.index-module__foo {
+  color: red;
+}
+/*# sourceMappingURL=index2.css.map */
+"
+`;

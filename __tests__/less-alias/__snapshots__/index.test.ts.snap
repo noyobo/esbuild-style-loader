@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index.test.ts style-loader 1`] = `
+exports[`less-alias style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -55,7 +55,7 @@ exports[`index.test.ts style-loader 1`] = `
 "
 `;
 
-exports[`index.test.ts style-loader 2`] = `
+exports[`less-alias style-loader 2`] = `
 "/* css-loader:@/a.less */
 .a__app {
   color: red;

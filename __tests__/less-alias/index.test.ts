@@ -4,7 +4,7 @@ import fse from 'fs-extra';
 
 const OUTPUT_HTML = !!process.env.OUTPUT_HTML;
 
-describe(path.basename(__filename), function () {
+describe(path.basename(path.dirname(__filename)), function () {
   it('style-loader', async function () {
     const output = path.resolve(__dirname, 'output');
     fse.removeSync(output);
