@@ -50,7 +50,7 @@ exports[`less style-loader 1`] = `
 `;
 
 exports[`less style-loader 2`] = `
-"/* css-loader:./index.less */
+"
 .index__app {
   color: red;
   -webkit-user-select: none;

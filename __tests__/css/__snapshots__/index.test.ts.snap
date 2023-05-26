@@ -43,7 +43,7 @@ exports[`css style-loader 1`] = `
 `;
 
 exports[`css style-loader 2`] = `
-"/* css-loader:./index.css */
+"
 .app {
   -webkit-user-select: none;
   user-select: none;

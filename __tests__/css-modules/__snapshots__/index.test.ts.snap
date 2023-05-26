@@ -52,7 +52,7 @@ exports[`css-modules style-loader 2`] = `
   user-select: none;
 }
 
-/* css-loader:./index.modules.css */
+
 .index-modules__title {
   color: red;
   font-size: 30px;
