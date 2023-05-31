@@ -12,6 +12,7 @@ A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules
 
 ## Features
 
+- [x] Zero configuration
 - [x] Support for CSS Modules
 - [x] Support for LESS `builtin` 
 - [x] Support for CSS 
@@ -45,3 +46,6 @@ import styles from './style.less';
 
 - [ ] Support for Stylus
 - [ ] Support for Sass
+  - [x] [sass](https://www.npmjs.com/package/sass) 
+  - [ ] [node-sass](https://www.npmjs.com/package/node-sass) 
+  - [ ] [sass-embedded](https://www.npmjs.com/package/sass-embedded) 
