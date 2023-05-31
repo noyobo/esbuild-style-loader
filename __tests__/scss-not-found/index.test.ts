@@ -12,7 +12,7 @@ describe(path.basename(path.dirname(__filename)), function () {
     await runTest([path.resolve(__dirname, './index.jsx')], output).catch((error) => {
       formatMessages(error.errors, { kind: 'error', color: false }).then((res) => {
         expect(res.length).toBe(1);
-        expect(res[0]).toContain(`[ERROR] expected ";"`);
+        expect(res[0]).toContain(`[ERROR] ENOENT: no such file or directory`);
       });
     });
   });
