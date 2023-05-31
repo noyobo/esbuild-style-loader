@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less-alias style-loader 1`] = `
+exports[`scss style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -32,18 +32,15 @@ exports[`less-alias style-loader 1`] = `
     mod
   ));
 
-  // __tests__/less-alias/index.jsx
+  
+  var scss_default = { "app": "index__app", "index": "index__index", "title": "index__title" };
+
+  // __tests__/scss/index.jsx
   var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
-
-  
-  var a_default = { "app": "a__app", "index": "a__index", "title": "a__title" };
-
-  // __tests__/less-alias/index.jsx
   var App = class extends import_react.default.Component {
     render() {
-      console.warn(a_default);
-      return /* @__PURE__ */ import_react.default.createElement("div", { className: a_default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: a_default.title }, "Hello World"));
+      return /* @__PURE__ */ import_react.default.createElement("div", { className: scss_default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: scss_default.title }, "Hello World"));
     }
   };
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
@@ -52,19 +49,18 @@ exports[`less-alias style-loader 1`] = `
 "
 `;
 
-exports[`less-alias style-loader 2`] = `
+exports[`scss style-loader 2`] = `
 "
-.a__title {
-  color: green;
-}
-.a__index {
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-}
-.a__app {
+.index__app {
   color: red;
   -webkit-user-select: none;
   user-select: none;
+}
+.index__title {
+  font-size: 40px;
+}
+.index__index {
+  color: bisque;
 }
 /*# sourceMappingURL=index.css.map */
 "

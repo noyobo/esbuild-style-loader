@@ -1,0 +1,10 @@
+.app {
+  color: red;
+  user-select: none;
+}
+
+@import './a';
+
+.index {
+  color: bisque;
+}

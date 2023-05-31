@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import a from '@/a.less?modules';
+import a from '@/a.scss?modules';
 
 class App extends React.Component {
   render() {
