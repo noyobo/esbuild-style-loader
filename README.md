@@ -24,6 +24,9 @@ A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules
 
 The following rules enable css-modules
 
+1. The file name ends with /.modules?\.(css|less|scss|styl)/
+2. The file query contains `modules` or `modules=true`
+
 ```ts
 import styles from './style.css?modules';
 import styles from './style.module.css';
