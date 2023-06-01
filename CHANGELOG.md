@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/noyobo/esbuild-style-loader/compare/v0.1.6...v0.1.7) (2023-06-01)
+
+
+### Bug Fixes
+
+* css-loader resolve static file ([#8](https://github.com/noyobo/esbuild-style-loader/issues/8)) ([03cd1e2](https://github.com/noyobo/esbuild-style-loader/commit/03cd1e2f03b08be89b0c85d31af6258dada2f9b7))
+
 ### [0.1.6](https://github.com/noyobo/esbuild-style-loader/compare/v0.1.5...v0.1.6) (2023-06-01)
 
 
