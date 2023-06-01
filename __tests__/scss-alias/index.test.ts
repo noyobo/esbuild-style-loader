@@ -23,7 +23,7 @@ describe(path.basename(path.dirname(__filename)), function () {
       if (OUTPUT_HTML) {
         expect(1).toBe(1);
       } else {
-        if (!file.endsWith('.map')) {
+        if (file.endsWith('.js') || file.endsWith('.css')) {
           expect(removeComments(content)).toMatchSnapshot();
         }
       }

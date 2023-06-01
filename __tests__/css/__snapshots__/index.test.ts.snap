@@ -53,6 +53,10 @@ exports[`css style-loader 2`] = `
   color: #000;
   font-size: 20px;
 }
+@font-face {
+  font-family: iconfont;
+  src: url(./iconfont-SRJ4WUKK.ttf?t=1659513983328) format("truetype");
+}
 /*# sourceMappingURL=index.css.map */
 "
 `;

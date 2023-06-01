@@ -28,6 +28,10 @@ export const runTest = async (files: string[], outdir: string, options?: BuildOp
               },
             }),
           ],
+
+          loader: {
+            '.ttf': 'file',
+          },
         },
         options,
       ),

@@ -16,7 +16,12 @@ export const transformSass = async (
 ): Promise<TransformResult> => {
   const { sourcemap } = options;
   if (!sassEngine) {
-    sassEngine = getDefaultSassImplementation();
+    try {
+      sassEngine = getDefaultSassImplementation();
+    } catch (e) {
+      console.error(e);
+      process.exit(1);
+    }
   }
   const syntax = fileSyntax(filePath);
   const basedir = path.dirname(filePath);
