@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less-alias style-loader 1`] = `
+exports[`scss-alias style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -32,14 +32,14 @@ exports[`less-alias style-loader 1`] = `
     mod
   ));
 
-  // __tests__/less-alias/index.jsx
+  // __tests__/scss-alias/index.jsx
   var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
 
   
-  var a_default = { "app": "a__app", "index": "a__index", "title": "a__title" };
+  var a_default = { "app": "a__app", "title": "a__title" };
 
-  // __tests__/less-alias/index.jsx
+  // __tests__/scss-alias/index.jsx
   var App = class extends import_react.default.Component {
     render() {
       console.warn(a_default);
@@ -52,14 +52,10 @@ exports[`less-alias style-loader 1`] = `
 "
 `;
 
-exports[`less-alias style-loader 2`] = `
+exports[`scss-alias style-loader 2`] = `
 "
 .a__title {
   color: green;
-}
-.a__index {
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
 }
 .a__app {
   color: red;

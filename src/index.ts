@@ -9,6 +9,9 @@ import deepmerge from 'deepmerge';
 import { transformLess } from './transform-less';
 import { codeWithSourceMap, cssExportsToJs, generateTargets, parsePath, resolvePath } from './utils';
 import { convertLessError } from './less-utils';
+import { transformSass } from './transform-sass';
+import { TransformResult } from './types';
+import { convertScssError } from './sass-utils';
 
 export { transformLess, convertLessError };
 
@@ -16,31 +19,12 @@ type StyleLoaderOptions = {
   filter?: RegExp;
   namespace?: string[];
   cssModules?: CSSModulesConfig;
-  onTransform?: (code: string, path: string) => Promise<{ css: string; map: string }>;
   browserslist?: Parameters<typeof browserslist>;
-};
-
-const onTransform: StyleLoaderOptions['onTransform'] = async (code: string, path: string) => {
-  const extname = PATH.extname(path);
-  if (extname === '.less') {
-    return await transformLess(code, path).catch((error) => {
-      throw convertLessError(error);
-    });
-  } else if (extname === '.styl') {
-    // TODO: support stylus
-    throw new Error('stylus is not supported yet');
-  } else if (extname === '.scss' || extname === '.sass') {
-    // TODO: support sass
-    throw new Error('sass is not supported yet');
-  } else {
-    return { css: code, map: '' };
-  }
 };
 
 const defaultOptions: StyleLoaderOptions = {
   filter: /\.(css|scss|sass|less)(\?.*)?$/,
   cssModules: { pattern: '[local]__[hash]' },
-  onTransform,
   browserslist: ['> 0.25%, not dead'],
 };
 
@@ -55,6 +39,31 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
     name: 'style-loader',
     setup(build) {
       const buildOptions = build.initialOptions;
+
+      const styleTransform = async (filePath: string): Promise<TransformResult> => {
+        const extname = PATH.extname(filePath);
+        if (extname === '.less') {
+          return await transformLess(filePath, {
+            sourcemap: !!buildOptions.sourcemap,
+            alias: buildOptions.alias,
+          }).catch((error) => {
+            throw convertLessError(error);
+          });
+        } else if (extname === '.styl') {
+          // TODO: support stylus
+          throw new Error('stylus is not supported yet');
+        } else if (extname === '.scss' || extname === '.sass') {
+          return await transformSass(filePath, {
+            sourcemap: !!buildOptions.sourcemap,
+            alias: buildOptions.alias,
+          }).catch((error) => {
+            throw convertScssError(error, filePath);
+          });
+        } else {
+          const code = await readFile(filePath, 'utf-8');
+          return { css: code, map: '' };
+        }
+      };
 
       const handleResolve = async (args: OnResolveArgs) => {
         const { path: fullPath, query } = await resolvePath(args, build);
@@ -80,6 +89,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
       build.onLoad({ filter: /.*/, namespace: 'style-loader' }, async (args) => {
         let cssContent: string;
         let cssSourceMap: string;
+        let watchImports: string[] = [];
         const pluginData = args.pluginData;
 
         let entryContent: string = cssExportsToJs({}, pluginData.rawPath);
@@ -88,13 +98,13 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         // 1. if the file name contains `.modules.` or `.module.`
         // 2. if the query contains `modules`
         const enableCssModules = /\.modules?\.(css|less|sass|scss)/.test(args.path) || 'modules' in pluginData.query;
-
-        const fileContent = await readFile(args.path, 'utf-8');
+        let result: TransformResult;
 
         try {
-          const result = await opts.onTransform(fileContent, args.path);
+          result = await styleTransform(args.path);
           cssContent = result.css;
           cssSourceMap = result.map;
+          watchImports = result.imports;
         } catch (error) {
           return {
             errors: [error],
@@ -127,10 +137,9 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           loader: 'js',
           pluginName: 'style-loader',
           resolveDir: pluginData.resolveDir,
-          pluginData: {
-            ...pluginData,
-            cssContent,
-          },
+          watchFiles: watchImports,
+          pluginData: { ...pluginData, cssContent },
+          warnings: result.warnings,
         };
       });
 

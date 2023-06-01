@@ -1,17 +1,35 @@
 import lessEngine from 'less';
-import NpmImportPlugin from 'less-plugin-npm-import';
+import { LessPluginModuleResolver } from 'less-plugin-module-resolver';
+import { readFile } from 'fs/promises';
+import { TransformResult } from './types';
 
-export const transformLess = async (inputContext: string, filePath: string) => {
-  return await lessEngine.render(inputContext, {
+export const transformLess = async (
+  filePath: string,
+  options: { sourcemap: boolean; alias?: Record<string, string> },
+): Promise<TransformResult> => {
+  const code = await readFile(filePath, 'utf-8');
+  const result = await lessEngine.render(code, {
     filename: filePath,
     syncImport: true,
     /**
      * Legacy compatible
      */
-    plugins: [new NpmImportPlugin({ prefix: '~' })],
-    sourceMap: {
-      sourceMapFileInline: false,
-      outputSourceFiles: true,
-    },
+    plugins: [
+      new LessPluginModuleResolver({
+        alias: Object.assign({ '~': '' }, options.alias),
+      }),
+    ],
+    sourceMap: options.sourcemap
+      ? {
+          sourceMapFileInline: false,
+          outputSourceFiles: true,
+        }
+      : undefined,
   });
+
+  let { css, map, imports } = result;
+
+  imports = imports.filter((item) => item !== filePath);
+
+  return { css, map, imports };
 };

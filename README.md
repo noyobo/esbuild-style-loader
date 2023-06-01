@@ -12,6 +12,7 @@ A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules
 
 ## Features
 
+- [x] Zero configuration
 - [x] Support for CSS Modules
 - [x] Support for LESS `builtin` 
 - [x] Support for CSS 
@@ -22,6 +23,10 @@ A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules
 ## Default behavior
 
 The following rules enable css-modules
+
+1. The file name ends with `/.modules?\.(css|less|scss|sass|styl)/`
+2. The file query contains `modules` or `modules=true` 
+    - Can be used with plugins [esbuild-plugin-auto-css-modules](https://www.npmjs.com/package/esbuild-plugin-auto-css-modules)
 
 ```ts
 import styles from './style.css?modules';
@@ -45,3 +50,6 @@ import styles from './style.less';
 
 - [ ] Support for Stylus
 - [ ] Support for Sass
+  - [x] [sass](https://www.npmjs.com/package/sass) 
+  - [ ] [node-sass](https://www.npmjs.com/package/node-sass) 
+  - [ ] [sass-embedded](https://www.npmjs.com/package/sass-embedded) 
