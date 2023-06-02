@@ -10,9 +10,13 @@ export const codeWithSourceMap = (code: string, map: string) => {
 export const cssExportsToJs = (exports: CSSModuleExports, entryFile: string) => {
   const keys = Object.keys(exports).sort();
   const values = keys.map((key) => exports[key]);
-  const exportCode = `export default ${JSON.stringify(
-    Object.fromEntries(keys.map((key, index) => [key, values[index].name])),
-  )};`;
+  let exportCode = ``;
+
+  keys.map((key, index) => {
+    exportCode += `export const ${key} = "${values[index].name}";\n`;
+  });
+
+  exportCode += `export default {${keys.join(',')}};\n`;
 
   if (entryFile) {
     return `import '${entryFile}';\n${exportCode}`;

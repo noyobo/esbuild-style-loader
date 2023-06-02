@@ -37,7 +37,10 @@ exports[`less-alias style-loader 1`] = `
   var import_client = __require("react-dom/client");
 
   
-  var a_default = { "app": "a__app", "index": "a__index", "title": "a__title" };
+  var app = "a__app";
+  var index = "a__index";
+  var title = "a__title";
+  var a_default = { app, index, title };
 
   // __tests__/less-alias/index.jsx
   var App = class extends import_react.default.Component {

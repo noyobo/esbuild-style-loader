@@ -37,10 +37,13 @@ exports[`less-multiple style-loader 1`] = `
   var import_client = __require("react-dom/client");
 
   
-  var a_default = { "app": "a__app" };
+  var app = "a__app";
+  var a_default = { app };
 
   
-  var b_default = { "index": "b__index", "title": "b__title" };
+  var index = "b__index";
+  var title = "b__title";
+  var b_default = { index, title };
 
   // __tests__/less-multiple/index.jsx
   var App = class extends import_react.default.Component {
