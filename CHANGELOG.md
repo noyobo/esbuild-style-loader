@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.10 (2023-06-02)
+
+
+### Bug Fixes
+
+* browserslist not work ([61a43f3](https://github.com/noyobo/esbuild-style-loader/commit/61a43f35ed356a54d3875d1245f6146171a09b74))
+
 ### 0.1.9 (2023-06-02)
 
 
