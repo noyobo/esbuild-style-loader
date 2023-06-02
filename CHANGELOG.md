@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.9 (2023-06-02)
+
+
+### Bug Fixes
+
+* export object literal ([e6e6bb6](https://github.com/noyobo/esbuild-style-loader/commit/e6e6bb67c2125118a8928be06a61159a8898499c))
+
 ### [0.1.8](https://github.com/noyobo/esbuild-style-loader/compare/v0.1.7...v0.1.8) (2023-06-02)
 
 
