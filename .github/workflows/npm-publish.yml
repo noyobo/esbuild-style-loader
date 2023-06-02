@@ -1,0 +1,34 @@
+name: npm-publish
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checkout
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+#      - name: Install PNPM
+#        run: npm install -g pnpm
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Test package
+        run: npm run test
+      - name: Update version and generate release notes
+        run: npx standard-version
+      - name: Publish to npm
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
