@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user-case1 style-loader 1`] = `
+"(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+  }) : x)(function(x) {
+    if (typeof require !== "undefined")
+      return require.apply(this, arguments);
+    throw new Error('Dynamic require of "' + x + '" is not supported');
+  });
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
+
+  // __tests__/user-case1/index.jsx
+  var import_react = __toESM(__require("react"));
+  var import_client = __require("react-dom/client");
+  var App = () => /* @__PURE__ */ import_react.default.createElement("div", { className: "app" }, /* @__PURE__ */ import_react.default.createElement("h1", { className: "title" }, "Hello World"));
+  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
+})();
+//# sourceMappingURL=index.js.map
+"
+`;
+
+exports[`user-case1 style-loader 2`] = `
+"
+.index-modules__brightBox {
+  padding: 0 46rpx 0 66rpx;
+  height: 80rpx;
+  width: 100%;
+  margin-bottom: 28rpx;
+  flex-direction: row;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+.index-modules__brightBox .index-modules__sliderBox {
+  margin-left: 58rpx;
+  margin-right: 18rpx;
+  height: 60rpx;
+}
+.index-modules__brightBox .index-modules__text {
+  color: #fff;
+  font-size: 13px;
+  line-height: 80rpx;
+  width: 66rpx;
+  text-align: end;
+}
+.index-modules__sliderTextBox {
+  width: calc(100vw - 108rpx);
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  position: absolute;
+}
+/*# sourceMappingURL=index.css.map */
+"
+`;

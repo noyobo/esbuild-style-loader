@@ -66,6 +66,6 @@ export async function resolvePath(args: OnResolveArgs, build: PluginBuild) {
   return { path: absolutePath, query };
 }
 
-export const generateTargets = (...args: Parameters<typeof browserslist>) => {
-  return browserslistToTargets(browserslist(...args));
+export const generateTargets = (queries: string) => {
+  return browserslistToTargets(browserslist(queries));
 };

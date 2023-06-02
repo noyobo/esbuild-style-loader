@@ -26,6 +26,7 @@ export const runTest = async (files: string[], outdir: string, options?: BuildOp
               cssModules: {
                 pattern: '[name]__[local]',
               },
+              browsers: 'ios >= 11, android >= 5, chrome >= 54',
             }),
           ],
 

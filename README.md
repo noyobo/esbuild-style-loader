@@ -16,7 +16,8 @@ A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules
 - [x] Support for CSS Modules
 - [x] Support for LESS `builtin` 
 - [x] Support for CSS 
-- [x] Autoprefixer for CSS `>= 0.25%, not dead`
+- [x] Autoprefixer for CSS
+  - default: `ios >= 11, android >= 5, chrome >= 54`
 - [x] Support sourceMap
 - [x] Fast compiler engine by [lightningcss](https://lightningcss.dev/)
 

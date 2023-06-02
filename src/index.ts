@@ -19,19 +19,19 @@ type StyleLoaderOptions = {
   filter?: RegExp;
   namespace?: string[];
   cssModules?: CSSModulesConfig;
-  browserslist?: Parameters<typeof browserslist>;
+  browsers?: string;
 };
 
 const defaultOptions: StyleLoaderOptions = {
   filter: /\.(css|scss|sass|less)(\?.*)?$/,
   cssModules: { pattern: '[local]__[hash]' },
-  browserslist: ['> 0.25%, not dead'],
+  browsers: '> 0.25%, not dead',
 };
 
 export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
   const opts = deepmerge(defaultOptions, options);
 
-  const targets = generateTargets(...opts.browserslist);
+  const targets = generateTargets(opts.browsers);
 
   const allNamespaces = Array.from(new Set(['file'].concat(opts.namespace || [])));
 
