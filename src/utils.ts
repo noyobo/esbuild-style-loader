@@ -2,6 +2,7 @@ import { browserslistToTargets, CSSModuleExports } from 'lightningcss';
 import { OnResolveArgs, PluginBuild } from 'esbuild';
 import PATH from 'path';
 import browserslist from 'browserslist';
+import { camelCase } from 'camel-case';
 
 export const codeWithSourceMap = (code: string, map: string) => {
   return code + '/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map).toString('base64') + ' */';
@@ -13,10 +14,20 @@ export const cssExportsToJs = (exports: CSSModuleExports, entryFile: string) => 
   let exportCode = ``;
 
   keys.map((key, index) => {
-    exportCode += `export const ${key} = "${values[index].name}";\n`;
+    exportCode += `const ${camelCase(key)} = "${values[index].name}";\n`;
   });
 
-  exportCode += `export default {${keys.join(',')}};\n`;
+  exportCode += `export {${keys
+    .map((key) => {
+      return `${camelCase(key)} as '${key}'`;
+    })
+    .join(',')}};\n`;
+
+  exportCode += `export default {${keys
+    .map((key) => {
+      return `'${key}': ${camelCase(key)}`;
+    })
+    .join(',')}};\n`;
 
   if (entryFile) {
     return `import '${entryFile}';\n${exportCode}`;

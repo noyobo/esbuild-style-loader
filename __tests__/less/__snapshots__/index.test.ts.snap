@@ -36,7 +36,7 @@ exports[`less style-loader 1`] = `
   var app = "index__app";
   var index = "index__index";
   var title = "index__title";
-  var less_default = { app, index, title };
+  var less_default = { "app": app, "index": index, "title": title };
 
   // __tests__/less/index.jsx
   var import_react = __toESM(__require("react"));

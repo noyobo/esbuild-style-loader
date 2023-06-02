@@ -38,16 +38,16 @@ exports[`react-components style-loader 1`] = `
 
   
   var app = "a__app";
-  var a_default = { app };
+  var a_default = { "app": app };
 
   
   var index = "b__index";
   var title = "b__title";
-  var b_default = { index, title };
+  var b_default = { "index": index, "title": title };
 
   
   var foo = "index-module__foo";
-  var index_module_default = { foo };
+  var index_module_default = { "foo": foo };
 
   // __tests__/react-components/foo/index.tsx
   var import_react = __toESM(__require("react"));
@@ -131,11 +131,11 @@ exports[`react-components style-loader 3`] = `
 
   
   var app = "a__app";
-  var a_default = { app };
+  var a_default = { "app": app };
 
   
   var foo = "index-module__foo";
-  var index_module_default = { foo };
+  var index_module_default = { "foo": foo };
 
   // __tests__/react-components/foo/index.tsx
   var import_react = __toESM(__require("react"));

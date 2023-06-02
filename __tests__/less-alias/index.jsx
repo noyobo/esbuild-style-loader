@@ -1,14 +1,15 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import a from '@/a.less?modules';
+import * as a from '@/a.less?modules';
+import b from '@/a.less?modules';
 
 class App extends React.Component {
   render() {
-    console.warn(a);
+    console.warn(a, b);
     return (
       <div className={a.app}>
-        <h1 className={a.title}>Hello World</h1>
+        <h1 className={a['app-title']}>Hello World</h1>
       </div>
     );
   }
