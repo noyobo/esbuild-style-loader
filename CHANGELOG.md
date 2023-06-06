@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.11 (2023-06-06)
+
+
+### Features
+
+* catch transform css error ([#9](https://github.com/noyobo/esbuild-style-loader/issues/9)) ([df92aa8](https://github.com/noyobo/esbuild-style-loader/commit/df92aa863513cb7c3063d6f15cd8f0c721a3b685))
+
 ### 0.1.10 (2023-06-02)
 
 
