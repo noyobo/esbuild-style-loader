@@ -1,13 +1,12 @@
-import { OnResolveArgs, Plugin } from 'esbuild';
+import { OnResolveArgs, PartialMessage, Plugin } from 'esbuild';
 import PATH from 'path';
-import browserslist from 'browserslist';
 import { CSSModulesConfig, transform } from 'lightningcss';
 import { readFile } from 'fs/promises';
 import qs from 'query-string';
 import deepmerge from 'deepmerge';
 
 import { transformLess } from './transform-less';
-import { codeWithSourceMap, cssExportsToJs, generateTargets, parsePath, resolvePath } from './utils';
+import { codeWithSourceMap, cssExportsToJs, generateTargets, parsePath, replaceExtension, resolvePath } from './utils';
 import { convertLessError } from './less-utils';
 import { transformSass } from './transform-sass';
 import { TransformResult } from './types';
@@ -112,15 +111,38 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           };
         }
 
-        const { code, map, exports } = transform({
-          targets: targets,
-          inputSourceMap: cssSourceMap,
-          sourceMap: true,
-          filename: args.path,
-          cssModules: enableCssModules ? opts.cssModules : false,
-          code: Buffer.from(cssContent),
-        });
-        // TODO: throw error if css is invalid
+        let transformResult;
+
+        try {
+          transformResult = transform({
+            targets: targets,
+            inputSourceMap: cssSourceMap,
+            sourceMap: true,
+            filename: args.path,
+            cssModules: enableCssModules ? opts.cssModules : false,
+            code: Buffer.from(cssContent),
+          });
+        } catch (error) {
+          const { loc, fileName, source } = error;
+          const lines = source.split('\n');
+          const lineText = lines[loc.line - 1];
+          return {
+            errors: [
+              {
+                text: error.message,
+                location: {
+                  file: replaceExtension(fileName, '.css'),
+                  line: loc.line,
+                  column: loc.column,
+                  lineText,
+                },
+              } as PartialMessage,
+            ],
+            resolveDir: PATH.dirname(args.path),
+          };
+        }
+
+        const { code, map, exports } = transformResult;
 
         if (buildOptions.sourcemap && map) {
           cssContent = codeWithSourceMap(code.toString(), map.toString());

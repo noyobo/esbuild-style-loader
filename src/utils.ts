@@ -69,3 +69,8 @@ export async function resolvePath(args: OnResolveArgs, build: PluginBuild) {
 export const generateTargets = (queries: string) => {
   return browserslistToTargets(browserslist(queries));
 };
+
+export const replaceExtension = (file: string, ext: string) => {
+  const extName = PATH.extname(file);
+  return file.slice(0, file.length - extName.length) + ext;
+};
