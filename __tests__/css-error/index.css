@@ -1,0 +1,11 @@
+.app {
+  padding: 20px;
+  user-select: none;
+}
+
+.title {
+  font-size: var(-- 15px, 15px);
+  color: #000;
+}
+
+
