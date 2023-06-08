@@ -4,6 +4,7 @@ import { CSSModulesConfig, transform } from 'lightningcss';
 import { readFile } from 'fs/promises';
 import qs from 'query-string';
 import deepmerge from 'deepmerge';
+import colors from 'colors';
 
 import { transformLess } from './transform-less';
 import { codeWithSourceMap, cssExportsToJs, generateTargets, parsePath, replaceExtension, resolvePath } from './utils';
@@ -11,6 +12,8 @@ import { convertLessError } from './less-utils';
 import { transformSass } from './transform-sass';
 import { TransformResult } from './types';
 import { convertScssError } from './sass-utils';
+
+colors.enable();
 
 export { transformLess, convertLessError };
 
@@ -38,7 +41,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
     const { logLevel } = build.initialOptions;
     if (logLevel === 'debug' || logLevel === 'verbose') {
       return (...args) => {
-        console.log(`[esbuild-style-loader]`, ...args);
+        console.log(`[esbuild-style-loader]`.magenta.bold, ...args);
       };
     }
     return () => void 0;
@@ -49,6 +52,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
     setup(build) {
       const buildOptions = build.initialOptions;
       const logger = getLogger(build);
+      const cwd = process.cwd();
 
       const styleTransform = async (filePath: string): Promise<TransformResult> => {
         const extname = PATH.extname(filePath);
@@ -113,7 +117,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         try {
           const t = Date.now();
           result = await styleTransform(args.path);
-          logger(`Compile ${args.path} in ${Date.now() - t}ms`);
+          logger(`Compile`, PATH.relative(cwd, args.path).blue.underline, `in ${Date.now() - t}ms`);
           cssContent = result.css;
           cssSourceMap = result.map;
           watchImports = result.imports;
