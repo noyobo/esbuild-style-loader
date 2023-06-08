@@ -18,6 +18,7 @@
   "dependencies": {
     "browserslist": "^4.21.5",
     "camel-case": "^4.1.2",
+    "colors": "1.4.0",
     "deepmerge": "^4.3.1",
     "esbuild": "^0.17.18",
     "less": "^4.1.3",

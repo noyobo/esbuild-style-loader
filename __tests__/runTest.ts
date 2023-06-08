@@ -19,6 +19,7 @@ export const runTest = async (files: string[], outdir: string, options?: BuildOp
           bundle: true,
           write: false,
           sourcemap: true,
+          logLevel: 'debug',
           external: !!OUTPUT_HTML ? undefined : ['react', 'react-dom'],
           // target: ['es2015', 'chrome58', 'safari10', 'ios10'],
           plugins: [
