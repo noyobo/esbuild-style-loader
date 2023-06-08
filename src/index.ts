@@ -34,10 +34,21 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
 
   const allNamespaces = Array.from(new Set(['file'].concat(opts.namespace || [])));
 
+  const getLogger = (build) => {
+    const { logLevel } = build.initialOptions;
+    if (logLevel === 'debug' || logLevel === 'verbose') {
+      return (...args) => {
+        console.log(`[esbuild-style-loader]`, ...args);
+      };
+    }
+    return () => void 0;
+  };
+
   return {
     name: 'style-loader',
     setup(build) {
       const buildOptions = build.initialOptions;
+      const logger = getLogger(build);
 
       const styleTransform = async (filePath: string): Promise<TransformResult> => {
         const extname = PATH.extname(filePath);
@@ -100,7 +111,9 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         let result: TransformResult;
 
         try {
+          const t = Date.now();
           result = await styleTransform(args.path);
+          logger(`Compile ${args.path} in ${Date.now() - t}ms`);
           cssContent = result.css;
           cssSourceMap = result.map;
           watchImports = result.imports;
@@ -114,6 +127,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         let transformResult;
 
         try {
+          const t = Date.now();
           transformResult = transform({
             targets: targets,
             inputSourceMap: cssSourceMap,
@@ -122,6 +136,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
             cssModules: enableCssModules ? opts.cssModules : false,
             code: Buffer.from(cssContent),
           });
+          logger(`Transform css in ${Date.now() - t}ms`);
         } catch (error) {
           const { loc, fileName, source } = error;
           const lines = source.split('\n');
