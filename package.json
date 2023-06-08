@@ -1,6 +1,6 @@
 {
   "name": "esbuild-style-loader",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
