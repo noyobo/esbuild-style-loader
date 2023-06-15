@@ -33,10 +33,10 @@ exports[`scss style-loader 1`] = `
   ));
 
   
-  var app = "index__app";
-  var index = "index__index";
-  var title = "index__title";
-  var scss_default = { "app": app, "index": index, "title": title };
+  var s_app = "index__app";
+  var s_index = "index__index";
+  var s_title = "index__title";
+  var scss_default = { "app": s_app, "index": s_index, "title": s_title };
 
   // __tests__/scss/index.jsx
   var import_react = __toESM(__require("react"));

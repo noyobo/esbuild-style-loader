@@ -37,17 +37,17 @@ exports[`react-components style-loader 1`] = `
   var import_client = __require("react-dom/client");
 
   
-  var app = "a__app";
-  var a_default = { "app": app };
+  var s_app = "a__app";
+  var a_default = { "app": s_app };
 
   
-  var index = "b__index";
-  var title = "b__title";
-  var b_default = { "index": index, "title": title };
+  var s_index = "b__index";
+  var s_title = "b__title";
+  var b_default = { "index": s_index, "title": s_title };
 
   
-  var foo = "index-module__foo";
-  var index_module_default = { "foo": foo };
+  var s_foo = "index-module__foo";
+  var index_module_default = { "foo": s_foo };
 
   // __tests__/react-components/foo/index.tsx
   var import_react = __toESM(__require("react"));
@@ -130,12 +130,12 @@ exports[`react-components style-loader 3`] = `
   var import_client = __require("react-dom/client");
 
   
-  var app = "a__app";
-  var a_default = { "app": app };
+  var s_app = "a__app";
+  var a_default = { "app": s_app };
 
   
-  var foo = "index-module__foo";
-  var index_module_default = { "foo": foo };
+  var s_foo = "index-module__foo";
+  var index_module_default = { "foo": s_foo };
 
   // __tests__/react-components/foo/index.tsx
   var import_react = __toESM(__require("react"));

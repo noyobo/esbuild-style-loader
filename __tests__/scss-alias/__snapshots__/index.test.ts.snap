@@ -37,9 +37,9 @@ exports[`scss-alias style-loader 1`] = `
   var import_client = __require("react-dom/client");
 
   
-  var app = "a__app";
-  var title = "a__title";
-  var a_default = { "app": app, "title": title };
+  var s_app = "a__app";
+  var s_title = "a__title";
+  var a_default = { "app": s_app, "title": s_title };
 
   // __tests__/scss-alias/index.jsx
   var App = class extends import_react.default.Component {

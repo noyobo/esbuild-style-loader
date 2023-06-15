@@ -14,20 +14,12 @@ export const cssExportsToJs = (exports: CSSModuleExports, entryFile: string) => 
   let exportCode = ``;
 
   keys.map((key, index) => {
-    exportCode += `const ${camelCase(key)} = "${values[index].name}";\n`;
+    exportCode += `const s_${camelCase(key)} = "${values[index].name}";\n`;
   });
 
-  exportCode += `export {${keys
-    .map((key) => {
-      return `${camelCase(key)} as '${key}'`;
-    })
-    .join(',')}};\n`;
+  exportCode += `export {${keys.map((key) => `s_${camelCase(key)} as '${key}'`).join(',')}};\n`;
 
-  exportCode += `export default {${keys
-    .map((key) => {
-      return `'${key}': ${camelCase(key)}`;
-    })
-    .join(',')}};\n`;
+  exportCode += `export default {${keys.map((key) => `'${key}': s_${camelCase(key)}`).join(',')}};\n`;
 
   if (entryFile) {
     return `import '${entryFile}';\n${exportCode}`;
