@@ -61,6 +61,8 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
             sourcemap: !!buildOptions.sourcemap,
             alias: buildOptions.alias,
           }).catch((error) => {
+            logger(`transform less error: ${filePath}`.red.bold);
+            logger(error);
             throw convertLessError(error);
           });
         } else if (extname === '.styl') {
@@ -71,6 +73,8 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
             sourcemap: !!buildOptions.sourcemap,
             alias: buildOptions.alias,
           }).catch((error) => {
+            logger(`transform sass error: ${filePath}`.red.bold);
+            logger(error);
             throw convertScssError(error, filePath);
           });
         } else {
@@ -142,6 +146,8 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           });
           logger(`Transform css in ${Date.now() - t}ms`);
         } catch (error) {
+          logger(`Transform css error: ${args.path}`.red.bold);
+          logger(error);
           const { loc, fileName, source } = error;
           const lines = source.split('\n');
           const lineText = lines[loc.line - 1];

@@ -11,29 +11,26 @@ export const codeWithSourceMap = (code: string, map: string) => {
 export const cssExportsToJs = (exports: CSSModuleExports, entryFile: string) => {
   const keys = Object.keys(exports).sort();
   const values = keys.map((key) => exports[key]);
-  let exportCode = ``;
 
-  keys.map((key, index) => {
-    exportCode += `const ${camelCase(key)} = "${values[index].name}";\n`;
+  let variablesCode = '';
+  const exportCode = [];
+  const defaultCode = [];
+
+  keys.forEach((key, index) => {
+    const clsVar = `s_${camelCase(key)}`;
+    const clsSelector = values[index].name;
+    variablesCode += `const ${clsVar} = "${clsSelector}";\n`;
+    exportCode.push(`${clsVar} as '${key}'`);
+    defaultCode.push(`'${key}':${clsVar}`);
   });
 
-  exportCode += `export {${keys
-    .map((key) => {
-      return `${camelCase(key)} as '${key}'`;
-    })
-    .join(',')}};\n`;
-
-  exportCode += `export default {${keys
-    .map((key) => {
-      return `'${key}': ${camelCase(key)}`;
-    })
-    .join(',')}};\n`;
+  const code = `${variablesCode};\nexport {${exportCode.join(',')}};\nexport default {${defaultCode.join(',')}};\n`;
 
   if (entryFile) {
-    return `import '${entryFile}';\n${exportCode}`;
+    return `import '${entryFile}';\n${code}`;
   }
 
-  return exportCode;
+  return code;
 };
 
 /**
