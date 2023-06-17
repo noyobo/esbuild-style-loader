@@ -1,0 +1,8 @@
+@import url('./b.css');
+@import url('./c.tyss');
+
+.app {
+  padding: 20px;
+  user-select: none;
+}
+

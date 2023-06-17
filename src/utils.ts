@@ -13,18 +13,16 @@ export const cssExportsToJs = (exports: CSSModuleExports, entryFile: string) => 
   const values = keys.map((key) => exports[key]);
 
   let variablesCode = '';
-  const exportCode = [];
   const defaultCode = [];
 
-  keys.forEach((key, index) => {
-    const clsVar = `s_${camelCase(key)}`;
+  keys.sort().forEach((key, index) => {
+    const clsVariable = `s_${camelCase(key)}`;
     const clsSelector = values[index].name;
-    variablesCode += `const ${clsVar} = "${clsSelector}";\n`;
-    exportCode.push(`${clsVar} as '${key}'`);
-    defaultCode.push(`'${key}':${clsVar}`);
+    variablesCode += `const ${clsVariable} = "${clsSelector}";\n`;
+    defaultCode.push(`'${key}':${clsVariable}`);
   });
 
-  const code = `${variablesCode};\nexport {${exportCode.join(',')}};\nexport default {${defaultCode.join(',')}};\n`;
+  const code = `${variablesCode};\n;export default {${defaultCode.join(',')}};\n`;
 
   if (entryFile) {
     return `import '${entryFile}';\n${code}`;
