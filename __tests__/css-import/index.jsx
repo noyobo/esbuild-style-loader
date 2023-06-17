@@ -1,11 +1,10 @@
-import styles from './index.modules.css';
+import styles from './index.css';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-
 const App = () => (
   <div className={'app'}>
-    <h1 className={styles.title}>Hello World</h1>
+    <h1 className={'title'}>Hello World</h1>
   </div>
 );
 

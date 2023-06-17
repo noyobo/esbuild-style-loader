@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less-multiple style-loader 1`] = `
+exports[`css-import style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -32,52 +32,32 @@ exports[`less-multiple style-loader 1`] = `
     mod
   ));
 
-  // __tests__/less-multiple/index.jsx
+  // __tests__/css-import/index.jsx
   var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
-
-  
-  var s_app = "a__app";
-  var a_default = { "app": s_app };
-
-  
-  var s_index = "b__index";
-  var s_title = "b__title";
-  var b_default = { "index": s_index, "title": s_title };
-
-  // __tests__/less-multiple/index.jsx
-  var App = class extends import_react.default.Component {
-    render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", { className: a_default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: b_default.title }, "Hello World"));
-    }
-  };
+  var App = () => /* @__PURE__ */ import_react.default.createElement("div", { className: "app" }, /* @__PURE__ */ import_react.default.createElement("h1", { className: "title" }, "Hello World"));
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
 })();
 //# sourceMappingURL=index.js.map
 "
 `;
 
-exports[`less-multiple style-loader 2`] = `
-"/* __tests__/less-multiple/c.css */
+exports[`css-import style-loader 2`] = `
+"/* __tests__/css-import/b.css */
+.b {
+  color: red;
+}
+
+/* __tests__/css-import/c.tyss */
 .c {
-  color: #fff;
-  background: #000;
+  color: red;
 }
 
 
-.a__app {
-  color: red;
+.app {
   -webkit-user-select: none;
   user-select: none;
-}
-
-
-.b__title {
-  color: green;
-}
-.b__index {
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
+  padding: 20px;
 }
 /*# sourceMappingURL=index.css.map */
 "
