@@ -25,7 +25,7 @@
     "less-plugin-module-resolver": "^1.0.3",
     "less-plugin-npm-import": "^2.1.0",
     "lightningcss": "^1.20.0",
-    "query-string": "^7"
+    "query-string": "^8"
   },
   "files": [
     "lib"
