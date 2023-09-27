@@ -66,6 +66,7 @@ exports[`less style-loader 2`] = `
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   color: bisque;
+  background-image: url(/static/img/logo.png);
 }
 /*# sourceMappingURL=index.css.map */
 "

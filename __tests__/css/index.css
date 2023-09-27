@@ -6,6 +6,8 @@
 .title {
   font-size: 20px;
   color: #000;
+  /* ignore root files*/
+  background-image: url("/static/img/logo.png");
 }
 
 

@@ -223,6 +223,10 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           resolveDir: PATH.dirname(args.path),
         };
       });
+
+      build.onResolve({ filter: /^\//, namespace: 'css-loader' }, async (args) => {
+        return { external: true };
+      });
     },
   };
 };
