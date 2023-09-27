@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.15 (2023-09-27)
+
+
+### Bug Fixes
+
+* ignore css include absolute files ([fc97fe0](https://github.com/noyobo/esbuild-style-loader/commit/fc97fe0b2db1720546957af1b4cd964f89cb382d))
+
 ### 0.1.14 (2023-06-15)
 
 
