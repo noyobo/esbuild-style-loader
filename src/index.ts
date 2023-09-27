@@ -22,6 +22,7 @@ type StyleLoaderOptions = {
   namespace?: string[];
   cssModules?: CSSModulesConfig;
   browsers?: string;
+  publicPath?: string;
 };
 
 const defaultOptions: StyleLoaderOptions = {
@@ -225,6 +226,10 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
       });
 
       build.onResolve({ filter: /^\//, namespace: 'css-loader' }, async (args) => {
+        if (opts.publicPath) {
+          // absolute files base on publicPath
+          return { path: PATH.join(opts.publicPath, '.' + args.path) };
+        }
         return { external: true };
       });
     },
