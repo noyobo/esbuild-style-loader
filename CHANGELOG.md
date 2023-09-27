@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.16 (2023-09-27)
+
+
+### Bug Fixes
+
+* update css minify missing quotes ([e3c555b](https://github.com/noyobo/esbuild-style-loader/commit/e3c555be32b04ef0a114d52e67022d1f03f7a18a))
+
 ### 0.1.15 (2023-09-27)
 
 
