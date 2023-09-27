@@ -13,7 +13,7 @@ exports[`css-modules style-loader 1`] = `
   }) : x)(function(x) {
     if (typeof require !== "undefined")
       return require.apply(this, arguments);
-    throw new Error('Dynamic require of "' + x + '" is not supported');
+    throw Error('Dynamic require of "' + x + '" is not supported');
   });
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {

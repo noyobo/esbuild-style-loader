@@ -15,3 +15,9 @@
   font-family: "iconfont";
   src: url('iconfont.ttf?t=1659513983328') format('truetype');
 }
+
+/* 测试 样式合并 */
+.bg {
+  background: url('/public/image/icon/fire 2@2x.png') 100% center no-repeat;
+  background-size: cover;
+}
