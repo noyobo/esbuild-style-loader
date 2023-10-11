@@ -58,7 +58,13 @@ exports[`less-multiple style-loader 1`] = `
 `;
 
 exports[`less-multiple style-loader 2`] = `
-"
+"/* __tests__/less-multiple/c.css */
+.c {
+  color: #fff;
+  background: #000;
+}
+
+
 .a__app {
   color: red;
   -webkit-user-select: none;
