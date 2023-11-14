@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.17 (2023-11-14)
+
+
+### Bug Fixes
+
+* watch mode file change not work ([c12bf8b](https://github.com/noyobo/esbuild-style-loader/commit/c12bf8b59c1e6acd9846022519cae3f81ecda4d3))
+
 ### 0.1.16 (2023-09-27)
 
 
