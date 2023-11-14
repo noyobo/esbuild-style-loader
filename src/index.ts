@@ -131,10 +131,17 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           return {
             errors: [error],
             resolveDir: PATH.dirname(styleFile),
+            watchFiles: [styleFile],
           };
         }
 
         let transformResult;
+
+        const watchFiles = [styleFile];
+
+        if (watchImports) {
+          watchFiles.push(...watchImports);
+        }
 
         try {
           const t = Date.now();
@@ -166,6 +173,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
               } as PartialMessage,
             ],
             resolveDir: PATH.dirname(styleFile),
+            watchFiles,
           };
         }
 
@@ -179,12 +187,6 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
 
         if (exports) {
           entryContent = cssExportsToJs(exports, pluginData.rawPath);
-        }
-
-        const watchFiles = [styleFile];
-
-        if (watchImports) {
-          watchFiles.push(...watchImports);
         }
 
         return {
@@ -211,6 +213,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           return {
             errors: result.errors,
             resolveDir: PATH.dirname(args.path),
+            watchFiles: [args.path],
           };
         }
 
@@ -218,17 +221,19 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           path: result.path,
           namespace: 'css-loader',
           pluginData: args.pluginData,
+          watchFiles: [args.path],
         };
       });
 
       build.onLoad({ filter: /.*/, namespace: 'css-loader' }, async (args) => {
         const pluginData = args.pluginData;
-        const cssContent = pluginData.cssContent;
+        const { cssContent, rawPath } = pluginData;
 
         return {
           contents: cssContent,
           loader: 'css',
           resolveDir: PATH.dirname(args.path),
+          watchFiles: [rawPath],
         };
       });
 
