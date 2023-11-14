@@ -56,7 +56,7 @@ exports[`css style-loader 2`] = `
 }
 @font-face {
   font-family: iconfont;
-  src: url(./iconfont-SRJ4WUKK.ttf?t=1659513983328) format("truetype");
+  src: url("./iconfont-SRJ4WUKK.ttf?t=1659513983328") format("truetype");
 }
 .bg {
   background: url(/public/image/icon/fire\\ 2@2x.png) 100% / cover no-repeat;

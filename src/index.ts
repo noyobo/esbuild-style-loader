@@ -116,20 +116,21 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         // enable css modules
         // 1. if the file name contains `.modules.` or `.module.`
         // 2. if the query contains `modules`
-        const enableCssModules = /\.modules?\.(css|less|sass|scss)/.test(args.path) || 'modules' in pluginData.query;
+        let styleFile = args.path;
+        const enableCssModules = /\.modules?\.(css|less|sass|scss)/.test(styleFile) || 'modules' in pluginData.query;
         let result: TransformResult;
 
         try {
           const t = Date.now();
-          result = await styleTransform(args.path);
-          logger(`Compile`, PATH.relative(cwd, args.path).blue.underline, `in ${Date.now() - t}ms`);
+          result = await styleTransform(styleFile);
+          logger(`Compile`, PATH.relative(cwd, styleFile).blue.underline, `in ${Date.now() - t}ms`);
           cssContent = result.css;
           cssSourceMap = result.map;
           watchImports = result.imports;
         } catch (error) {
           return {
             errors: [error],
-            resolveDir: PATH.dirname(args.path),
+            resolveDir: PATH.dirname(styleFile),
           };
         }
 
@@ -141,13 +142,13 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
             targets: targets,
             inputSourceMap: cssSourceMap,
             sourceMap: true,
-            filename: args.path,
+            filename: styleFile,
             cssModules: enableCssModules ? opts.cssModules : false,
             code: Buffer.from(cssContent),
           });
           logger(`Transform css in ${Date.now() - t}ms`);
         } catch (error) {
-          logger(`Transform css error: ${args.path}`.red.bold);
+          logger(`Transform css error: ${styleFile}`.red.bold);
           logger(error);
           const { loc, fileName, source } = error;
           const lines = source.split('\n');
@@ -164,7 +165,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
                 },
               } as PartialMessage,
             ],
-            resolveDir: PATH.dirname(args.path),
+            resolveDir: PATH.dirname(styleFile),
           };
         }
 
@@ -180,12 +181,18 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           entryContent = cssExportsToJs(exports, pluginData.rawPath);
         }
 
+        const watchFiles = [styleFile];
+
+        if (watchImports) {
+          watchFiles.push(...watchImports);
+        }
+
         return {
           contents: entryContent,
           loader: 'js',
           pluginName: 'style-loader',
           resolveDir: pluginData.resolveDir,
-          watchFiles: watchImports,
+          watchFiles: watchFiles,
           pluginData: { ...pluginData, cssContent },
           warnings: result.warnings,
         };
