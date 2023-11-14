@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.18 (2023-11-14)
+
+
+### Bug Fixes
+
+* watch after emit error ([c69aabc](https://github.com/noyobo/esbuild-style-loader/commit/c69aabcb31a19f842eb904a2825380ca0507d5c7))
+
 ### 0.1.17 (2023-11-14)
 
 
