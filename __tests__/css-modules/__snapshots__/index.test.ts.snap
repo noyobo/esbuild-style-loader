@@ -15,6 +15,9 @@ exports[`css-modules style-loader 1`] = `
       return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
   });
+  var __commonJS = (cb, mod) => function __require2() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
@@ -32,13 +35,28 @@ exports[`css-modules style-loader 1`] = `
     mod
   ));
 
+  // css-loader:index.modules.css
+  var require_index_modules = __commonJS({
+    "css-loader:index.modules.css"(exports, module) {
+      module.exports = {};
+    }
+  });
+
   
-  var s_title = "index-modules__title";
+  var require_index_modules2 = __commonJS({
+    "style-loader:index.modules.css"(exports, module) {
+      require_index_modules();
+      var s_title = "index-modules__title";
+      exports["title"] = s_title;
+      module.exports = { "title": s_title };
+    }
+  });
 
   // __tests__/css-modules/index.jsx
+  var styles = __toESM(require_index_modules2());
   var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
-  var App = () => /* @__PURE__ */ import_react.default.createElement("div", { className: "app" }, /* @__PURE__ */ import_react.default.createElement("h1", { className: s_title }, "Hello World"));
+  var App = () => /* @__PURE__ */ import_react.default.createElement("div", { className: "app" }, /* @__PURE__ */ import_react.default.createElement("h1", { className: styles.title }, "Hello World"));
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
 })();
 //# sourceMappingURL=index.js.map
@@ -49,6 +67,7 @@ exports[`css-modules style-loader 2`] = `
 "/* __tests__/css-modules/foo.css?modules */
 .app {
   padding: 20px;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -56,6 +75,7 @@ exports[`css-modules style-loader 2`] = `
 .index-modules__title {
   color: red;
   font-size: 30px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, .3);
 }
 .bar {
   color: red;

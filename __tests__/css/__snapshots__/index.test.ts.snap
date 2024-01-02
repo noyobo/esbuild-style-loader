@@ -15,6 +15,9 @@ exports[`css style-loader 1`] = `
       return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
   });
+  var __commonJS = (cb, mod) => function __require2() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
@@ -32,7 +35,23 @@ exports[`css style-loader 1`] = `
     mod
   ));
 
+  // css-loader:index.css
+  var require_css = __commonJS({
+    "css-loader:index.css"(exports, module) {
+      module.exports = {};
+    }
+  });
+
+  
+  var require_css2 = __commonJS({
+    "style-loader:index.css"(exports, module) {
+      require_css();
+      module.exports = {};
+    }
+  });
+
   // __tests__/css/index.jsx
+  var import_index = __toESM(require_css2());
   var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
   var App = () => /* @__PURE__ */ import_react.default.createElement("div", { className: "app" }, /* @__PURE__ */ import_react.default.createElement("h1", { className: "title" }, "Hello World"));

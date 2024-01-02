@@ -12,14 +12,18 @@ describe(path.basename(path.dirname(__filename)), function () {
     const allFile = result.outputFiles.map((item) => item.path);
     allFile.forEach((file) => {
       fse.ensureFileSync(file);
-      const content = result.outputFiles.find((item) => item.path === file)?.text;
+      let content = result.outputFiles.find((item) => item.path === file)?.text;
+      content = removeComments(content);
+      content = content.replace(/((style|css)-loader:\S+)/g, (match, loader, type) => {
+        return `${type}-loader:${path.basename(loader)}`;
+      });
       fse.writeFileSync(file, content);
 
       if (OUTPUT_HTML) {
         expect(1).toBe(1);
       } else {
         if (file.endsWith('.js') || file.endsWith('.css')) {
-          expect(removeComments(content)).toMatchSnapshot();
+          expect(content).toMatchSnapshot();
         }
       }
     });
