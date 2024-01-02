@@ -21,12 +21,10 @@ export const runTest = async (files: string[], outdir: string, options?: BuildOp
           sourcemap: true,
           logLevel: 'debug',
           external: !!OUTPUT_HTML ? undefined : ['react', 'react-dom'],
-          // target: ['es2015', 'chrome58', 'safari10', 'ios10'],
+          target: ['es2015', 'chrome58', 'safari11'],
           plugins: [
             styleLoader({
-              cssModules: {
-                pattern: '[name]__[local]',
-              },
+              cssModules: { pattern: '[name]__[local]' },
               browsers: 'ios >= 11, android >= 5, chrome >= 54',
             }),
           ],

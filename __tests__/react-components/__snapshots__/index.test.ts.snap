@@ -9,12 +9,15 @@ exports[`react-components style-loader 1`] = `
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+    get: (a2, b2) => (typeof require !== "undefined" ? require : a2)[b2]
   }) : x)(function(x) {
     if (typeof require !== "undefined")
       return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
   });
+  var __commonJS = (cb, mod) => function __require2() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
@@ -32,34 +35,77 @@ exports[`react-components style-loader 1`] = `
     mod
   ));
 
+  // css-loader:a.less
+  var require_a = __commonJS({
+    "css-loader:a.less"(exports, module) {
+      module.exports = {};
+    }
+  });
+
+  
+  var require_a2 = __commonJS({
+    "style-loader:a.less"(exports, module) {
+      require_a();
+      var s_app = "a__app";
+      exports["app"] = s_app;
+      module.exports = { "app": s_app };
+    }
+  });
+
+  // css-loader:b.less
+  var require_b = __commonJS({
+    "css-loader:b.less"(exports, module) {
+      module.exports = {};
+    }
+  });
+
+  
+  var require_b2 = __commonJS({
+    "style-loader:b.less"(exports, module) {
+      require_b();
+      var s_index = "b__index";
+      var s_title = "b__title";
+      exports["index"] = s_index;
+      exports["title"] = s_title;
+      module.exports = { "index": s_index, "title": s_title };
+    }
+  });
+
+  // css-loader:index.module.less
+  var require_index_module = __commonJS({
+    "css-loader:index.module.less"(exports, module) {
+      module.exports = {};
+    }
+  });
+
+  
+  var require_index_module2 = __commonJS({
+    "style-loader:index.module.less"(exports, module) {
+      require_index_module();
+      var s_foo = "index-module__foo";
+      exports["foo"] = s_foo;
+      module.exports = { "foo": s_foo };
+    }
+  });
+
   // __tests__/react-components/index.jsx
   var import_react2 = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
-
-  
-  var s_app = "a__app";
-  var a_default = { "app": s_app };
-
-  
-  var s_index = "b__index";
-  var s_title = "b__title";
-  var b_default = { "index": s_index, "title": s_title };
-
-  
-  var s_foo = "index-module__foo";
-  var index_module_default = { "foo": s_foo };
+  var import_a = __toESM(require_a2());
+  var import_b = __toESM(require_b2());
 
   // __tests__/react-components/foo/index.tsx
+  var import_index_module = __toESM(require_index_module2());
   var import_react = __toESM(__require("react"));
   var Foo = () => {
-    return /* @__PURE__ */ import_react.default.createElement("div", { className: index_module_default.foo }, "foo");
+    return /* @__PURE__ */ import_react.default.createElement("div", { className: import_index_module.default.foo }, "foo");
   };
 
   // __tests__/react-components/index.jsx
   var App = class extends import_react2.default.Component {
     render() {
-      console.warn(a_default, b_default);
-      return /* @__PURE__ */ import_react2.default.createElement("div", { className: a_default.app }, /* @__PURE__ */ import_react2.default.createElement("h1", { className: b_default.title }, "Hello World"), /* @__PURE__ */ import_react2.default.createElement(Foo, null));
+      console.warn(import_a.default, import_b.default);
+      return /* @__PURE__ */ import_react2.default.createElement("div", { className: import_a.default.app }, /* @__PURE__ */ import_react2.default.createElement("h1", { className: import_b.default.title }, "Hello World"), /* @__PURE__ */ import_react2.default.createElement(Foo, null));
     }
   };
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react2.default.createElement(App, null));
@@ -102,12 +148,15 @@ exports[`react-components style-loader 3`] = `
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-    get: (a, b2) => (typeof require !== "undefined" ? require : a)[b2]
+    get: (a2, b2) => (typeof require !== "undefined" ? require : a2)[b2]
   }) : x)(function(x) {
     if (typeof require !== "undefined")
       return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
   });
+  var __commonJS = (cb, mod) => function __require2() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
@@ -125,29 +174,57 @@ exports[`react-components style-loader 3`] = `
     mod
   ));
 
+  // css-loader:a.less
+  var require_a = __commonJS({
+    "css-loader:a.less"(exports, module) {
+      module.exports = {};
+    }
+  });
+
+  
+  var require_a2 = __commonJS({
+    "style-loader:a.less"(exports, module) {
+      require_a();
+      var s_app = "a__app";
+      exports["app"] = s_app;
+      module.exports = { "app": s_app };
+    }
+  });
+
+  // css-loader:index.module.less
+  var require_index_module = __commonJS({
+    "css-loader:index.module.less"(exports, module) {
+      module.exports = {};
+    }
+  });
+
+  
+  var require_index_module2 = __commonJS({
+    "style-loader:index.module.less"(exports, module) {
+      require_index_module();
+      var s_foo = "index-module__foo";
+      exports["foo"] = s_foo;
+      module.exports = { "foo": s_foo };
+    }
+  });
+
   // __tests__/react-components/index2.jsx
   var import_react2 = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
-
-  
-  var s_app = "a__app";
-  var a_default = { "app": s_app };
-
-  
-  var s_foo = "index-module__foo";
-  var index_module_default = { "foo": s_foo };
+  var import_a = __toESM(require_a2());
 
   // __tests__/react-components/foo/index.tsx
+  var import_index_module = __toESM(require_index_module2());
   var import_react = __toESM(__require("react"));
   var Foo = () => {
-    return /* @__PURE__ */ import_react.default.createElement("div", { className: index_module_default.foo }, "foo");
+    return /* @__PURE__ */ import_react.default.createElement("div", { className: import_index_module.default.foo }, "foo");
   };
 
   // __tests__/react-components/index2.jsx
   var App = class extends import_react2.default.Component {
     render() {
-      console.warn(a_default, b);
-      return /* @__PURE__ */ import_react2.default.createElement("div", { className: a_default.app }, /* @__PURE__ */ import_react2.default.createElement(Foo, null));
+      console.warn(import_a.default, b);
+      return /* @__PURE__ */ import_react2.default.createElement("div", { className: import_a.default.app }, /* @__PURE__ */ import_react2.default.createElement(Foo, null));
     }
   };
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react2.default.createElement(App, null));

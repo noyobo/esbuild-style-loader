@@ -15,6 +15,9 @@ exports[`less style-loader 1`] = `
       return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
   });
+  var __commonJS = (cb, mod) => function __require2() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
@@ -32,18 +35,34 @@ exports[`less style-loader 1`] = `
     mod
   ));
 
+  // css-loader:index.less
+  var require_less = __commonJS({
+    "css-loader:index.less"(exports, module) {
+      module.exports = {};
+    }
+  });
+
   
-  var s_app = "index__app";
-  var s_index = "index__index";
-  var s_title = "index__title";
-  var less_default = { "app": s_app, "index": s_index, "title": s_title };
+  var require_less2 = __commonJS({
+    "style-loader:index.less"(exports, module) {
+      require_less();
+      var s_app = "index__app";
+      var s_index = "index__index";
+      var s_title = "index__title";
+      exports["app"] = s_app;
+      exports["index"] = s_index;
+      exports["title"] = s_title;
+      module.exports = { "app": s_app, "index": s_index, "title": s_title };
+    }
+  });
 
   // __tests__/less/index.jsx
+  var import_index = __toESM(require_less2());
   var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
   var App = class extends import_react.default.Component {
     render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", { className: less_default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: less_default.title }, "Hello World"));
+      return /* @__PURE__ */ import_react.default.createElement("div", { className: import_index.default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: import_index.default.title }, "Hello World"));
     }
   };
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));

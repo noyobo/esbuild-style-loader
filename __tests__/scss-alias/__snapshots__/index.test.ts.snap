@@ -9,12 +9,15 @@ exports[`scss-alias style-loader 1`] = `
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+    get: (a2, b) => (typeof require !== "undefined" ? require : a2)[b]
   }) : x)(function(x) {
     if (typeof require !== "undefined")
       return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
   });
+  var __commonJS = (cb, mod) => function __require2() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
@@ -32,20 +35,33 @@ exports[`scss-alias style-loader 1`] = `
     mod
   ));
 
+  // css-loader:a.scss
+  var require_a = __commonJS({
+    "css-loader:a.scss"(exports, module) {
+      module.exports = {};
+    }
+  });
+
+  
+  var require_a2 = __commonJS({
+    "style-loader:a.scss"(exports, module) {
+      require_a();
+      var s_app = "a__app";
+      var s_title = "a__title";
+      exports["app"] = s_app;
+      exports["title"] = s_title;
+      module.exports = { "app": s_app, "title": s_title };
+    }
+  });
+
   // __tests__/scss-alias/index.jsx
   var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
-
-  
-  var s_app = "a__app";
-  var s_title = "a__title";
-  var a_default = { "app": s_app, "title": s_title };
-
-  // __tests__/scss-alias/index.jsx
+  var import_a = __toESM(require_a2());
   var App = class extends import_react.default.Component {
     render() {
-      console.warn(a_default);
-      return /* @__PURE__ */ import_react.default.createElement("div", { className: a_default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: a_default.title }, "Hello World"));
+      console.warn(import_a.default);
+      return /* @__PURE__ */ import_react.default.createElement("div", { className: import_a.default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: import_a.default.title }, "Hello World"));
     }
   };
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));

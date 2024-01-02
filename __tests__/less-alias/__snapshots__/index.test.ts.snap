@@ -9,15 +9,14 @@ exports[`less-alias style-loader 1`] = `
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+    get: (a2, b2) => (typeof require !== "undefined" ? require : a2)[b2]
   }) : x)(function(x) {
     if (typeof require !== "undefined")
       return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
   });
-  var __export = (target, all) => {
-    for (var name in all)
-      __defProp(target, name, { get: all[name], enumerable: true });
+  var __commonJS = (cb, mod) => function __require2() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
@@ -36,28 +35,36 @@ exports[`less-alias style-loader 1`] = `
     mod
   ));
 
+  // css-loader:a.less
+  var require_a = __commonJS({
+    "css-loader:a.less"(exports, module) {
+      module.exports = {};
+    }
+  });
+
+  
+  var require_a2 = __commonJS({
+    "style-loader:a.less"(exports, module) {
+      require_a();
+      var s_app = "a__app";
+      var s_appTitle = "a__app-title";
+      var s_index = "a__index";
+      exports["app"] = s_app;
+      exports["app-title"] = s_appTitle;
+      exports["index"] = s_index;
+      module.exports = { "app": s_app, "app-title": s_appTitle, "index": s_index };
+    }
+  });
+
   // __tests__/less-alias/index.jsx
   var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
-
-  
-  var a_exports = {};
-  __export(a_exports, {
-    app: () => s_app,
-    "app-title": () => s_appTitle,
-    default: () => a_default,
-    index: () => s_index
-  });
-  var s_app = "a__app";
-  var s_appTitle = "a__app-title";
-  var s_index = "a__index";
-  var a_default = { "app": s_app, "app-title": s_appTitle, "index": s_index };
-
-  // __tests__/less-alias/index.jsx
+  var a = __toESM(require_a2());
+  var import_a = __toESM(require_a2());
   var App = class extends import_react.default.Component {
     render() {
-      console.warn(a_exports, a_default);
-      return /* @__PURE__ */ import_react.default.createElement("div", { className: s_app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: s_appTitle }, "Hello World"));
+      console.warn(a, import_a.default);
+      return /* @__PURE__ */ import_react.default.createElement("div", { className: a.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: a["app-title"] }, "Hello World"));
     }
   };
   (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
