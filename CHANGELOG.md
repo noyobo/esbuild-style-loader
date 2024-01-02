@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.19 (2024-01-02)
+
+
+### Bug Fixes
+
+* transfrom output code es5 ([#33](https://github.com/noyobo/esbuild-style-loader/issues/33)) ([664d079](https://github.com/noyobo/esbuild-style-loader/commit/664d079abacd022bc7ff7f898b2dd698cdd9f8c5))
+
 ### 0.1.18 (2023-11-14)
 
 
