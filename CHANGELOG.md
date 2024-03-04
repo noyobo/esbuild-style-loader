@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/noyobo/esbuild-style-loader/compare/v0.1.19...v0.2.0) (2024-03-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* esbuild ^0.20.0
+
+### bump
+
+* upgrade deps ([545cd06](https://github.com/noyobo/esbuild-style-loader/commit/545cd068f6e1bbd35732791c1c8f3dce82ba4268))
+
 ### 0.1.19 (2024-01-02)
 
 
