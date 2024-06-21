@@ -2,10 +2,16 @@
   "name": "esbuild-style-loader",
   "version": "0.2.1",
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "module": "esm/index.js",
+  "types": "types/index.d.ts",
   "license": "MIT",
   "description": "A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules.",
   "homepage": "https://github.com/noyobo/esbuild-style-loader",
+  "files": [
+    "lib",
+    "esm",
+    "types"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:noyobo/esbuild-style-loader.git"
@@ -28,7 +34,7 @@
   },
   "devDependencies": {
     "@swc/cli": "^0.3.12",
-    "@swc/core": "^1.5.27",
+    "@swc/core": "^1.6.3",
     "@swc/jest": "^0.2.36",
     "@types/fs-extra": "^11.0.2",
     "@types/jest": "^29.5.12",
@@ -47,13 +53,12 @@
   "peerDependencies": {
     "esbuild": "*"
   },
-  "files": [
-    "lib"
-  ],
   "scripts": {
     "test": "jest",
     "test:html": "OUTPUT_HTML=1 jest",
-    "build": "tsc -p tsconfig.build.json --outDir ./lib",
+    "build:dts": "tsc -p tsconfig.build.json --outDir ./types",
+    "build:lib": "swc src --strip-leading-paths -d lib -C module.type=commonjs -C jsc.target=es2016",
+    "build:esm": "swc src --strip-leading-paths -d esm -C module.type=es6 -C jsc.target=es2016",
     "prepublishOnly": "npm run build"
   },
   "publishConfig": {
