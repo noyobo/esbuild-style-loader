@@ -738,74 +738,74 @@
     slash "3.0.0"
     source-map "^0.7.3"
 
-"@swc/core-darwin-arm64@1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core-darwin-arm64/-/core-darwin-arm64-1.5.27.tgz#659f01c7687d5615785cabecab0f985a4e433326"
-  integrity sha512-jyoygXBcUcwUya2BI7Uvl0jwcm4kd0RBDGGkWgcFAZmwucSuLT3EsbpWhOwlL3ACT4rpnRlvh+k8nJlq3+w2Aw==
+"@swc/core-darwin-arm64@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core-darwin-arm64/-/core-darwin-arm64-1.6.3.tgz#63e7d9b3259ffc305075a0bb1c771428723e3df5"
+  integrity sha512-3r7cJf1BcE30iyF1rnOSKrEzIR+cqnyYSZvivrm62TZdXVsIjfXe1xulsKGxZgNeLY5erIu7ukvMvBvPhnQvqA==
 
-"@swc/core-darwin-x64@1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core-darwin-x64/-/core-darwin-x64-1.5.27.tgz#561e5ddeba0621ccd86445904327b5ac66887be6"
-  integrity sha512-eOC583D6b3MS9oODCcZUvAV7ajunjENAPVQL7aZaW+piERW+o4koZAiPlzFdMAUMj7UeVg+UN9sBBbTbJgruIA==
+"@swc/core-darwin-x64@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core-darwin-x64/-/core-darwin-x64-1.6.3.tgz#ec405e5af8a3fe65e03f3b47a527d4945e2cb1e5"
+  integrity sha512-8GLZ23IgVpF5xh2SbS5ZW/12/EEBuRU1hFOLB5rKERJU0y1RJ6YhDMf/FuOWhfHQcFM7TeedBwHIzaF+tdKKlw==
 
-"@swc/core-linux-arm-gnueabihf@1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core-linux-arm-gnueabihf/-/core-linux-arm-gnueabihf-1.5.27.tgz#b7d5e2504bc66f1b93766d8d2c3b6de6b6bb3821"
-  integrity sha512-bMvX0yF7WYzn1K+s0JWJhvyA3OeZHVrdjka8eZ4LSeuLfC0ggJefo+klyeuN2szn/LYP6/3oByyrWNY8RSHB4w==
+"@swc/core-linux-arm-gnueabihf@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core-linux-arm-gnueabihf/-/core-linux-arm-gnueabihf-1.6.3.tgz#30d83a296b1160afac91b27c0837b4f29fdb86fb"
+  integrity sha512-VQ/bduX7WhLOlGbJLMG7UH0LBehjjx43R4yuk55rjjJLqpvX5fQzMsWhQdIZ5vsc+4ORzdgtEAlpumTv6bsD1A==
 
-"@swc/core-linux-arm64-gnu@1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core-linux-arm64-gnu/-/core-linux-arm64-gnu-1.5.27.tgz#8418e0e0971e8ee5ad40bec940c1aa7e9569862b"
-  integrity sha512-KlkOcSPxrCqZTm4XrT/LT1o9gmyM2T6bw/hL6IwTYRBJg+sej4rc9iSfVRFZBfNuG3EVkFQSXxik+0yVOXR93Q==
+"@swc/core-linux-arm64-gnu@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core-linux-arm64-gnu/-/core-linux-arm64-gnu-1.6.3.tgz#7c988c2dd7ea12f4c4a0c52f32474d6dc8b0cf36"
+  integrity sha512-jHIQ/PCwtdDBIF/BiC5DochswuCAIW/T5skJ+eDMbta7+QtEnZCXTZWpT5ORoEY/gtsE2fjpOA4TS6fBBvXqUw==
 
-"@swc/core-linux-arm64-musl@1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core-linux-arm64-musl/-/core-linux-arm64-musl-1.5.27.tgz#f4c20b5f3c2b008d5d469d424d4f7de4f308ceea"
-  integrity sha512-EwdTt5qykxFXJu7kS+0X0Mp/IlwO8KJ6LVNak2+N8bt1J1q/nCdg1tRDOYQ1Z/MVa1Tm+lJ664Qs1y2NY2SDTw==
+"@swc/core-linux-arm64-musl@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core-linux-arm64-musl/-/core-linux-arm64-musl-1.6.3.tgz#4ca5662622494eb1da5752de3e57dde8901d858d"
+  integrity sha512-gA6velEUD27Dwu0BlR9hCcFzkWq2YL2pDAU5qbgeuGhaMiUCBssfqTQB+2ctEnV+AZx+hSMJOHvtA+uFZjfRrw==
 
-"@swc/core-linux-x64-gnu@1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.5.27.tgz#27585a3cb38cab77dd62aaba7eba811fa384e91e"
-  integrity sha512-RsBbxbiSNWLJ2jbAdITtv30J4eZw4O/JJ5zxYgWI54TdY7YrVsqIdzuX+ldximt+CYvO9irHm/mSr/IJY2YXrw==
+"@swc/core-linux-x64-gnu@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.6.3.tgz#55c79e321b473239d27073b4e3f3ef7e3d93a8d3"
+  integrity sha512-fy4qoBDr5I8r+ZNCZxs/oZcmu4j/8mtSud6Ka102DaSxEjNg0vfIdo9ITsVIPsofhUTmDKjQsPB2O7YUlJAioQ==
 
-"@swc/core-linux-x64-musl@1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.5.27.tgz#a9041d19e3770ef2c9c31c3ef30798ee4949d076"
-  integrity sha512-XpRx0Kpy6JEi1WSMqUfR3k8hXLqNOkVqFcUfzvfQ4QNBX5Ek7ywh7WAxlPhCrFp+wAfNAqqUyRY1xZpLvRU51A==
+"@swc/core-linux-x64-musl@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.6.3.tgz#ad5c1b7857ac7753eb50ba1fa61fcf35143bab68"
+  integrity sha512-c/twcMbq/Gpq47G+b3kWgoaCujpXO11aRgJx6am+CprvP4uNeBHEpQkxD+DQmdWFHisZd0i9GB8NG3e7L9Rz9Q==
 
-"@swc/core-win32-arm64-msvc@1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core-win32-arm64-msvc/-/core-win32-arm64-msvc-1.5.27.tgz#cb05cd9ed099676a6c26251f1fd170e346e89cb5"
-  integrity sha512-pwSTUIokyIp+Ha1pur34qdYjxqL1QzhP/HM8anzsFs4yvV2LSI7c3qc4GWPNv2eQ9WiFXyo29uCEIRN6qig7wg==
+"@swc/core-win32-arm64-msvc@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core-win32-arm64-msvc/-/core-win32-arm64-msvc-1.6.3.tgz#58708feba33a104c13543c3681760670001fa97a"
+  integrity sha512-y6RxMtX45acReQmzkxcEfJscfBXce6QjuNgWQHHs9exA592BZzmolDUwgmAyjyvopz1lWX+KdymdZFKvuDSx4w==
 
-"@swc/core-win32-ia32-msvc@1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core-win32-ia32-msvc/-/core-win32-ia32-msvc-1.5.27.tgz#96e4ac203df0dd07bb8bb1125c280fb5feccadef"
-  integrity sha512-S0S6vqFscvmxPolwmpZvTRfTbYR+eGcyc0ge4x/+HcnBCm+m84rcGxmp3bBb1edNFaIV+X47BlGvvh85cJ4rkQ==
+"@swc/core-win32-ia32-msvc@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core-win32-ia32-msvc/-/core-win32-ia32-msvc-1.6.3.tgz#1f2faac0b9e20888749a850b39a3541801c3c9a5"
+  integrity sha512-41h7z3xgukl1HDDwhquaeOPSP1OWeHl+mWKnJVmmwd3ui/oowUDCO856qa6JagBgPSnAGfyXwv6vthuXwyCcWA==
 
-"@swc/core-win32-x64-msvc@1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.5.27.tgz#78d7c230d3dd442de72beb06187e76471703a11d"
-  integrity sha512-aem+BcNW42JPbvV6L3Jl3LLj6G80aYADzYenToYisy0Aop0XZAxL/0FbhV+xWORNFtIUKynNtaa1CK7w0UxehQ==
+"@swc/core-win32-x64-msvc@1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.6.3.tgz#19b8999fd7d0b82960ea81edbdb9130a6154cfb0"
+  integrity sha512-//bnwo9b8Vp1ED06eXCHyGZ5xIpdkQgg2fuFDdtd1FITl7r5bdQh2ryRzPiKiGwgXZwZQitUshI4JeEX9IuW+Q==
 
-"@swc/core@^1.5.27":
-  version "1.5.27"
-  resolved "https://registry.npmmirror.com/@swc/core/-/core-1.5.27.tgz#a3c44addc8f549010373a168b408b84078463375"
-  integrity sha512-HmSSCBoUSRDFAd8aEB+WILkCofIp1c2OU6ZJWu1aCt6pijwQSkA4y51CTBcdvyy/+zX1W3cic7alfdhmQxxeEQ==
+"@swc/core@^1.6.3":
+  version "1.6.3"
+  resolved "https://registry.npmmirror.com/@swc/core/-/core-1.6.3.tgz#4ca4563a8eae7c34640ad1aa24251b95a68a81be"
+  integrity sha512-mZpei+LqE+AL+nwgERMQey9EJA9/yhHTN6nwbobH5GnSij/lhfTdGfAb1iumOrroqEcXbHUaK//7wOw7DjBGdA==
   dependencies:
     "@swc/counter" "^0.1.3"
     "@swc/types" "^0.1.8"
   optionalDependencies:
-    "@swc/core-darwin-arm64" "1.5.27"
-    "@swc/core-darwin-x64" "1.5.27"
-    "@swc/core-linux-arm-gnueabihf" "1.5.27"
-    "@swc/core-linux-arm64-gnu" "1.5.27"
-    "@swc/core-linux-arm64-musl" "1.5.27"
-    "@swc/core-linux-x64-gnu" "1.5.27"
-    "@swc/core-linux-x64-musl" "1.5.27"
-    "@swc/core-win32-arm64-msvc" "1.5.27"
-    "@swc/core-win32-ia32-msvc" "1.5.27"
-    "@swc/core-win32-x64-msvc" "1.5.27"
+    "@swc/core-darwin-arm64" "1.6.3"
+    "@swc/core-darwin-x64" "1.6.3"
+    "@swc/core-linux-arm-gnueabihf" "1.6.3"
+    "@swc/core-linux-arm64-gnu" "1.6.3"
+    "@swc/core-linux-arm64-musl" "1.6.3"
+    "@swc/core-linux-x64-gnu" "1.6.3"
+    "@swc/core-linux-x64-musl" "1.6.3"
+    "@swc/core-win32-arm64-msvc" "1.6.3"
+    "@swc/core-win32-ia32-msvc" "1.6.3"
+    "@swc/core-win32-x64-msvc" "1.6.3"
 
 "@swc/counter@^0.1.3":
   version "0.1.3"

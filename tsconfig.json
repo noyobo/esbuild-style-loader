@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "outDir": "lib",
+    "outDir": "types",
     "target": "ES6",
     "module": "commonjs",
-    "jsx": "react"
+    "jsx": "react",
+    "emitDeclarationOnly": true
   }
 }

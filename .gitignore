@@ -4,3 +4,8 @@ node_modules
 lib/
 coverage/
 yarn-error.log
+
+
+types/
+cjs/
+esm/
