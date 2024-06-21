@@ -1,16 +1,16 @@
-import PATH from 'path';
+import { readFile } from 'node:fs/promises';
+import PATH from 'node:path';
 import colors from 'colors';
 import deepmerge from 'deepmerge';
 import type { OnResolveArgs, PartialMessage, Plugin } from 'esbuild';
-import { readFile } from 'fs/promises';
-import { type CSSModulesConfig, transform } from 'lightningcss';
+import { type CSSModulesConfig, type TransformResult, transform } from 'lightningcss';
 import qs from 'query-string';
 
 import { convertLessError } from './less-utils.js';
 import { convertScssError } from './sass-utils.js';
 import { transformLess } from './transform-less.js';
 import { transformSass } from './transform-sass.js';
-import type { TransformResult } from './types.js';
+import type { StyleTransformResult } from './types.js';
 import {
   codeWithSourceMap,
   cssExportsToJs,
@@ -49,7 +49,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
     const { logLevel } = build.initialOptions;
     if (logLevel === 'debug' || logLevel === 'verbose') {
       return (...args) => {
-        console.log(`[esbuild-style-loader]`.magenta.bold, ...args);
+        console.log('[esbuild-style-loader]'.magenta.bold, ...args);
       };
     }
     return () => void 0;
@@ -62,7 +62,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
       const logger = getLogger(build);
       const cwd = process.cwd();
 
-      const styleTransform = async (filePath: string): Promise<TransformResult> => {
+      const styleTransform = async (filePath: string): Promise<StyleTransformResult | undefined> => {
         const extname = PATH.extname(filePath);
         if (extname === '.less') {
           return await transformLess(filePath, {
@@ -73,10 +73,12 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
             logger(error);
             throw convertLessError(error);
           });
-        } else if (extname === '.styl') {
+        }
+        if (extname === '.styl') {
           // TODO: support stylus
           throw new Error('stylus is not supported yet');
-        } else if (extname === '.scss' || extname === '.sass') {
+        }
+        if (extname === '.scss' || extname === '.sass') {
           return await transformSass(filePath, {
             sourcemap: !!buildOptions.sourcemap,
             alias: buildOptions.alias,
@@ -85,10 +87,9 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
             logger(error);
             throw convertScssError(error, filePath);
           });
-        } else {
-          const code = await readFile(filePath, 'utf-8');
-          return { css: code, map: '' };
         }
+        const code = await readFile(filePath, 'utf-8');
+        return { css: code, map: '' };
       };
 
       const handleResolve = async (args: OnResolveArgs) => {
@@ -108,9 +109,9 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
        * you can use `namespace` to control the order of the plugins
        */
 
-      allNamespaces.forEach((namespace) => {
+      for (const namespace of allNamespaces) {
         build.onResolve({ filter: opts.filter, namespace }, handleResolve);
-      });
+      }
 
       build.onLoad({ filter: /.*/, namespace: 'style-loader' }, async (args) => {
         let cssContent: string;
@@ -125,12 +126,12 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         // 2. if the query contains `modules`
         const styleFile = args.path;
         const enableCssModules = /\.modules?\.(css|less|sass|scss)/.test(styleFile) || 'modules' in pluginData.query;
-        let result: TransformResult;
+        let result: StyleTransformResult;
 
         try {
           const t = Date.now();
           result = await styleTransform(styleFile);
-          logger(`Compile`, PATH.relative(cwd, styleFile).blue.underline, `in ${Date.now() - t}ms`);
+          logger('Compile', PATH.relative(cwd, styleFile).blue.underline, `in ${Date.now() - t}ms`);
           cssContent = result.css;
           cssSourceMap = result.map;
           watchImports = result.imports;
@@ -142,7 +143,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           };
         }
 
-        let transformResult;
+        let transformResult: StyleTransformResult | TransformResult;
 
         const watchFiles = [styleFile];
 
@@ -247,7 +248,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
       build.onResolve({ filter: /^\//, namespace: 'css-loader' }, async (args) => {
         if (opts.publicPath) {
           // absolute files base on publicPath
-          return { path: PATH.join(opts.publicPath, '.' + args.path) };
+          return { path: PATH.join(opts.publicPath, `.${args.path}`) };
         }
         return { external: true };
       });

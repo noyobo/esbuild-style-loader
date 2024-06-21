@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import type { PartialMessage } from 'esbuild';
 import type { Syntax } from 'sass';
 
@@ -27,9 +27,8 @@ export function getDefaultSassImplementation() {
 export function fileSyntax(filename: string): Syntax {
   if (filename.endsWith('.scss')) {
     return 'scss';
-  } else {
-    return 'indented';
   }
+  return 'indented';
 }
 
 export function resolveCanonicalize(importer: string, file: string, alias: Record<string, string>) {

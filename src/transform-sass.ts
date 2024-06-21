@@ -1,19 +1,19 @@
-import { readFile } from 'fs/promises';
+import { readFile } from 'node:fs/promises';
 import type * as sass from 'sass';
 import { fileSyntax, getDefaultSassImplementation, resolveCanonicalize } from './sass-utils.js';
 let sassEngine: typeof sass;
 
-import * as fs from 'fs';
-import path from 'path';
-import { fileURLToPath, pathToFileURL } from 'url';
+import * as fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import type { PartialMessage } from 'esbuild';
 import type { ImporterResult, PromiseOr, SourceSpan } from 'sass';
-import type { TransformResult } from './types.js';
+import type { StyleTransformResult } from './types.js';
 
 export const transformSass = async (
   filePath: string,
   options: { sourcemap: boolean; alias?: Record<string, string> },
-): Promise<TransformResult> => {
+): Promise<StyleTransformResult> => {
   const { sourcemap } = options;
   if (!sassEngine) {
     try {
