@@ -51,11 +51,11 @@ import styles from './style.less';
 
 ```ts
 import { build } from 'esbuild';
-import { stylePlugin } from 'esbuild-style-loader';
+import { styleLoader } from 'esbuild-style-loader';
 
 const buildOptions = {
   plugins: [
-    stylePlugin({
+    styleLoader({
       filter: /\.(css|less|scss|sass|tyss)(\?.*)?$/,
       /**
        * Process file results from other plugins namespace
