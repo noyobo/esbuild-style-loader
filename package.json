@@ -1,6 +1,7 @@
 {
   "name": "esbuild-style-loader",
   "version": "0.3.0",
+  "type": "module",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "types/index.d.ts",
@@ -12,6 +13,14 @@
     "esm",
     "types"
   ],
+  "exports": {
+    "package.json": "./package.json",
+    ".": {
+      "types": "./types/index.d.ts",
+      "require": "./lib/index.js",
+      "import": "./esm/index.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:noyobo/esbuild-style-loader.git"
@@ -33,6 +42,7 @@
     "query-string": "^7"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.8.2",
     "@swc/cli": "^0.3.12",
     "@swc/core": "^1.6.3",
     "@swc/jest": "^0.2.36",
