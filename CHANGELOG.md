@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.3.1 (2024-06-21)
+
+
+### Bug Fixes
+
+* missing `.js` suffix ([#37](https://github.com/noyobo/esbuild-style-loader/issues/37)) ([ec5611c](https://github.com/noyobo/esbuild-style-loader/commit/ec5611c2f5bbd76dba90000789381e81c9ab14fd))
+
 ## [0.3.0](https://github.com/noyobo/esbuild-style-loader/compare/v0.2.1...v0.3.0) (2024-06-21)
 
 
