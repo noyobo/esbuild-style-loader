@@ -1,11 +1,8 @@
 name: npm-publish
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'src/**'
-      - 'package.json'
+  release:
+    types:
+      - created
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -22,7 +19,8 @@ jobs:
       - name: Test package
         run: npm run test
       - name: Update version and generate release notes
-        run: npx standard-version
+        run: |
+          npx standard-version --release-as ${GITHUB_REF#refs/tags/}
       - name: Publish to npm
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
