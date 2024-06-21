@@ -1,12 +1,12 @@
+import { readFile } from 'node:fs/promises';
 import lessEngine from 'less';
 import { LessPluginModuleResolver } from 'less-plugin-module-resolver';
-import { readFile } from 'fs/promises';
-import { TransformResult } from './types';
+import type { StyleTransformResult } from './types.js';
 
 export const transformLess = async (
   filePath: string,
   options: { sourcemap: boolean; alias?: Record<string, string> },
-): Promise<TransformResult> => {
+): Promise<StyleTransformResult> => {
   const code = await readFile(filePath, 'utf-8');
   const result = await lessEngine.render(code, {
     filename: filePath,

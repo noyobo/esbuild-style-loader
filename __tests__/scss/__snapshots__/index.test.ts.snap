@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`scss style-loader 1`] = `
+exports[`scss > style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -56,8 +56,8 @@ exports[`scss style-loader 1`] = `
   });
 
   // __tests__/scss/index.jsx
-  var import_index = __toESM(require_scss2());
-  var import_react = __toESM(__require("react"));
+  var import_index = __toESM(require_scss2(), 1);
+  var import_react = __toESM(__require("react"), 1);
   var import_client = __require("react-dom/client");
   var App = class extends import_react.default.Component {
     render() {
@@ -70,7 +70,7 @@ exports[`scss style-loader 1`] = `
 "
 `;
 
-exports[`scss style-loader 2`] = `
+exports[`scss > style-loader 2`] = `
 "
 .index__app {
   color: red;

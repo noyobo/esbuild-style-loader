@@ -1,11 +1,11 @@
-import { browserslistToTargets, CSSModuleExports } from 'lightningcss';
-import { OnResolveArgs, PluginBuild } from 'esbuild';
-import PATH from 'path';
+import PATH from 'node:path';
 import browserslist from 'browserslist';
 import { camelCase } from 'camel-case';
+import type { OnResolveArgs, PluginBuild } from 'esbuild';
+import { type CSSModuleExports, browserslistToTargets } from 'lightningcss';
 
 export const codeWithSourceMap = (code: string, map: string) => {
-  return code + '/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map).toString('base64') + ' */';
+  return `${code}/*# sourceMappingURL=data:application/json;base64,${Buffer.from(map).toString('base64')} */`;
 };
 
 export const cssExportsToJs = (exports: CSSModuleExports, entryFile: string) => {
@@ -40,12 +40,11 @@ export const parsePath = (path: string) => {
   const queryIndex = path.indexOf('?');
   if (queryIndex === -1) {
     return { path: path, query: '' };
-  } else {
-    return {
-      path: path.slice(0, queryIndex),
-      query: path.slice(queryIndex + 1),
-    };
   }
+  return {
+    path: path.slice(0, queryIndex),
+    query: path.slice(queryIndex + 1),
+  };
 };
 
 export async function resolvePath(args: OnResolveArgs, build: PluginBuild) {
