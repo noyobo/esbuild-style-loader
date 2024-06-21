@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`scss-alias style-loader 1`] = `
+exports[`scss-alias > style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -54,9 +54,9 @@ exports[`scss-alias style-loader 1`] = `
   });
 
   // __tests__/scss-alias/index.jsx
-  var import_react = __toESM(__require("react"));
+  var import_react = __toESM(__require("react"), 1);
   var import_client = __require("react-dom/client");
-  var import_a = __toESM(require_a2());
+  var import_a = __toESM(require_a2(), 1);
   var App = class extends import_react.default.Component {
     render() {
       console.warn(import_a.default);
@@ -69,7 +69,7 @@ exports[`scss-alias style-loader 1`] = `
 "
 `;
 
-exports[`scss-alias style-loader 2`] = `
+exports[`scss-alias > style-loader 2`] = `
 "
 .a__title {
   color: green;

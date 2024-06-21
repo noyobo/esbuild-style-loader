@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`react-components style-loader 1`] = `
+exports[`react-components > style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -88,14 +88,14 @@ exports[`react-components style-loader 1`] = `
   });
 
   // __tests__/react-components/index.jsx
-  var import_react2 = __toESM(__require("react"));
+  var import_react2 = __toESM(__require("react"), 1);
   var import_client = __require("react-dom/client");
-  var import_a = __toESM(require_a2());
-  var import_b = __toESM(require_b2());
+  var import_a = __toESM(require_a2(), 1);
+  var import_b = __toESM(require_b2(), 1);
 
   // __tests__/react-components/foo/index.tsx
-  var import_index_module = __toESM(require_index_module2());
-  var import_react = __toESM(__require("react"));
+  var import_index_module = __toESM(require_index_module2(), 1);
+  var import_react = __toESM(__require("react"), 1);
   var Foo = () => {
     return /* @__PURE__ */ import_react.default.createElement("div", { className: import_index_module.default.foo }, "foo");
   };
@@ -113,7 +113,7 @@ exports[`react-components style-loader 1`] = `
 "
 `;
 
-exports[`react-components style-loader 2`] = `
+exports[`react-components > style-loader 2`] = `
 "
 .a__app {
   color: red;
@@ -138,7 +138,7 @@ exports[`react-components style-loader 2`] = `
 "
 `;
 
-exports[`react-components style-loader 3`] = `
+exports[`react-components > style-loader 3`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -207,13 +207,13 @@ exports[`react-components style-loader 3`] = `
   });
 
   // __tests__/react-components/index2.jsx
-  var import_react2 = __toESM(__require("react"));
+  var import_react2 = __toESM(__require("react"), 1);
   var import_client = __require("react-dom/client");
-  var import_a = __toESM(require_a2());
+  var import_a = __toESM(require_a2(), 1);
 
   // __tests__/react-components/foo/index.tsx
-  var import_index_module = __toESM(require_index_module2());
-  var import_react = __toESM(__require("react"));
+  var import_index_module = __toESM(require_index_module2(), 1);
+  var import_react = __toESM(__require("react"), 1);
   var Foo = () => {
     return /* @__PURE__ */ import_react.default.createElement("div", { className: import_index_module.default.foo }, "foo");
   };
@@ -231,7 +231,7 @@ exports[`react-components style-loader 3`] = `
 "
 `;
 
-exports[`react-components style-loader 4`] = `
+exports[`react-components > style-loader 4`] = `
 "
 .a__app {
   color: red;

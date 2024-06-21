@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`less style-loader 1`] = `
+exports[`less > style-loader 1`] = `
 "(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -56,8 +56,8 @@ exports[`less style-loader 1`] = `
   });
 
   // __tests__/less/index.jsx
-  var import_index = __toESM(require_less2());
-  var import_react = __toESM(__require("react"));
+  var import_index = __toESM(require_less2(), 1);
+  var import_react = __toESM(__require("react"), 1);
   var import_client = __require("react-dom/client");
   var App = class extends import_react.default.Component {
     render() {
@@ -70,7 +70,7 @@ exports[`less style-loader 1`] = `
 "
 `;
 
-exports[`less style-loader 2`] = `
+exports[`less > style-loader 2`] = `
 "
 .index__app {
   color: red;
