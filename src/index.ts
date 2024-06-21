@@ -1,17 +1,24 @@
-import { OnResolveArgs, PartialMessage, Plugin } from 'esbuild';
 import PATH from 'path';
-import { CSSModulesConfig, transform } from 'lightningcss';
-import { readFile } from 'fs/promises';
-import qs from 'query-string';
-import deepmerge from 'deepmerge';
 import colors from 'colors';
+import deepmerge from 'deepmerge';
+import type { OnResolveArgs, PartialMessage, Plugin } from 'esbuild';
+import { readFile } from 'fs/promises';
+import { type CSSModulesConfig, transform } from 'lightningcss';
+import qs from 'query-string';
 
-import { transformLess } from './transform-less';
-import { codeWithSourceMap, cssExportsToJs, generateTargets, parsePath, replaceExtension, resolvePath } from './utils';
-import { convertLessError } from './less-utils';
-import { transformSass } from './transform-sass';
-import { TransformResult } from './types';
-import { convertScssError } from './sass-utils';
+import { convertLessError } from './less-utils.js';
+import { convertScssError } from './sass-utils.js';
+import { transformLess } from './transform-less.js';
+import { transformSass } from './transform-sass.js';
+import type { TransformResult } from './types.js';
+import {
+  codeWithSourceMap,
+  cssExportsToJs,
+  generateTargets,
+  parsePath,
+  replaceExtension,
+  resolvePath,
+} from './utils.js';
 
 colors.enable();
 
@@ -116,7 +123,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         // enable css modules
         // 1. if the file name contains `.modules.` or `.module.`
         // 2. if the query contains `modules`
-        let styleFile = args.path;
+        const styleFile = args.path;
         const enableCssModules = /\.modules?\.(css|less|sass|scss)/.test(styleFile) || 'modules' in pluginData.query;
         let result: TransformResult;
 

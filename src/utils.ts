@@ -1,8 +1,8 @@
-import { browserslistToTargets, CSSModuleExports } from 'lightningcss';
-import { OnResolveArgs, PluginBuild } from 'esbuild';
 import PATH from 'path';
 import browserslist from 'browserslist';
 import { camelCase } from 'camel-case';
+import type { OnResolveArgs, PluginBuild } from 'esbuild';
+import { type CSSModuleExports, browserslistToTargets } from 'lightningcss';
 
 export const codeWithSourceMap = (code: string, map: string) => {
   return code + '/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map).toString('base64') + ' */';

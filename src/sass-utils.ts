@@ -1,6 +1,6 @@
-import { PartialMessage } from 'esbuild';
-import { Syntax } from 'sass';
 import path from 'path';
+import type { PartialMessage } from 'esbuild';
+import type { Syntax } from 'sass';
 
 export function getDefaultSassImplementation() {
   let sassImplPkg = 'sass';
