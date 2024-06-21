@@ -59,6 +59,7 @@
     "build:dts": "tsc -p tsconfig.build.json --outDir ./types",
     "build:lib": "swc src --strip-leading-paths -d lib -C module.type=commonjs -C jsc.target=es2016",
     "build:esm": "swc src --strip-leading-paths -d esm -C module.type=es6 -C jsc.target=es2016",
+    "build": "npm run build:lib && npm run build:esm && npm run build:dts",
     "prepublishOnly": "npm run build"
   },
   "publishConfig": {
