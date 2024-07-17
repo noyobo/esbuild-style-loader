@@ -39,7 +39,7 @@
     "less-plugin-module-resolver": "^1.0.3",
     "less-plugin-npm-import": "^2.1.0",
     "lightningcss": "^1.25.1",
-    "query-string": "^7"
+    "query-string": "^9"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.2",
