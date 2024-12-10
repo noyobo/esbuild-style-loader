@@ -2,7 +2,7 @@
   "name": "esbuild-style-loader",
   "version": "0.3.1",
   "type": "module",
-  "main": "lib/index.js",
+  "main": "lib/index.cjs",
   "module": "esm/index.js",
   "types": "types/index.d.ts",
   "license": "MIT",
@@ -17,9 +17,12 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./types/index.d.ts",
-      "require": "./lib/index.js",
-      "import": "./esm/index.js"
+      "import": "./esm/index.js",
+      "require": "./lib/index.cjs"
     }
+  },
+  "engines": {
+    "node": ">=18"
   },
   "repository": {
     "type": "git",
@@ -66,8 +69,10 @@
     "test": "vitest --run",
     "test:html": "OUTPUT_HTML=1 vitest --run",
     "build:dts": "tsc -p tsconfig.build.json --outDir ./types",
-    "build:lib": "swc src --strip-leading-paths -d lib -C module.type=commonjs -C jsc.target=es2016",
-    "build:esm": "swc src --strip-leading-paths -d esm -C module.type=es6 -C jsc.target=es2016",
+    "build:lib": "swc src --strip-leading-paths -d lib -C module.type=commonjs -C jsc.target=es2016 && npm run cjs",
+    "cjs": "node ./scripts/cjs.mjs",
+    "build:esm": "swc src --strip-leading-paths -d esm -C module.type=nodenext -C jsc.target=es2017",
+    "prebuild": "rm -rf lib esm types",
     "build": "npm run build:lib && npm run build:esm && npm run build:dts",
     "prepublishOnly": "npm run build"
   },
