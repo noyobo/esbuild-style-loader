@@ -40,7 +40,7 @@
     "less-test-module": "^0.0.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sass": "^1.77.4",
+    "sass": "^1.80.0",
     "standard-version": "^9.5.0",
     "typescript": "^5.4.5"
   },

@@ -40,7 +40,7 @@ export const transformSass = async (
         if (!options.span) {
           warnings.push({ text: `sass warning: ${message}` });
         } else {
-          const filename = options.span.url?.pathname ?? path;
+          const filename = options.span.url?.pathname ?? filePath;
           const esbuildMsg: PartialMessage = {
             text: message,
             location: {

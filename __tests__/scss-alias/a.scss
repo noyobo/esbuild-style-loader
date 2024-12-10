@@ -1,6 +1,6 @@
-@import '@/b.scss';
+@use '@/b.scss';
 
-.app {
+.a {
   color: red;
   user-select: none;
 }

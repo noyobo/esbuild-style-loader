@@ -45,11 +45,11 @@ exports[`scss-alias style-loader 1`] = `
   var require_a2 = __commonJS({
     "style-loader:a.scss"(exports, module) {
       require_a();
-      var s_app = "a__app";
-      var s_title = "a__title";
-      exports["app"] = s_app;
-      exports["title"] = s_title;
-      module.exports = { "app": s_app, "title": s_title };
+      var s_a = "a__a";
+      var s_b = "a__b";
+      exports["a"] = s_a;
+      exports["b"] = s_b;
+      module.exports = { "a": s_a, "b": s_b };
     }
   });
 
@@ -71,10 +71,10 @@ exports[`scss-alias style-loader 1`] = `
 
 exports[`scss-alias style-loader 2`] = `
 "
-.a__title {
+.a__b {
   color: green;
 }
-.a__app {
+.a__a {
   color: red;
   -webkit-user-select: none;
   user-select: none;

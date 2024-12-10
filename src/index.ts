@@ -189,6 +189,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
           entryContent = cssExportsToJs(exports, pluginData.rawPath);
         }
 
+
         return {
           contents: entryContent,
           loader: 'js',
