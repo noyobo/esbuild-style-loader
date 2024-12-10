@@ -22,7 +22,13 @@ function replaceDirExt(dir, oldExt, newExt) {
 
   for (const file of allFiles) {
     const context = fsExtra.readFileSync(file, 'utf-8');
-    const newContext = context.replace(oldExt, newExt);
+
+    // replace require file extension
+    const regRequire = new RegExp(`require\\(['"](.*)${oldExt}['"]\\)`, 'g');
+
+    const newContext = context.replace(regRequire, (match, p1) => {
+      return `require('${p1}${newExt}')`;
+    });
     // replace file name with new extension
     const newFileName = file.replace(oldExt, newExt);
     fsExtra.writeFileSync(newFileName, newContext);

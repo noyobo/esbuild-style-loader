@@ -1,6 +1,6 @@
 {
   "name": "esbuild-style-loader",
-  "version": "0.3.2-beta.1",
+  "version": "0.3.2-beta.2",
   "type": "module",
   "main": "lib/index.cjs",
   "module": "esm/index.js",
