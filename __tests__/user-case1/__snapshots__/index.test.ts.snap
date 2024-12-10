@@ -73,10 +73,10 @@ exports[`user-case1 style-loader 2`] = `
 .index-modules__brightBox {
   padding: 0 46rpx 0 66rpx;
   height: 80rpx;
+  width: 100%;
   margin-bottom: 28rpx;
   flex-direction: row;
   align-items: center;
-  width: 100%;
   display: flex;
   position: relative;
 }
