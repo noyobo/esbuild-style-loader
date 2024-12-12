@@ -1,8 +1,6 @@
 name: npm-publish
 on:
-  release:
-    types:
-      - created
+  workflow_dispatch:
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -24,7 +22,7 @@ jobs:
         run: npm run test
       - name: Update version and generate release notes
         run: |
-          npx standard-version --release-as ${GITHUB_REF#refs/tags/}
+          npx standard-version
       - name: Publish to npm
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
