@@ -3,8 +3,9 @@
     "esModuleInterop": true,
     "outDir": "types",
     "target": "ES6",
-    "module": "commonjs",
+    "module": "NodeNext",
     "jsx": "react",
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "moduleResolution": "NodeNext"
   }
 }
