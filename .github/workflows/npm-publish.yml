@@ -1,6 +1,11 @@
 name: npm-publish
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Semantic version (major | minor | patch | premajor | preminor | prepatch | prerelease)'
+        default: 'patch'
+        required: true
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -22,7 +27,7 @@ jobs:
         run: npm run test
       - name: Update version and generate release notes
         run: |
-          npx standard-version
+          npx standard-version --preset eslint --release-as ${{ github.event.inputs.version }}
       - name: Publish to npm
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
