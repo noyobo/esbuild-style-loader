@@ -36,7 +36,7 @@ jobs:
         uses: codecov/codecov-action@v4
 
   build-macos:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     strategy:
       matrix:
