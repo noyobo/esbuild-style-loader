@@ -6,6 +6,7 @@
     "module": "NodeNext",
     "jsx": "react",
     "emitDeclarationOnly": true,
-    "moduleResolution": "NodeNext"
+    "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": true
   }
 }

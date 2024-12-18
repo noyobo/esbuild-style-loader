@@ -1,6 +1,6 @@
 import PATH from 'node:path';
 import browserslist from 'browserslist';
-import { camelCase } from 'camel-case';
+import { camelCase } from 'change-case';
 import type { OnResolveArgs, PluginBuild } from 'esbuild';
 import { type CSSModuleExports, browserslistToTargets } from 'lightningcss';
 
