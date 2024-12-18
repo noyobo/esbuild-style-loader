@@ -1,7 +1,7 @@
 import * as esbuild from 'esbuild';
-import { styleLoader } from '../src';
-import { BuildOptions } from 'esbuild';
+import type { BuildOptions } from 'esbuild';
 import * as fse from 'fs-extra';
+import { styleLoader } from '../src';
 
 const OUTPUT_HTML = !!process.env.OUTPUT_HTML;
 
@@ -20,7 +20,7 @@ export const runTest = async (files: string[], outdir: string, options?: BuildOp
           write: false,
           sourcemap: true,
           logLevel: 'debug',
-          external: !!OUTPUT_HTML ? undefined : ['react', 'react-dom'],
+          external: OUTPUT_HTML ? undefined : ['react', 'react-dom'],
           target: ['es2015', 'chrome58', 'safari11'],
           plugins: [
             styleLoader({
