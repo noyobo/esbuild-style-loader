@@ -49,6 +49,7 @@
     "@types/less": "^3.0.7",
     "@types/node": "^22.10.2",
     "@vitest/coverage-v8": "^2.1.8",
+    "conventional-changelog-cli": "^5.0.0",
     "esbuild": "^0.23.1",
     "fs-extra": "^11.2.0",
     "less-test-module": "^0.0.10",
@@ -67,7 +68,8 @@
     "test": "vitest --run",
     "test:html": "OUTPUT_HTML=1 vitest --run",
     "build": "tsup",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "publishConfig": {
     "access": "public",

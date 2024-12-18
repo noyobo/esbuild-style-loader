@@ -8,7 +8,7 @@ on:
         required: true
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
@@ -27,7 +27,7 @@ jobs:
         run: npm run test
       - name: Update version and generate release notes
         run: |
-          npx standard-version --preset eslint --release-as ${{ github.event.inputs.version }}
+          npx standard-version --preset angular --release-as ${{ github.event.inputs.version }}
       - name: Publish to npm
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
