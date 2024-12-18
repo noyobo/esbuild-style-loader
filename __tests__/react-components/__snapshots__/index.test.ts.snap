@@ -88,14 +88,14 @@ exports[`react-components > style-loader 1`] = `
   });
 
   // __tests__/react-components/index.jsx
-  var import_react2 = __toESM(__require("react"), 1);
+  var import_react2 = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
-  var import_a = __toESM(require_a2(), 1);
-  var import_b = __toESM(require_b2(), 1);
+  var import_a = __toESM(require_a2());
+  var import_b = __toESM(require_b2());
 
   // __tests__/react-components/foo/index.tsx
-  var import_index_module = __toESM(require_index_module2(), 1);
-  var import_react = __toESM(__require("react"), 1);
+  var import_index_module = __toESM(require_index_module2());
+  var import_react = __toESM(__require("react"));
   var Foo = () => {
     return /* @__PURE__ */ import_react.default.createElement("div", { className: import_index_module.default.foo }, "foo");
   };
@@ -207,13 +207,13 @@ exports[`react-components > style-loader 3`] = `
   });
 
   // __tests__/react-components/index2.jsx
-  var import_react2 = __toESM(__require("react"), 1);
+  var import_react2 = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
-  var import_a = __toESM(require_a2(), 1);
+  var import_a = __toESM(require_a2());
 
   // __tests__/react-components/foo/index.tsx
-  var import_index_module = __toESM(require_index_module2(), 1);
-  var import_react = __toESM(__require("react"), 1);
+  var import_index_module = __toESM(require_index_module2());
+  var import_react = __toESM(__require("react"));
   var Foo = () => {
     return /* @__PURE__ */ import_react.default.createElement("div", { className: import_index_module.default.foo }, "foo");
   };

@@ -6,11 +6,11 @@ import type { OnResolveArgs, PartialMessage, Plugin } from 'esbuild';
 import { type CSSModulesConfig, type TransformResult, transform } from 'lightningcss';
 import qs from 'query-string';
 
-import { convertLessError } from './less-utils.js';
-import { convertScssError } from './sass-utils.js';
-import { transformLess } from './transform-less.js';
-import { transformSass } from './transform-sass.js';
-import type { StyleTransformResult } from './types.js';
+import { convertLessError } from './less-utils.mts';
+import { convertScssError } from './sass-utils.mts';
+import { transformLess } from './transform-less.mts';
+import { transformSass } from './transform-sass.mts';
+import type { StyleTransformResult } from './types.mts';
 import {
   codeWithSourceMap,
   cssExportsToJs,
@@ -18,7 +18,7 @@ import {
   parsePath,
   replaceExtension,
   resolvePath,
-} from './utils.js';
+} from './utils.mts';
 
 colors.enable();
 

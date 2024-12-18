@@ -56,8 +56,8 @@ exports[`scss > style-loader 1`] = `
   });
 
   // __tests__/scss/index.jsx
-  var import_index = __toESM(require_scss2(), 1);
-  var import_react = __toESM(__require("react"), 1);
+  var import_index = __toESM(require_scss2());
+  var import_react = __toESM(__require("react"));
   var import_client = __require("react-dom/client");
   var App = class extends import_react.default.Component {
     render() {
