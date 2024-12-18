@@ -1,6 +1,6 @@
 {
   "name": "esbuild-style-loader",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "license": "MIT",
   "description": "A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules.",
   "homepage": "https://github.com/noyobo/esbuild-style-loader",

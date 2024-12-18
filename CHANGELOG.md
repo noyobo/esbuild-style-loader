@@ -1,3 +1,16 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## 0.3.4 (2024-12-18)
+
+
+### Bug Fixes
+
+* Remove esm dependencies ([#71](https://github.com/noyobo/esbuild-style-loader/issues/71)) ([d3efc00](https://github.com/noyobo/esbuild-style-loader/commit/d3efc00a2e0e2bf7558cf73bb6aa5e4b926ef490))
+
+
+
 ## [0.3.3](https://github.com/noyobo/esbuild-style-loader/compare/v0.3.2...v0.3.3) (2024-12-18)
 
 ### Bug Fixes
@@ -159,6 +172,3 @@
 
 * support less & css-modules &
   source-map ([#1](https://github.com/noyobo/esbuild-style-loader/issues/1)) ([f037f39](https://github.com/noyobo/esbuild-style-loader/commit/f037f39e73b5cbcf71c67aa15a7a70faba433d63))
-
-
-
