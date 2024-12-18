@@ -1,8 +1,8 @@
-import PATH from 'node:path';
+import { extname, isAbsolute } from 'node:path';
 import browserslist from 'browserslist';
 import { camelCase } from 'change-case';
 import type { OnResolveArgs, PluginBuild } from 'esbuild';
-import { type CSSModuleExports, browserslistToTargets } from 'lightningcss';
+import { browserslistToTargets, type CSSModuleExports } from 'lightningcss';
 
 export const codeWithSourceMap = (code: string, map: string) => {
   return `${code}/*# sourceMappingURL=data:application/json;base64,${Buffer.from(map).toString('base64')} */`;
@@ -50,7 +50,7 @@ export const parsePath = (path: string) => {
 export async function resolvePath(args: OnResolveArgs, build: PluginBuild) {
   const { path, query } = parsePath(args.path);
   let absolutePath = path;
-  if (!PATH.isAbsolute(absolutePath)) {
+  if (!isAbsolute(absolutePath)) {
     const result = await build.resolve(absolutePath, {
       resolveDir: args.resolveDir,
       importer: args.importer,
@@ -67,6 +67,6 @@ export const generateTargets = (queries: string) => {
 };
 
 export const replaceExtension = (file: string, ext: string) => {
-  const extName = PATH.extname(file);
+  const extName = extname(file);
   return file.slice(0, file.length - extName.length) + ext;
 };

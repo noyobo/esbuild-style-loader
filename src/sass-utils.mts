@@ -1,4 +1,4 @@
-import path from 'node:path';
+import { dirname, extname, isAbsolute, resolve } from 'node:path';
 import type { PartialMessage } from 'esbuild';
 import type { Syntax } from 'sass';
 
@@ -32,15 +32,15 @@ export function fileSyntax(filename: string): Syntax {
 }
 
 export function resolveCanonicalize(importer: string, file: string, alias: Record<string, string>) {
-  const importerExt = path.extname(importer);
-  const fileExt = path.extname(file);
+  const importerExt = extname(importer);
+  const fileExt = extname(file);
 
   if (!fileExt) {
     file += importerExt;
   }
 
   // absolute path
-  if (path.isAbsolute(file)) {
+  if (isAbsolute(file)) {
     return file;
   }
 
@@ -48,10 +48,10 @@ export function resolveCanonicalize(importer: string, file: string, alias: Recor
   // alias
   if (alias[scope]) {
     const baseFile = file.slice(scope.length + 1);
-    return path.resolve(alias[scope], baseFile);
+    return resolve(alias[scope], baseFile);
   }
 
-  return path.resolve(path.dirname(importer), file);
+  return resolve(dirname(importer), file);
 }
 
 export function convertScssError(error, filePath: string) {

@@ -1,4 +1,5 @@
 import type { PartialMessage } from 'esbuild';
+
 /** Convert less error into esbuild error */
 export const convertLessError = (error: Less.RenderError): PartialMessage => {
   const sourceLine = error.extract.filter(Boolean);

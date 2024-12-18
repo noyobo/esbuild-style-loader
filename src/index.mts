@@ -1,9 +1,9 @@
 import { readFile } from 'node:fs/promises';
-import PATH from 'node:path';
+import { dirname, extname, join, relative } from 'node:path';
 import colors from 'colors';
 import deepmerge from 'deepmerge';
 import type { OnResolveArgs, PartialMessage, Plugin } from 'esbuild';
-import { type CSSModulesConfig, type TransformResult, transform } from 'lightningcss';
+import { type CSSModulesConfig, transform, type TransformResult } from 'lightningcss';
 import qs from 'query-string';
 
 import { convertLessError } from './less-utils.mts';
@@ -63,8 +63,8 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
       const cwd = process.cwd();
 
       const styleTransform = async (filePath: string): Promise<StyleTransformResult | undefined> => {
-        const extname = PATH.extname(filePath);
-        if (extname === '.less') {
+        const ext = extname(filePath);
+        if (ext === '.less') {
           return await transformLess(filePath, {
             sourcemap: !!buildOptions.sourcemap,
             alias: buildOptions.alias,
@@ -74,11 +74,11 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
             throw convertLessError(error);
           });
         }
-        if (extname === '.styl') {
+        if (ext === '.styl') {
           // TODO: support stylus
           throw new Error('stylus is not supported yet');
         }
-        if (extname === '.scss' || extname === '.sass') {
+        if (ext === '.scss' || ext === '.sass') {
           return await transformSass(filePath, {
             sourcemap: !!buildOptions.sourcemap,
             alias: buildOptions.alias,
@@ -131,14 +131,14 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         try {
           const t = Date.now();
           result = await styleTransform(styleFile);
-          logger('Compile', PATH.relative(cwd, styleFile).blue.underline, `in ${Date.now() - t}ms`);
+          logger('Compile', relative(cwd, styleFile).blue.underline, `in ${Date.now() - t}ms`);
           cssContent = result.css;
           cssSourceMap = result.map;
           watchImports = result.imports;
         } catch (error) {
           return {
             errors: [error],
-            resolveDir: PATH.dirname(styleFile),
+            resolveDir: dirname(styleFile),
             watchFiles: [styleFile],
           };
         }
@@ -180,7 +180,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
                 },
               } as PartialMessage,
             ],
-            resolveDir: PATH.dirname(styleFile),
+            resolveDir: dirname(styleFile),
             watchFiles,
           };
         }
@@ -220,7 +220,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         if (result.errors.length) {
           return {
             errors: result.errors,
-            resolveDir: PATH.dirname(args.path),
+            resolveDir: dirname(args.path),
             watchFiles: [args.path],
           };
         }
@@ -240,7 +240,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
         return {
           contents: cssContent,
           loader: 'css',
-          resolveDir: PATH.dirname(args.path),
+          resolveDir: dirname(args.path),
           watchFiles: [rawPath],
         };
       });
@@ -248,7 +248,7 @@ export const styleLoader = (options: StyleLoaderOptions = {}): Plugin => {
       build.onResolve({ filter: /^\//, namespace: 'css-loader' }, async (args) => {
         if (opts.publicPath) {
           // absolute files base on publicPath
-          return { path: PATH.join(opts.publicPath, `.${args.path}`) };
+          return { path: join(opts.publicPath, `.${args.path}`) };
         }
         return { external: true };
       });

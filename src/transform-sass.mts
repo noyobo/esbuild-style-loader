@@ -1,14 +1,14 @@
 import { readFile } from 'node:fs/promises';
 import type * as sass from 'sass';
+import type { ImporterResult, PromiseOr, SourceSpan } from 'sass';
 import { fileSyntax, getDefaultSassImplementation, resolveCanonicalize } from './sass-utils.mts';
-let sassEngine: typeof sass;
-
-import * as fs from 'node:fs';
-import path from 'node:path';
+import { readFileSync } from 'node:fs';
+import { dirname, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import type { PartialMessage } from 'esbuild';
-import type { ImporterResult, PromiseOr, SourceSpan } from 'sass';
 import type { StyleTransformResult } from './types.mts';
+
+let sassEngine: typeof sass;
 
 export const transformSass = async (
   filePath: string,
@@ -24,7 +24,7 @@ export const transformSass = async (
     }
   }
   const syntax = fileSyntax(filePath);
-  const basedir = path.dirname(filePath);
+  const basedir = dirname(filePath);
   const contents = await readFile(filePath, 'utf-8');
   const warnings: PartialMessage[] = [];
 
@@ -62,7 +62,7 @@ export const transformSass = async (
     importer: {
       load(canonicalUrl: URL): PromiseOr<ImporterResult | null, 'async'> {
         const pathname = fileURLToPath(canonicalUrl);
-        const contents = fs.readFileSync(pathname, 'utf8');
+        const contents = readFileSync(pathname, 'utf8');
         return {
           contents,
           syntax: fileSyntax(pathname),
@@ -84,7 +84,7 @@ export const transformSass = async (
   if (sourceMap) {
     sourceMap.sourceRoot = basedir;
     sourceMap.sources = sourceMap.sources.map((source) => {
-      return path.relative(basedir, source.startsWith('data:') ? filePath : fileURLToPath(source));
+      return relative(basedir, source.startsWith('data:') ? filePath : fileURLToPath(source));
     });
   }
 
