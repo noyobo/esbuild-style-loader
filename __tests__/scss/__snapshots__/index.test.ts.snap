@@ -35,16 +35,16 @@ exports[`scss > style-loader 1`] = `
   ));
 
   // css-loader:index.scss
-  var require_scss = __commonJS({
+  var require_index = __commonJS({
     "css-loader:index.scss"(exports, module) {
       module.exports = {};
     }
   });
 
   
-  var require_scss2 = __commonJS({
+  var require_index2 = __commonJS({
     "style-loader:index.scss"(exports, module) {
-      require_scss();
+      require_index();
       var s_app = "index__app";
       var s_index = "index__index";
       var s_title = "index__title";
@@ -56,15 +56,20 @@ exports[`scss > style-loader 1`] = `
   });
 
   // __tests__/scss/index.jsx
-  var import_index = __toESM(require_scss2());
-  var import_react = __toESM(__require("react"));
-  var import_client = __require("react-dom/client");
-  var App = class extends import_react.default.Component {
-    render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", { className: import_index.default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: import_index.default.title }, "Hello World"));
+  var require_index3 = __commonJS({
+    "__tests__/scss/index.jsx"() {
+      var import_index = __toESM(require_index2());
+      var import_react = __toESM(__require("react"));
+      var import_client = __require("react-dom/client");
+      var App = class extends import_react.default.Component {
+        render() {
+          return /* @__PURE__ */ import_react.default.createElement("div", { className: import_index.default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: import_index.default.title }, "Hello World"));
+        }
+      };
+      (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
     }
-  };
-  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
+  });
+  require_index3();
 })();
 //# sourceMappingURL=index.js.map
 "

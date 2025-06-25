@@ -9,7 +9,7 @@ exports[`less-multiple > style-loader 1`] = `
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-    get: (a2, b2) => (typeof require !== "undefined" ? require : a2)[b2]
+    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
   }) : x)(function(x) {
     if (typeof require !== "undefined") return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
@@ -71,16 +71,21 @@ exports[`less-multiple > style-loader 1`] = `
   });
 
   // __tests__/less-multiple/index.jsx
-  var import_react = __toESM(__require("react"));
-  var import_client = __require("react-dom/client");
-  var import_a = __toESM(require_a2());
-  var import_b = __toESM(require_b2());
-  var App = class extends import_react.default.Component {
-    render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", { className: import_a.default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: import_b.default.title }, "Hello World"));
+  var require_index = __commonJS({
+    "__tests__/less-multiple/index.jsx"() {
+      var import_react = __toESM(__require("react"));
+      var import_client = __require("react-dom/client");
+      var import_a = __toESM(require_a2());
+      var import_b = __toESM(require_b2());
+      var App = class extends import_react.default.Component {
+        render() {
+          return /* @__PURE__ */ import_react.default.createElement("div", { className: import_a.default.app }, /* @__PURE__ */ import_react.default.createElement("h1", { className: import_b.default.title }, "Hello World"));
+        }
+      };
+      (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
     }
-  };
-  (0, import_client.createRoot)(document.getElementById("root")).render(/* @__PURE__ */ import_react.default.createElement(App, null));
+  });
+  require_index();
 })();
 //# sourceMappingURL=index.js.map
 "
