@@ -11,7 +11,7 @@ export default defineConfig({
       js: format === 'cjs' ? '.js' : '.mjs',
     }
   },
-  minify: true,
+  minify: false,
   target: 'es2016',
   sourcemap: true,
 });
