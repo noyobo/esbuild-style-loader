@@ -2,7 +2,7 @@ import { extname, isAbsolute } from 'node:path';
 import browserslist from 'browserslist';
 import { camelCase } from 'change-case';
 import type { OnResolveArgs, PluginBuild } from 'esbuild';
-import { browserslistToTargets, type CSSModuleExports } from 'lightningcss';
+import { type CSSModuleExports, browserslistToTargets } from 'lightningcss';
 
 export const codeWithSourceMap = (code: string, map: string) => {
   return `${code}/*# sourceMappingURL=data:application/json;base64,${Buffer.from(map).toString('base64')} */`;

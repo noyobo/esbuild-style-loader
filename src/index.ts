@@ -3,14 +3,14 @@ import { dirname, extname, join, relative } from 'node:path';
 import colors from 'colors';
 import deepmerge from 'deepmerge';
 import type { OnResolveArgs, PartialMessage, Plugin } from 'esbuild';
-import { type CSSModulesConfig, transform, type TransformResult } from 'lightningcss';
+import { type CSSModulesConfig, type TransformResult, transform } from 'lightningcss';
 import qs from 'query-string';
 
-import { convertLessError } from './less-utils.mts';
-import { convertScssError } from './sass-utils.mts';
-import { transformLess } from './transform-less.mts';
-import { transformSass } from './transform-sass.mts';
-import type { StyleTransformResult } from './types.mts';
+import { convertLessError } from './less-utils.ts';
+import { convertScssError } from './sass-utils.ts';
+import { transformLess } from './transform-less.ts';
+import { transformSass } from './transform-sass.ts';
+import type { StyleTransformResult } from './types.ts';
 import {
   codeWithSourceMap,
   cssExportsToJs,
@@ -18,7 +18,7 @@ import {
   parsePath,
   replaceExtension,
   resolvePath,
-} from './utils.mts';
+} from './utils.ts';
 
 colors.enable();
 

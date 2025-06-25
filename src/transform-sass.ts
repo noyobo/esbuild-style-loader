@@ -1,12 +1,12 @@
-import { readFile } from 'node:fs/promises';
-import type * as sass from 'sass';
-import type { ImporterResult, PromiseOr, SourceSpan } from 'sass';
-import { fileSyntax, getDefaultSassImplementation, resolveCanonicalize } from './sass-utils.mts';
 import { readFileSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
 import { dirname, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import type { PartialMessage } from 'esbuild';
-import type { StyleTransformResult } from './types.mts';
+import type * as sass from 'sass';
+import type { ImporterResult, PromiseOr, SourceSpan } from 'sass';
+import { fileSyntax, getDefaultSassImplementation, resolveCanonicalize } from './sass-utils.ts';
+import type { StyleTransformResult } from './types.ts';
 
 let sassEngine: typeof sass;
 
