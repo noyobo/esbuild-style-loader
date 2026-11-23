@@ -31,9 +31,16 @@ describe('style conversion failure', () => {
     await rm(directory, { recursive: true, force: true });
   });
 
-  async function bundle(name: string, contents: string, absolute = false, options?: Parameters<typeof styleLoader>[0]) {
+  async function bundle(
+    name: string,
+    contents: string | undefined,
+    absolute = false,
+    options?: Parameters<typeof styleLoader>[0],
+  ) {
     const file = path.join(directory, name.split('?')[0]);
-    await writeFile(file, contents);
+    if (contents !== undefined) {
+      await writeFile(file, contents);
+    }
     const entry = path.join(directory, 'entry.js');
     const request = absolute ? path.join(directory, name) : `./${name}`;
     await writeFile(entry, `import styles from ${JSON.stringify(request)}; console.log(styles);`);
@@ -233,6 +240,17 @@ describe('style conversion failure', () => {
     });
   });
 
+  it('retains a thrown string as the CSS Modules diagnostic', async () => {
+    const diagnostic = 'Unexpected failure without an Error object';
+    mockTransform.mockImplementationOnce(() => {
+      throw diagnostic;
+    });
+
+    await expect(bundle('index.module.css', '.example { color: red; }')).rejects.toMatchObject({
+      errors: [expect.objectContaining({ text: diagnostic, detail: diagnostic })],
+    });
+  });
+
   it.each([
     ['less', '.example { color: @undefined; }', 'variable @undefined is undefined'],
     ['scss', '.example { color: $undefined; }', 'Undefined variable'],
@@ -261,6 +279,30 @@ describe('style conversion failure', () => {
         }),
       ],
     });
+  });
+
+  it.each(['less', 'scss'])('preserves file system errors for missing absolute %s imports', async (extension) => {
+    const name = `missing.${extension}`;
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    await expect(bundle(name, undefined, true)).rejects.toMatchObject({
+      errors: [
+        expect.objectContaining({
+          text: expect.stringContaining('ENOENT'),
+          location: expect.objectContaining({ file: name }),
+        }),
+      ],
+    });
+    expect(warn).not.toHaveBeenCalledWith(expect.stringContaining('[esbuild-style-loader]'), expect.anything());
+    expect(mockTransform).not.toHaveBeenCalled();
+  });
+
+  it('emits a Sass warning and still produces CSS', async () => {
+    const result = await bundle('index.scss', '@warn "Check the theme settings"; .example { color: red; }');
+
+    expect(result.warnings).toContainEqual(
+      expect.objectContaining({ text: expect.stringContaining('Check the theme settings') }),
+    );
+    expect(result.outputFiles.find((file) => file.path.endsWith('.css'))?.text).toContain('color: red');
   });
 
   it('reports the unsupported Stylus preprocessor when a custom filter opts in', async () => {

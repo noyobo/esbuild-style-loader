@@ -1,9 +1,20 @@
+import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
-import { getDefaultSassImplementation } from '../../src/sass-utils';
+import { getDefaultSassImplementation, resolveCanonicalize } from '../../src/sass-utils';
 
 const { load, resolve } = vi.hoisted(() => {
   const resolve = vi.fn();
   return { load: Object.assign(vi.fn(), { resolve }), resolve };
+});
+
+describe('Sass import resolution', () => {
+  it('keeps an absolute input independent of the importer directory and configured aliases', () => {
+    const importer = path.resolve('project', 'src', 'index.scss');
+    const absolute = path.resolve('other', 'theme', 'variables.scss');
+    const aliases = { theme: path.resolve('project', 'src', 'theme') };
+
+    expect(resolveCanonicalize(importer, absolute, aliases)).toBe(absolute);
+  });
 });
 
 vi.mock('node:module', () => ({ createRequire: () => load }));
