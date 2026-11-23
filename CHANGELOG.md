@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/noyobo/esbuild-style-loader/compare/v0.3.4...v1.0.0) (2026-11-23)
+
+
+### Bug Fixes
+
+* 样式转换失败时回退普通 CSS 并保留原始诊断 ([#72](https://github.com/noyobo/esbuild-style-loader/issues/72)) ([267a806](https://github.com/noyobo/esbuild-style-loader/commit/267a8066d261071ebefe86cc3c65801f9ada7fa2))
+
 ## 0.3.4 (2024-12-18)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "esbuild-style-loader",
-  "version": "0.3.4",
+  "version": "1.0.0",
   "packageManager": "bun@1.4.4",
   "license": "MIT",
   "description": "A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules.",
