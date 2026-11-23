@@ -6,7 +6,7 @@ name: Node.js CI
 on:
   workflow_dispatch:
   push:
-    branches: ['main', 'dev', 'codex/current-style-fallback', 'codex/legacy-css-fallback']
+    branches: ['main', 'dev']
     paths:
       - 'src/**'
       - '__tests__/**'
