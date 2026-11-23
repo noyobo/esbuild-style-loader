@@ -6,7 +6,13 @@
   "description": "A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules.",
   "homepage": "https://github.com/noyobo/esbuild-style-loader",
   "files": [
-    "lib"
+    "lib/index.js",
+    "lib/index.mjs",
+    "lib/index.d.ts",
+    "lib/index.d.mts",
+    "lib/less-utils.d.ts",
+    "lib/transform-less.d.ts",
+    "lib/types.d.ts"
   ],
   "type": "commonjs",
   "main": "lib/index.js",

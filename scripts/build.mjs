@@ -12,7 +12,7 @@ const options = {
   entrypoints: [fileURLToPath(new URL('../src/index.ts', import.meta.url))],
   outdir: fileURLToPath(output),
   target: 'node',
-  sourcemap: 'linked',
+  sourcemap: 'external',
   external,
 };
 

@@ -17,6 +17,17 @@ async function testPackage() {
       cwd: root,
       encoding: 'utf8',
     }).trim();
+    const packedFiles = execFileSync('tar', ['-tf', filename], { cwd: directory, encoding: 'utf8' })
+      .trim()
+      .split(/\r?\n/)
+      .filter((entry) => !entry.endsWith('/'))
+      .map((entry) => entry.replace(/^package\//, ''));
+    const { files } = require(path.join(root, 'package.json'));
+    assert.ok(!packedFiles.some((entry) => entry.endsWith('.map')), 'The package must not include source maps');
+    assert.deepEqual(
+      packedFiles.filter((entry) => !/^(?:package\.json|(?:readme|licen[cs]e|copying)(?:\.[^/]+)?)$/i.test(entry)).sort(),
+      [...files].sort(),
+    );
     execFileSync('tar', ['-xf', filename], { cwd: directory });
     const installed = path.join(directory, 'node_modules');
     mkdirSync(installed);
