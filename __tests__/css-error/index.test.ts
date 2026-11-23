@@ -31,7 +31,7 @@ describe('style conversion failure', () => {
     await rm(directory, { recursive: true, force: true });
   });
 
-  async function bundle(name: string, contents: string, absolute = false) {
+  async function bundle(name: string, contents: string, absolute = false, options?: Parameters<typeof styleLoader>[0]) {
     const file = path.join(directory, name.split('?')[0]);
     await writeFile(file, contents);
     const entry = path.join(directory, 'entry.js');
@@ -45,7 +45,7 @@ describe('style conversion failure', () => {
       write: false,
       logLevel: 'error',
       loader: { '.png': 'dataurl' },
-      plugins: [styleLoader()],
+      plugins: [styleLoader(options)],
     });
   }
 
@@ -108,9 +108,27 @@ describe('style conversion failure', () => {
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('index.css'), originalError);
   });
 
+  it.each([false, true])(
+    'handles root-relative asset URLs after fallback with publicPath configured: %s',
+    async (usePublicPath) => {
+      await writeFile(path.join(directory, 'image.png'), Buffer.from([1, 2, 3]));
+      vi.spyOn(console, 'warn').mockImplementation(() => {});
+      mockTransform.mockImplementationOnce(() => {
+        throw originalError;
+      });
+
+      const result = await bundle('index.css', '.example { background-image: url(/image.png); }', false, {
+        publicPath: usePublicPath ? directory : undefined,
+      });
+      const css = result.outputFiles.find((file) => file.path.endsWith('.css'))?.text;
+      expect(css).toContain(usePublicPath ? 'data:image/png' : 'url(/image.png)');
+    },
+  );
+
   it.each([
     ['less', '@primary: red; .example { color: @primary; }'],
     ['scss', '$primary: red; .example { color: $primary; }'],
+    ['sass', '$primary: red\n.example\n  color: $primary\n'],
   ])('continues bundling preprocessed %s', async (extension, contents) => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     mockTransform.mockImplementationOnce(() => {
@@ -243,5 +261,17 @@ describe('style conversion failure', () => {
         }),
       ],
     });
+  });
+
+  it('reports the unsupported Stylus preprocessor when a custom filter opts in', async () => {
+    await expect(bundle('index.styl', '.example\n  color red', false, { filter: /\.styl$/ })).rejects.toMatchObject({
+      errors: [
+        expect.objectContaining({
+          text: 'stylus is not supported yet',
+          location: expect.objectContaining({ file: 'index.styl' }),
+        }),
+      ],
+    });
+    expect(mockTransform).not.toHaveBeenCalled();
   });
 });
