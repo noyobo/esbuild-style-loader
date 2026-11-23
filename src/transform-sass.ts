@@ -5,8 +5,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import type { PartialMessage } from 'esbuild';
 import type * as sass from 'sass';
 import type { ImporterResult, PromiseOr, SourceSpan } from 'sass';
-import { fileSyntax, getDefaultSassImplementation, resolveCanonicalize } from './sass-utils.ts';
-import type { StyleTransformResult } from './types.ts';
+import { fileSyntax, getDefaultSassImplementation, resolveCanonicalize } from './sass-utils.js';
+import type { StyleTransformResult } from './types.js';
 
 let sassEngine: typeof sass;
 

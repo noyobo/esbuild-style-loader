@@ -5,12 +5,12 @@ import deepmerge from 'deepmerge';
 import type { OnResolveArgs, PartialMessage, Plugin } from 'esbuild';
 import { type CSSModulesConfig, type TransformResult, transform } from 'lightningcss';
 
-import { convertLessError } from './less-utils.ts';
-import { convertScssError } from './sass-utils.ts';
-import { transformLess } from './transform-less.ts';
-import { transformSass } from './transform-sass.ts';
-import type { StyleTransformResult } from './types.ts';
-import { codeWithSourceMap, cssExportsToJs, generateTargets, parsePath, resolvePath } from './utils.ts';
+import { convertLessError } from './less-utils.js';
+import { convertScssError } from './sass-utils.js';
+import { transformLess } from './transform-less.js';
+import { transformSass } from './transform-sass.js';
+import type { StyleTransformResult } from './types.js';
+import { codeWithSourceMap, cssExportsToJs, generateTargets, parsePath, resolvePath } from './utils.js';
 
 colors.enable();
 

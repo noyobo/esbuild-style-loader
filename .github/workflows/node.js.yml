@@ -10,8 +10,9 @@ on:
     paths:
       - 'src/**'
       - '__tests__/**'
-      - 'scripts/test-package.cjs'
+      - 'scripts/**'
       - 'vitest.config.mts'
+      - 'tsconfig*.json'
       - 'package.json'
       - 'bun.lock'
       - '.github/workflows/node.js.yml'
@@ -24,7 +25,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x, 24.x]
+        node-version: [22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -50,7 +51,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:

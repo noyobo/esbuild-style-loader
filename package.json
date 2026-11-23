@@ -44,22 +44,21 @@
     "change-case": "^5.4.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.6.8",
     "@types/fs-extra": "^11.0.4",
     "@types/less": "^3.0.8",
     "@types/node": "^26.6.6",
-    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/coverage-v8": "^5.1.1",
     "conventional-changelog-cli": "^5.0.0",
     "esbuild": "^0.28.2",
     "fs-extra": "^11.4.1",
     "less-test-module": "^0.0.10",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "sass": "^1.108.2",
     "standard-version": "^9.5.0",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.3",
-    "vitest": "^2.1.8"
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
   },
   "peerDependencies": {
     "esbuild": "*"
@@ -68,7 +67,7 @@
     "test": "vitest --run",
     "test:package": "node scripts/test-package.cjs",
     "test:html": "OUTPUT_HTML=1 vitest --run",
-    "build": "tsup",
+    "build": "bun scripts/build.mjs",
     "prepublishOnly": "bun run build",
     "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },

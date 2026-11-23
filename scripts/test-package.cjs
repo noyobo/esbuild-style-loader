@@ -1,6 +1,7 @@
 const assert = require('node:assert/strict');
 const { execFileSync } = require('node:child_process');
-const { mkdtempSync, realpathSync, rmSync, writeFileSync } = require('node:fs');
+const { mkdirSync, mkdtempSync, realpathSync, renameSync, rmSync, writeFileSync } = require('node:fs');
+const { createRequire } = require('node:module');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 const { build } = require('esbuild');
@@ -17,12 +18,35 @@ async function testPackage() {
       encoding: 'utf8',
     }).trim();
     execFileSync('tar', ['-xf', filename], { cwd: directory });
-    const packagePath = path.join(directory, 'package');
-    const { exports } = require(path.join(packagePath, 'package.json'));
+    const installed = path.join(directory, 'node_modules');
+    mkdirSync(installed);
+    renameSync(path.join(directory, 'package'), path.join(installed, 'esbuild-style-loader'));
+
+    const commonjs = path.join(directory, 'consumer.cjs');
+    const esm = path.join(directory, 'consumer.mjs');
+    writeFileSync(esm, "export { styleLoader } from 'esbuild-style-loader';");
     const loaders = [
-      require(packagePath).styleLoader,
-      (await import(pathToFileURL(path.join(packagePath, exports['.'].import.default)).href)).styleLoader,
+      createRequire(commonjs)('esbuild-style-loader').styleLoader,
+      (await import(pathToFileURL(esm).href)).styleLoader,
     ];
+
+    writeFileSync(
+      path.join(directory, 'consumer.cts'),
+      "import loader = require('esbuild-style-loader');\nexport const plugin: import('esbuild').Plugin = loader.styleLoader();",
+    );
+    writeFileSync(
+      path.join(directory, 'consumer.mts'),
+      "import { styleLoader, transformLess } from 'esbuild-style-loader';\n" +
+        "export const plugin: import('esbuild').Plugin = styleLoader();\nexport const transform = transformLess;",
+    );
+    writeFileSync(
+      path.join(directory, 'tsconfig.json'),
+      JSON.stringify({
+        compilerOptions: { module: 'NodeNext', noEmit: true, strict: true, types: ['node', 'less'] },
+        files: ['consumer.cts', 'consumer.mts'],
+      }),
+    );
+    execFileSync('bun', ['run', 'tsc', '-p', path.join(directory, 'tsconfig.json')], { cwd: root, stdio: 'inherit' });
 
     const style = path.join(directory, "样式's theme.css");
     writeFileSync(
@@ -53,7 +77,7 @@ async function testPackage() {
       assert.ok(diagnostic[0].includes(style), 'Fallback warning must contain the absolute style path');
       assert.match(diagnostic[1]?.message, /Unexpected token Dimension/);
     }
-    console.log('Packed CommonJS and ES modules emitted fallback CSS and the original diagnostic.');
+    console.log('Packed CommonJS and ES modules type-checked and emitted fallback CSS with the original diagnostic.');
   } finally {
     console.warn = originalWarn;
     rmSync(directory, { recursive: true, force: true });
