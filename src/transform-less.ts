@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import lessEngine from 'less';
 import { LessPluginModuleResolver } from 'less-plugin-module-resolver';
-import type { StyleTransformResult } from './types.ts';
+import type { StyleTransformResult } from './types.js';
 
 export const transformLess = async (
   filePath: string,

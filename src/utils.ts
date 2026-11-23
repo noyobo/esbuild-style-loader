@@ -27,7 +27,7 @@ export const cssExportsToJs = (exports: CSSModuleExports, entryFile: string) => 
   const code = `${variablesCode};\n${exportCode.join('\n')};\nmodule.exports = {${defaultCode.join(',')}};\n`;
 
   if (entryFile) {
-    return `require('${entryFile}');\n${code}`;
+    return `require(${JSON.stringify(entryFile)});\n${code}`;
   }
 
   return code;

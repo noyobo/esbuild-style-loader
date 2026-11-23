@@ -1,11 +1,18 @@
 {
   "name": "esbuild-style-loader",
   "version": "0.3.4",
+  "packageManager": "bun@1.4.4",
   "license": "MIT",
   "description": "A style loader for esbuild, support for CSS, SCSS, LESS, Stylus, and CSS Modules.",
   "homepage": "https://github.com/noyobo/esbuild-style-loader",
   "files": [
-    "lib"
+    "lib/index.js",
+    "lib/index.mjs",
+    "lib/index.d.ts",
+    "lib/index.d.mts",
+    "lib/less-utils.d.ts",
+    "lib/transform-less.d.ts",
+    "lib/types.d.ts"
   ],
   "type": "commonjs",
   "main": "lib/index.js",
@@ -34,42 +41,40 @@
     "esuild-css-modules"
   ],
   "dependencies": {
-    "browserslist": "^4.25.0",
+    "browserslist": "^4.29.6",
     "colors": "1.4.0",
     "deepmerge": "^4.3.1",
-    "less": "^4.3.0",
+    "less": "^4.9.1",
     "less-plugin-module-resolver": "^1.0.3",
-    "less-plugin-npm-import": "^2.1.0",
-    "lightningcss": "^1.30.1",
-    "change-case": "^5.4.4",
-    "query-string": "^9.2.1"
+    "lightningcss": "^1.33.0",
+    "change-case": "^5.4.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.6.8",
     "@types/fs-extra": "^11.0.4",
     "@types/less": "^3.0.8",
-    "@types/node": "^22.10.2",
-    "@vitest/coverage-v8": "^2.1.8",
+    "@types/node": "^26.6.6",
+    "@vitest/coverage-v8": "^5.1.1",
     "conventional-changelog-cli": "^5.0.0",
-    "esbuild": "^0.25.5",
-    "fs-extra": "^11.3.0",
+    "esbuild": "^0.28.2",
+    "fs-extra": "^11.4.1",
     "less-test-module": "^0.0.10",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "sass": "^1.89.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sass": "^1.108.2",
     "standard-version": "^9.5.0",
-    "tsup": "^8.5.0",
-    "typescript": "^5.8.3",
-    "vitest": "^2.1.8"
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
   },
   "peerDependencies": {
     "esbuild": "*"
   },
   "scripts": {
     "test": "vitest --run",
+    "test:package": "node scripts/test-package.cjs",
     "test:html": "OUTPUT_HTML=1 vitest --run",
-    "build": "tsup",
-    "prepublishOnly": "npm run build",
+    "build": "bun scripts/build.mjs",
+    "prepublishOnly": "bun run build",
     "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "publishConfig": {

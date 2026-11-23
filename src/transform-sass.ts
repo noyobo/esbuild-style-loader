@@ -5,8 +5,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import type { PartialMessage } from 'esbuild';
 import type * as sass from 'sass';
 import type { ImporterResult, PromiseOr, SourceSpan } from 'sass';
-import { fileSyntax, getDefaultSassImplementation, resolveCanonicalize } from './sass-utils.ts';
-import type { StyleTransformResult } from './types.ts';
+import { fileSyntax, getDefaultSassImplementation, resolveCanonicalize } from './sass-utils.js';
+import type { StyleTransformResult } from './types.js';
 
 let sassEngine: typeof sass;
 
@@ -15,14 +15,7 @@ export const transformSass = async (
   options: { sourcemap: boolean; alias?: Record<string, string> },
 ): Promise<StyleTransformResult> => {
   const { sourcemap } = options;
-  if (!sassEngine) {
-    try {
-      sassEngine = getDefaultSassImplementation();
-    } catch (e) {
-      console.error(e);
-      process.exit(1);
-    }
-  }
+  sassEngine ||= getDefaultSassImplementation();
   const syntax = fileSyntax(filePath);
   const basedir = dirname(filePath);
   const contents = await readFile(filePath, 'utf-8');

@@ -1,19 +1,319 @@
+import { mkdtemp, realpath, rm, writeFile } from 'fs/promises';
+import { tmpdir } from 'os';
 import path from 'path';
-import { removeComments, runTest } from '../runTest';
-import fse from 'fs-extra';
-import { formatMessages } from 'esbuild';
+import { runInNewContext } from 'vm';
+import { build, BuildResult, context } from 'esbuild';
+import { transform } from 'lightningcss';
+import { vi } from 'vitest';
+import { styleLoader } from '../../src';
+import { cssExportsToJs } from '../../src/utils';
+import { runTest } from '../runTest';
 
-const OUTPUT_HTML = !!process.env.OUTPUT_HTML;
+vi.mock('lightningcss', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('lightningcss')>();
+  return { ...actual, transform: vi.fn(actual.transform) };
+});
 
-describe(path.basename(path.dirname(__filename)), function () {
-  it('style-loader', async function () {
-    const output = path.resolve(__dirname, 'output');
-    fse.removeSync(output);
-    await runTest([path.resolve(__dirname, './index.jsx')], output).catch((error) => {
-      formatMessages(error.errors, { kind: 'error', color: false }).then((res) => {
-        expect(res.length).toBe(1);
-        expect(res[0]).toContain('[ERROR] Unexpected token Dimension');
-      });
+const mockTransform = vi.mocked(transform);
+const originalError = new Error('Lightning CSS failed without source or location');
+
+describe('style conversion failure', () => {
+  let directory: string;
+
+  beforeEach(async () => {
+    directory = await realpath(await mkdtemp(path.join(tmpdir(), 'style-loader-')));
+  });
+
+  afterEach(async () => {
+    vi.restoreAllMocks();
+    const actual = await vi.importActual<typeof import('lightningcss')>('lightningcss');
+    mockTransform.mockReset().mockImplementation(actual.transform);
+    await rm(directory, { recursive: true, force: true });
+  });
+
+  async function bundle(
+    name: string,
+    contents: string | undefined,
+    absolute = false,
+    options?: Parameters<typeof styleLoader>[0],
+  ) {
+    const file = path.join(directory, name.split('?')[0]);
+    if (contents !== undefined) {
+      await writeFile(file, contents);
+    }
+    const entry = path.join(directory, 'entry.js');
+    const request = absolute ? path.join(directory, name) : `./${name}`;
+    await writeFile(entry, `import styles from ${JSON.stringify(request)}; console.log(styles);`);
+    return await build({
+      absWorkingDir: directory,
+      entryPoints: [entry],
+      outdir: path.join(directory, 'out'),
+      bundle: true,
+      write: false,
+      logLevel: 'error',
+      loader: { '.png': 'dataurl' },
+      plugins: [styleLoader(options)],
     });
+  }
+
+  it.each(["C:\\Ray Projects\\样式's demo\\themes\\new.css", '\\\\fileserver\\share\\styles\\new.css'])(
+    'preserves the generated require request for %s',
+    (request) => {
+      const requireStyle = vi.fn();
+      runInNewContext(cssExportsToJs({}, request), { require: requireStyle, module: {} });
+      expect(requireStyle).toHaveBeenCalledWith(request);
+    },
+  );
+
+  it('bundles the existing fixture after Lightning CSS reports an unexpected token', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const result = await runTest([path.join(__dirname, 'index.jsx')], directory, { logLevel: 'error' });
+
+    expect(result.outputFiles.find((file) => file.path.endsWith('.css'))?.text).toContain('padding: 20px');
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringContaining(path.join(__dirname, 'index.css')),
+      expect.objectContaining({ message: expect.stringContaining('Unexpected token Dimension') }),
+    );
+  });
+
+  it.each([false, true])('bundles CSS and assets with fallback when absolute import is %s', async (absolute) => {
+    await writeFile(path.join(directory, 'image.png'), Buffer.from([1, 2, 3]));
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    mockTransform.mockImplementationOnce(() => {
+      throw originalError;
+    });
+
+    const name = "样式's theme.css";
+    const result = await bundle(name, '.example { background-image: url(./image.png); }', absolute);
+
+    expect(result.outputFiles.find((file) => file.path.endsWith('.css'))?.text).toContain('data:image/png');
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining(path.join(directory, name)), originalError);
+  });
+
+  it('keeps CSS Modules class exports in sync with the stylesheet for an absolute import', async () => {
+    const result = await bundle("样式's theme.module.css", '.example { color: red; }', true);
+    const js = result.outputFiles.find((file) => file.path.endsWith('.js'))?.text;
+    const css = result.outputFiles.find((file) => file.path.endsWith('.css'))?.text;
+    const log = vi.fn();
+    runInNewContext(js, { console: { log } });
+    const [{ example: className }] = log.mock.calls[0];
+
+    expect(className).toEqual(expect.any(String));
+    expect(className).not.toBe('example');
+    expect(css).toContain(`.${className} {`);
+  });
+
+  it('reports an unresolved asset after falling back to the original CSS', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    mockTransform.mockImplementationOnce(() => {
+      throw originalError;
+    });
+
+    await expect(bundle('index.css', '.example { background-image: url(./missing.png); }')).rejects.toMatchObject({
+      errors: [expect.objectContaining({ text: expect.stringContaining('Could not resolve "./missing.png"') })],
+    });
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('index.css'), originalError);
+  });
+
+  it.each([false, true])(
+    'handles root-relative asset URLs after fallback with publicPath configured: %s',
+    async (usePublicPath) => {
+      await writeFile(path.join(directory, 'image.png'), Buffer.from([1, 2, 3]));
+      vi.spyOn(console, 'warn').mockImplementation(() => {});
+      mockTransform.mockImplementationOnce(() => {
+        throw originalError;
+      });
+
+      const result = await bundle('index.css', '.example { background-image: url(/image.png); }', false, {
+        publicPath: usePublicPath ? directory : undefined,
+      });
+      const css = result.outputFiles.find((file) => file.path.endsWith('.css'))?.text;
+      expect(css).toContain(usePublicPath ? 'data:image/png' : 'url(/image.png)');
+    },
+  );
+
+  it.each([
+    ['less', '@primary: red; .example { color: @primary; }'],
+    ['scss', '$primary: red; .example { color: $primary; }'],
+    ['sass', '$primary: red\n.example\n  color: $primary\n'],
+  ])('continues bundling preprocessed %s', async (extension, contents) => {
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    mockTransform.mockImplementationOnce(() => {
+      throw originalError;
+    });
+
+    const result = await bundle(`index.${extension}`, contents);
+
+    expect(result.outputFiles.find((file) => file.path.endsWith('.css'))?.text).toContain('color: red');
+  });
+
+  it.each(['less', 'scss'])(
+    'returns to normal conversion when an imported %s file changes after fallback',
+    async (extension) => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      mockTransform.mockImplementationOnce(() => {
+        throw originalError;
+      });
+      const sigil = extension === 'less' ? '@' : '$';
+      const importedFile = path.join(directory, `variables.${extension}`);
+      const entry = path.join(directory, 'entry.js');
+      await writeFile(entry, `import './index.${extension}';`);
+      await writeFile(importedFile, `${sigil}size: 12px;`);
+      await writeFile(
+        path.join(directory, `index.${extension}`),
+        `@import "./variables.${extension}"; .example { width: ${sigil}size; }`,
+      );
+      let onBuild: (result: BuildResult) => void;
+      const nextBuild = () =>
+        new Promise<BuildResult>((resolve, reject) => {
+          const timer = setTimeout(() => reject(new Error('Timed out waiting for an esbuild watch result')), 4000);
+          onBuild = (result) => {
+            clearTimeout(timer);
+            resolve(result);
+          };
+        });
+      const watcher = await context({
+        absWorkingDir: directory,
+        entryPoints: [entry],
+        outdir: path.join(directory, 'out'),
+        bundle: true,
+        write: false,
+        logLevel: 'error',
+        plugins: [styleLoader(), { name: 'watch-test', setup: (build) => build.onEnd((result) => onBuild(result)) }],
+      });
+      try {
+        const initial = nextBuild();
+        await watcher.watch();
+        expect((await initial).outputFiles?.find((file) => file.path.endsWith('.css'))?.text).toContain('width: 12px');
+        const rebuilt = nextBuild();
+        await writeFile(importedFile, `${sigil}size: 24px;`);
+        expect((await rebuilt).outputFiles?.find((file) => file.path.endsWith('.css'))?.text).toContain('width: 24px');
+        expect(warn.mock.calls.filter(([message]) => message.includes('[esbuild-style-loader]'))).toHaveLength(1);
+      } finally {
+        await watcher.dispose();
+      }
+    },
+    10000,
+  );
+
+  it.each(['index.module.css', 'index.css?modules', 'index.css?%6dodules', 'index.css?modules=false'])(
+    'preserves the original CSS Modules error for %s',
+    async (name) => {
+      mockTransform.mockImplementationOnce(() => {
+        throw originalError;
+      });
+
+      await expect(bundle(name, '.example { color: red; }')).rejects.toMatchObject({
+        errors: [
+          expect.objectContaining({
+            text: originalError.message,
+            detail: originalError,
+            location: expect.objectContaining({ file: name.split('?')[0] }),
+          }),
+        ],
+      });
+    },
+  );
+
+  it('preserves the original CRLF source line and location for a CSS Modules failure', async () => {
+    const contents = '.example {\r\n  color: red;\r\n}';
+    const error = Object.assign(new Error('Invalid declaration'), {
+      loc: { line: 2, column: 2 },
+      source: contents,
+    });
+    mockTransform.mockImplementationOnce(() => {
+      throw error;
+    });
+
+    await expect(bundle('index.module.css', contents)).rejects.toMatchObject({
+      errors: [
+        expect.objectContaining({
+          text: error.message,
+          location: expect.objectContaining({
+            file: 'index.module.css',
+            line: 2,
+            column: 2,
+            lineText: '  color: red;',
+          }),
+        }),
+      ],
+    });
+  });
+
+  it('retains a thrown string as the CSS Modules diagnostic', async () => {
+    const diagnostic = 'Unexpected failure without an Error object';
+    mockTransform.mockImplementationOnce(() => {
+      throw diagnostic;
+    });
+
+    await expect(bundle('index.module.css', '.example { color: red; }')).rejects.toMatchObject({
+      errors: [expect.objectContaining({ text: diagnostic, detail: diagnostic })],
+    });
+  });
+
+  it.each([
+    ['less', '.example { color: @undefined; }', 'variable @undefined is undefined'],
+    ['scss', '.example { color: $undefined; }', 'Undefined variable'],
+  ])('keeps %s preprocessor errors fatal', async (extension, contents, diagnostic) => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    await expect(bundle(`index.${extension}`, contents)).rejects.toMatchObject({
+      errors: [
+        expect.objectContaining({
+          text: expect.stringContaining(diagnostic),
+          location: expect.objectContaining({ file: `index.${extension}`, line: 1 }),
+        }),
+      ],
+    });
+    expect(warn).not.toHaveBeenCalledWith(expect.stringContaining('[esbuild-style-loader]'), expect.anything());
+  });
+
+  it('points to the imported Sass file when preprocessing fails there', async () => {
+    await writeFile(path.join(directory, 'variables.scss'), '$size: 12px;\n.example { width: $undefined; }');
+
+    await expect(bundle('index.scss', '@use "./variables.scss";')).rejects.toMatchObject({
+      errors: [
+        expect.objectContaining({
+          text: expect.stringContaining('Undefined variable'),
+          location: expect.objectContaining({ file: 'variables.scss', line: 2 }),
+        }),
+      ],
+    });
+  });
+
+  it.each(['less', 'scss'])('preserves file system errors for missing absolute %s imports', async (extension) => {
+    const name = `missing.${extension}`;
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    await expect(bundle(name, undefined, true)).rejects.toMatchObject({
+      errors: [
+        expect.objectContaining({
+          text: expect.stringContaining('ENOENT'),
+          location: expect.objectContaining({ file: name }),
+        }),
+      ],
+    });
+    expect(warn).not.toHaveBeenCalledWith(expect.stringContaining('[esbuild-style-loader]'), expect.anything());
+    expect(mockTransform).not.toHaveBeenCalled();
+  });
+
+  it('emits a Sass warning and still produces CSS', async () => {
+    const result = await bundle('index.scss', '@warn "Check the theme settings"; .example { color: red; }');
+
+    expect(result.warnings).toContainEqual(
+      expect.objectContaining({ text: expect.stringContaining('Check the theme settings') }),
+    );
+    expect(result.outputFiles.find((file) => file.path.endsWith('.css'))?.text).toContain('color: red');
+  });
+
+  it('reports the unsupported Stylus preprocessor when a custom filter opts in', async () => {
+    await expect(bundle('index.styl', '.example\n  color red', false, { filter: /\.styl$/ })).rejects.toMatchObject({
+      errors: [
+        expect.objectContaining({
+          text: 'stylus is not supported yet',
+          location: expect.objectContaining({ file: 'index.styl' }),
+        }),
+      ],
+    });
+    expect(mockTransform).not.toHaveBeenCalled();
   });
 });

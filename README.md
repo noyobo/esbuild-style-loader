@@ -79,6 +79,19 @@ const buildOptions = {
 
 if you want to use absolute paths, you can specify the `publicPath` option
 
+## Development
+
+Use the Bun version specified in `package.json` and Node.js 22.12+ or 24+ for development.
+
+```sh
+bun install --frozen-lockfile
+bun run test
+bun run build
+bun run test:package
+```
+
+Bun bundles the CommonJS and ESM entries for Node.js. TypeScript emits the corresponding declarations.
+
 ## TODO
 
 - [ ] Support for Stylus

@@ -10,6 +10,12 @@ on:
     paths:
       - 'src/**'
       - '__tests__/**'
+      - 'scripts/**'
+      - 'vitest.config.mts'
+      - 'tsconfig*.json'
+      - 'package.json'
+      - 'bun.lock'
+      - '.github/workflows/node.js.yml'
   pull_request:
     branches: ['main']
 
@@ -19,7 +25,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -28,9 +34,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: yarn --frozen-lockfile
-      - run: yarn run test --coverage
+          architecture: 'x64'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: 'package.json'
+      - run: bun install --frozen-lockfile
+      - run: bun run test --coverage
+      - run: bun run build
+      - run: bun run test:package
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
@@ -40,7 +51,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -49,9 +60,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: yarn --frozen-lockfile
-      - run: yarn run test --coverage
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: 'package.json'
+      - run: bun install --frozen-lockfile
+      - run: bun run test --coverage
+      - run: bun run build
+      - run: bun run test:package
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
