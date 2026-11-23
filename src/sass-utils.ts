@@ -1,19 +1,23 @@
+import { createRequire } from 'node:module';
 import { dirname, extname, isAbsolute, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { PartialMessage } from 'esbuild';
-import type { Syntax } from 'sass';
+import type { SourceSpan, Syntax } from 'sass';
+
+const requireSass = createRequire(import.meta.url);
 
 export function getDefaultSassImplementation() {
   let sassImplPkg = 'sass';
 
   try {
-    require.resolve('sass');
+    requireSass.resolve('sass');
   } catch (ignoreError) {
     try {
-      require.resolve('node-sass');
+      requireSass.resolve('node-sass');
       sassImplPkg = 'node-sass';
     } catch (_ignoreError) {
       try {
-        require.resolve('sass-embedded');
+        requireSass.resolve('sass-embedded');
         sassImplPkg = 'sass-embedded';
       } catch (__ignoreError) {
         sassImplPkg = 'sass';
@@ -21,7 +25,7 @@ export function getDefaultSassImplementation() {
     }
   }
 
-  return require(sassImplPkg);
+  return requireSass(sassImplPkg);
 }
 
 export function fileSyntax(filename: string): Syntax {
@@ -54,18 +58,19 @@ export function resolveCanonicalize(importer: string, file: string, alias: Recor
   return resolve(dirname(importer), file);
 }
 
-export function convertScssError(error, filePath: string) {
-  const [message, _, lineText, ...rest] = error.message.split('\n');
-  const stack = rest[rest.length - 1];
-  const lineColumn = stack.match(/(\d+):(\d+)/);
-
+export function convertScssError(
+  error: Error & { sassMessage?: string; span?: SourceSpan },
+  filePath: string,
+): PartialMessage {
+  const span = error.span;
   return {
-    text: message,
+    text: error.sassMessage || error.message,
     location: {
-      file: filePath,
-      line: Number(lineColumn[1]),
-      column: Number(lineColumn[2]),
-      lineText: lineText.trim().replace(/\d+\s│/, ''),
+      file: span?.url?.protocol === 'file:' ? fileURLToPath(span.url) : filePath,
+      line: span ? span.start.line + 1 : undefined,
+      column: span?.start.column,
+      lineText: span?.context?.split(/\r?\n/, 1)[0],
     },
-  } as PartialMessage;
+    detail: error,
+  };
 }

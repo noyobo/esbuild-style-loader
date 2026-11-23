@@ -79,6 +79,17 @@ const buildOptions = {
 
 if you want to use absolute paths, you can specify the `publicPath` option
 
+## Development
+
+Use the Bun version specified in `package.json` and keep Node.js available for the tests.
+
+```sh
+bun install --frozen-lockfile
+bun run test
+bun run build
+bun run test:package
+```
+
 ## TODO
 
 - [ ] Support for Stylus

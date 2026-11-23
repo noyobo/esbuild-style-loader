@@ -15,14 +15,7 @@ export const transformSass = async (
   options: { sourcemap: boolean; alias?: Record<string, string> },
 ): Promise<StyleTransformResult> => {
   const { sourcemap } = options;
-  if (!sassEngine) {
-    try {
-      sassEngine = getDefaultSassImplementation();
-    } catch (e) {
-      console.error(e);
-      process.exit(1);
-    }
-  }
+  sassEngine ||= getDefaultSassImplementation();
   const syntax = fileSyntax(filePath);
   const basedir = dirname(filePath);
   const contents = await readFile(filePath, 'utf-8');

@@ -19,19 +19,20 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-#      - name: Install PNPM
-#        run: npm install -g pnpm
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: 'package.json'
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: bun install --frozen-lockfile
       - name: Test package
-        run: npm run test
+        run: bun run test
       - name: Update version and generate release notes
         run: |
-          npx standard-version --preset angular --release-as ${{ github.event.inputs.version }}
+          bun run standard-version --preset angular --release-as ${{ github.event.inputs.version }}
       - name: Publish to npm
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
-          npm publish --access public
+          bun publish --access public --registry=https://registry.npmjs.org/
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Push changes
