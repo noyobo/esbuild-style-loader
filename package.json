@@ -35,30 +35,30 @@
     "esuild-css-modules"
   ],
   "dependencies": {
-    "browserslist": "^4.25.0",
+    "browserslist": "^4.29.6",
     "colors": "1.4.0",
     "deepmerge": "^4.3.1",
-    "less": "^4.3.0",
+    "less": "^4.9.1",
     "less-plugin-module-resolver": "^1.0.3",
-    "lightningcss": "^1.30.1",
+    "lightningcss": "^1.33.0",
     "change-case": "^5.4.4"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/fs-extra": "^11.0.4",
     "@types/less": "^3.0.8",
-    "@types/node": "^22.10.2",
+    "@types/node": "^26.6.6",
     "@vitest/coverage-v8": "^2.1.8",
     "conventional-changelog-cli": "^5.0.0",
-    "esbuild": "^0.25.5",
-    "fs-extra": "^11.3.0",
+    "esbuild": "^0.28.2",
+    "fs-extra": "^11.4.1",
     "less-test-module": "^0.0.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sass": "^1.89.2",
+    "sass": "^1.108.2",
     "standard-version": "^9.5.0",
     "tsup": "^8.5.0",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.3",
     "vitest": "^2.1.8"
   },
   "peerDependencies": {
