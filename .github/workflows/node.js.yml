@@ -11,6 +11,7 @@ on:
       - 'src/**'
       - '__tests__/**'
       - 'scripts/test-package.cjs'
+      - 'vitest.config.mts'
       - 'package.json'
       - 'bun.lock'
       - '.github/workflows/node.js.yml'

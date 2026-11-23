@@ -231,4 +231,17 @@ describe('style conversion failure', () => {
     });
     expect(warn).not.toHaveBeenCalledWith(expect.stringContaining('[esbuild-style-loader]'), expect.anything());
   });
+
+  it('points to the imported Sass file when preprocessing fails there', async () => {
+    await writeFile(path.join(directory, 'variables.scss'), '$size: 12px;\n.example { width: $undefined; }');
+
+    await expect(bundle('index.scss', '@use "./variables.scss";')).rejects.toMatchObject({
+      errors: [
+        expect.objectContaining({
+          text: expect.stringContaining('Undefined variable'),
+          location: expect.objectContaining({ file: 'variables.scss', line: 2 }),
+        }),
+      ],
+    });
+  });
 });
